@@ -1,0 +1,781 @@
+{
+  "name": "Mobile apps",
+  "description": "Everything that goes into software built for phones, tablets, and what they connect to",
+  "categories": [
+    {
+      "id": "android",
+      "name": "Native Android",
+      "description": "Built with Android's own languages and toolchain, against the platform APIs directly.",
+      "subcategories": [
+        {
+          "name": "Languages",
+          "description": "What Android apps are written in, and what they used to be written in.",
+          "examples": ["Kotlin", "Java", "C++ via the NDK"]
+        },
+        {
+          "name": "UI toolkits",
+          "description": "Declarative Compose, or the older view hierarchy inflated from XML.",
+          "examples": ["Jetpack Compose", "XML Views", "Material Components"]
+        },
+        {
+          "name": "Jetpack libraries",
+          "description": "Google's official building blocks for lifecycle, storage, and background work.",
+          "examples": ["ViewModel", "Room", "WorkManager"]
+        },
+        {
+          "name": "Tooling",
+          "description": "The IDE, build system, and device bridge every Android project runs on.",
+          "examples": ["Android Studio", "Gradle", "ADB"]
+        },
+        {
+          "name": "Runtime & packaging",
+          "description": "How the code is executed on device and how it is bundled to get there.",
+          "examples": ["Android Runtime (ART)", "Android App Bundle", "APK"]
+        }
+      ]
+    },
+    {
+      "id": "ios",
+      "name": "Native iOS",
+      "description": "Built with Apple's languages and frameworks, for iPhone and iPad.",
+      "subcategories": [
+        {
+          "name": "Languages",
+          "description": "Swift for everything new, Objective-C for everything that came before.",
+          "examples": ["Swift", "Objective-C", "C and C++ interop"]
+        },
+        {
+          "name": "UI frameworks",
+          "description": "Declarative SwiftUI, or UIKit's imperative view controllers.",
+          "examples": ["SwiftUI", "UIKit", "Interface Builder"]
+        },
+        {
+          "name": "Apple frameworks",
+          "description": "First-party libraries for data, reactivity, and sync across a user's devices.",
+          "examples": ["SwiftData", "Core Data", "CloudKit"]
+        },
+        {
+          "name": "Tooling",
+          "description": "The IDE, dependency manager, and profiler in Apple's own stack.",
+          "examples": ["Xcode", "Swift Package Manager", "Instruments"]
+        },
+        {
+          "name": "Signing & packaging",
+          "description": "The certificates and profiles Apple requires before code runs on a device.",
+          "examples": [
+            "Provisioning profiles",
+            "Signing certificates",
+            "IPA archives"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cross",
+      "name": "Cross-platform frameworks",
+      "description": "One codebase that ships to both stores, trading some platform fidelity for reach.",
+      "subcategories": [
+        {
+          "name": "JavaScript-based",
+          "description": "React's model, rendering to real native views on each platform.",
+          "examples": ["React Native", "Expo", "NativeScript"]
+        },
+        {
+          "name": "Dart-based",
+          "description": "Draws every pixel itself, so the app looks identical everywhere.",
+          "examples": [
+            "Flutter",
+            "Material and Cupertino widgets",
+            "Flutter Web"
+          ]
+        },
+        {
+          "name": ".NET-based",
+          "description": "C# and XAML across mobile and desktop from one project.",
+          "examples": [".NET MAUI", "Xamarin", "Uno Platform"]
+        },
+        {
+          "name": "Kotlin Multiplatform",
+          "description": "Shares business logic in Kotlin while each platform keeps its own UI, or shares that too.",
+          "examples": [
+            "Kotlin Multiplatform",
+            "Compose Multiplatform",
+            "Ktor client"
+          ]
+        },
+        {
+          "name": "Game engines as app runtimes",
+          "description": "Engines used for apps that are mostly rendered scenes rather than forms.",
+          "examples": ["Unity", "Godot", "Unreal Engine"]
+        }
+      ]
+    },
+    {
+      "id": "hybrid",
+      "name": "Hybrid & web-based",
+      "description": "Web technology inside a native shell, or on the home screen with no shell at all.",
+      "subcategories": [
+        {
+          "name": "WebView shells",
+          "description": "Wraps a web app in a native container and bridges it to device APIs.",
+          "examples": ["Capacitor", "Apache Cordova", "Ionic"]
+        },
+        {
+          "name": "Progressive web apps",
+          "description": "Installs from the browser, works offline, and skips the stores entirely.",
+          "examples": [
+            "Add to Home Screen",
+            "Service workers",
+            "Web app manifest"
+          ]
+        },
+        {
+          "name": "Embedded web views",
+          "description": "A native app that renders part of its content as web pages.",
+          "examples": ["WKWebView", "Android WebView", "Custom Tabs"]
+        },
+        {
+          "name": "Native bridges",
+          "description": "Lets JavaScript call platform code, and platform code call back.",
+          "examples": [
+            "React Native Turbo Modules",
+            "Capacitor plugins",
+            "Flutter platform channels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "name": "UI, design & interaction",
+      "description": "How a mobile app looks, moves, and answers a thumb.",
+      "subcategories": [
+        {
+          "name": "Design systems",
+          "description": "Each platform's rules for how a native app should behave and be laid out.",
+          "examples": [
+            "Material Design 3",
+            "Apple Human Interface Guidelines",
+            "Fluent Mobile"
+          ]
+        },
+        {
+          "name": "Navigation patterns",
+          "description": "The shapes apps use to hold more screens than fit on one.",
+          "examples": ["Tab bars", "Navigation stacks", "Bottom sheets"]
+        },
+        {
+          "name": "Gestures & haptics",
+          "description": "Touch as the primary input, with feedback the user feels.",
+          "examples": ["Swipe to dismiss", "Pinch to zoom", "Haptic feedback"]
+        },
+        {
+          "name": "Animation",
+          "description": "Motion that explains what changed rather than decorating it.",
+          "examples": ["Lottie", "Reanimated", "Core Animation"]
+        },
+        {
+          "name": "Adaptive layout",
+          "description": "One interface across phone, tablet, foldable, and both orientations.",
+          "examples": [
+            "Size classes",
+            "Window size classes",
+            "Foldable hinge awareness"
+          ]
+        },
+        {
+          "name": "Theming",
+          "description": "Dark mode, system colours, and text that respects the user's settings.",
+          "examples": [
+            "Dark mode",
+            "Material You dynamic colour",
+            "Dynamic Type"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "name": "App state & local data",
+      "description": "What the app remembers on the device, and how that stays coherent.",
+      "subcategories": [
+        {
+          "name": "State management",
+          "description": "Patterns for holding screen and app state without a tangle.",
+          "examples": ["MVVM", "Riverpod", "Redux Toolkit"]
+        },
+        {
+          "name": "Local databases",
+          "description": "Real queryable storage on the device itself.",
+          "examples": ["SQLite", "Room", "Realm"]
+        },
+        {
+          "name": "Key-value storage",
+          "description": "Small settings and flags that do not need a schema.",
+          "examples": ["SharedPreferences", "UserDefaults", "MMKV"]
+        },
+        {
+          "name": "Offline-first & sync",
+          "description": "Works with no signal, then reconciles when the network returns.",
+          "examples": ["Write queues", "Conflict resolution", "PowerSync"]
+        },
+        {
+          "name": "Secure storage",
+          "description": "Keeps tokens and secrets in hardware-backed storage, not a plain file.",
+          "examples": [
+            "iOS Keychain",
+            "Android Keystore",
+            "EncryptedSharedPreferences"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backends & cloud services",
+      "description": "The server side of an app, whether you run it or rent it.",
+      "subcategories": [
+        {
+          "name": "Backend as a service",
+          "description": "Hosted auth, database, storage, and functions, so the app needs no server of its own.",
+          "examples": ["Firebase", "Supabase", "AWS Amplify"]
+        },
+        {
+          "name": "API clients",
+          "description": "How the app talks to whatever is behind it.",
+          "examples": ["Retrofit", "URLSession", "Apollo iOS and Android"]
+        },
+        {
+          "name": "Authentication",
+          "description": "Signing in on a device, ideally without typing a password.",
+          "examples": [
+            "Sign in with Apple",
+            "Google Sign-In",
+            "Biometric unlock"
+          ]
+        },
+        {
+          "name": "Remote config & flags",
+          "description": "Changes behaviour without shipping a new build through review.",
+          "examples": ["Firebase Remote Config", "LaunchDarkly", "Statsig"]
+        },
+        {
+          "name": "Background work",
+          "description": "Runs tasks when the app is not on screen, within the OS's strict limits.",
+          "examples": ["WorkManager", "BGTaskScheduler", "Background fetch"]
+        }
+      ]
+    },
+    {
+      "id": "notify",
+      "name": "Notifications & messaging",
+      "description": "Reaching someone who does not currently have the app open.",
+      "subcategories": [
+        {
+          "name": "Push services",
+          "description": "The two pipes every push notification ultimately travels down.",
+          "examples": [
+            "Apple Push Notification service",
+            "Firebase Cloud Messaging",
+            "Web Push"
+          ]
+        },
+        {
+          "name": "Push platforms",
+          "description": "Segmentation, scheduling, and campaign tooling on top of the raw pipes.",
+          "examples": ["OneSignal", "Braze", "Airship"]
+        },
+        {
+          "name": "Local notifications",
+          "description": "Reminders the device schedules itself, with no server involved.",
+          "examples": [
+            "Alarm reminders",
+            "Geofence triggers",
+            "Calendar alerts"
+          ]
+        },
+        {
+          "name": "Deep links",
+          "description": "A URL that opens the right screen inside the app rather than a web page.",
+          "examples": ["Universal Links", "Android App Links", "Branch"]
+        },
+        {
+          "name": "Rich & live notifications",
+          "description": "Notifications that carry media, actions, or a state that keeps updating.",
+          "examples": [
+            "Notification actions",
+            "Live Activities",
+            "Ongoing notifications"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "device",
+      "name": "Device capabilities",
+      "description": "The sensors and radios that make a phone more than a small screen.",
+      "subcategories": [
+        {
+          "name": "Camera & photos",
+          "description": "Capturing images and video, and reaching the library already on the device.",
+          "examples": ["CameraX", "AVFoundation", "Photo picker"]
+        },
+        {
+          "name": "Location",
+          "description": "Where the device is, and noticing when it crosses a boundary.",
+          "examples": ["Core Location", "Fused Location Provider", "Geofencing"]
+        },
+        {
+          "name": "Motion sensors",
+          "description": "Accelerometer, gyroscope, and the step counts derived from them.",
+          "examples": ["Accelerometer", "Gyroscope", "Pedometer"]
+        },
+        {
+          "name": "Biometrics",
+          "description": "Unlocking with a face or fingerprint the app never actually sees.",
+          "examples": ["Face ID", "Touch ID", "BiometricPrompt"]
+        },
+        {
+          "name": "Short-range connectivity",
+          "description": "Talking to things nearby without going through the internet.",
+          "examples": ["Bluetooth LE", "NFC", "Ultra-wideband"]
+        },
+        {
+          "name": "Health & fitness",
+          "description": "Reads and writes the body data the OS stores on the user's behalf.",
+          "examples": ["HealthKit", "Health Connect", "Workout sessions"]
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "name": "Media & graphics",
+      "description": "Apps whose main job is showing pictures, playing sound, or drawing scenes.",
+      "subcategories": [
+        {
+          "name": "Image loading",
+          "description": "Fetches, caches, and resizes remote images without stalling a scrolling list.",
+          "examples": ["Coil", "Glide", "SDWebImage"]
+        },
+        {
+          "name": "Audio & video playback",
+          "description": "The players apps build on instead of writing decoding themselves.",
+          "examples": ["Media3 ExoPlayer", "AVPlayer", "video.js for web views"]
+        },
+        {
+          "name": "Streaming & DRM",
+          "description": "Adaptive delivery, and the protection studios require before licensing content.",
+          "examples": ["HLS", "MPEG-DASH", "Widevine and FairPlay"]
+        },
+        {
+          "name": "Capture & editing",
+          "description": "Recording, trimming, and filtering media on the device.",
+          "examples": ["AVFoundation editing", "MediaCodec", "GPUImage"]
+        },
+        {
+          "name": "Low-level graphics",
+          "description": "Direct access to the GPU, for games and anything drawing its own frames.",
+          "examples": ["Metal", "Vulkan", "OpenGL ES"]
+        }
+      ]
+    },
+    {
+      "id": "maps",
+      "name": "Maps & spatial",
+      "description": "Apps that answer where, or that place content in the room.",
+      "subcategories": [
+        {
+          "name": "Map SDKs",
+          "description": "Renders a slippy map with your own markers and layers on it.",
+          "examples": ["Google Maps SDK", "MapKit", "Mapbox"]
+        },
+        {
+          "name": "Routing & navigation",
+          "description": "Turn-by-turn directions and estimated arrival times.",
+          "examples": [
+            "Directions APIs",
+            "Turn-by-turn guidance",
+            "Offline maps"
+          ]
+        },
+        {
+          "name": "Geocoding & places",
+          "description": "Turns an address into coordinates, and coordinates into a place name.",
+          "examples": [
+            "Forward geocoding",
+            "Reverse geocoding",
+            "Places autocomplete"
+          ]
+        },
+        {
+          "name": "Augmented reality",
+          "description": "Anchors content to the real world through the camera.",
+          "examples": ["ARKit", "ARCore", "RealityKit"]
+        }
+      ]
+    },
+    {
+      "id": "money",
+      "name": "Monetization",
+      "description": "How a mobile app earns, within rules the store platforms set.",
+      "subcategories": [
+        {
+          "name": "In-app purchases",
+          "description": "Selling digital goods through the platform's own billing, as required.",
+          "examples": [
+            "StoreKit 2",
+            "Google Play Billing",
+            "Consumables and entitlements"
+          ]
+        },
+        {
+          "name": "Subscriptions",
+          "description": "Recurring billing, trials, and the receipt validation behind them.",
+          "examples": ["RevenueCat", "Adapty", "Introductory offers"]
+        },
+        {
+          "name": "Advertising",
+          "description": "Mediated ad inventory filling banners, interstitials, and rewarded slots.",
+          "examples": ["Google AdMob", "AppLovin MAX", "Unity Ads"]
+        },
+        {
+          "name": "Physical payments",
+          "description": "Taking money for real-world goods, where platform billing does not apply.",
+          "examples": ["Apple Pay", "Google Pay", "Stripe mobile SDK"]
+        },
+        {
+          "name": "Pricing models",
+          "description": "The shapes an app's business can take.",
+          "examples": ["Free with ads", "Freemium", "Paid up front"]
+        }
+      ]
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics & quality signals",
+      "description": "What the app reports back once it is on other people's phones.",
+      "subcategories": [
+        {
+          "name": "Product analytics",
+          "description": "Events, funnels, and retention for the screens people actually use.",
+          "examples": ["Firebase Analytics", "Amplitude", "Mixpanel"]
+        },
+        {
+          "name": "Crash reporting",
+          "description": "Symbolicated stack traces from crashes you will never reproduce yourself.",
+          "examples": ["Crashlytics", "Sentry", "Bugsnag"]
+        },
+        {
+          "name": "Performance monitoring",
+          "description": "Startup, rendering, and network timings measured in the field.",
+          "examples": ["Android Vitals", "Firebase Performance", "MetricKit"]
+        },
+        {
+          "name": "Attribution",
+          "description": "Works out which campaign an install came from, under privacy rules.",
+          "examples": ["AppsFlyer", "Adjust", "SKAdNetwork"]
+        },
+        {
+          "name": "Experiments",
+          "description": "Ships two versions and lets the numbers pick one.",
+          "examples": [
+            "Firebase A/B Testing",
+            "Optimizely",
+            "Feature flag rollouts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "name": "Testing & QA",
+      "description": "Checking an app across a device landscape you do not control.",
+      "subcategories": [
+        {
+          "name": "Unit testing",
+          "description": "Fast checks of logic with no device or emulator involved.",
+          "examples": ["JUnit", "XCTest", "Dart test"]
+        },
+        {
+          "name": "UI testing",
+          "description": "Drives the real app through real taps.",
+          "examples": ["Espresso", "XCUITest", "Maestro"]
+        },
+        {
+          "name": "Cross-platform automation",
+          "description": "One test suite against both platforms.",
+          "examples": ["Appium", "Detox", "Patrol"]
+        },
+        {
+          "name": "Device farms",
+          "description": "Runs the suite on hundreds of real handsets you do not own.",
+          "examples": [
+            "Firebase Test Lab",
+            "BrowserStack App Automate",
+            "AWS Device Farm"
+          ]
+        },
+        {
+          "name": "Beta distribution",
+          "description": "Gets builds to testers before the public sees them.",
+          "examples": [
+            "TestFlight",
+            "Play Internal Testing",
+            "Firebase App Distribution"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "name": "Build, CI & release",
+      "description": "Turning a commit into a signed build the stores will accept.",
+      "subcategories": [
+        {
+          "name": "Build systems",
+          "description": "The tooling that compiles, links, and packages a mobile app.",
+          "examples": ["Gradle", "Xcodebuild", "Fastlane"]
+        },
+        {
+          "name": "Mobile CI/CD",
+          "description": "Hosted macOS and Linux runners that build for both platforms.",
+          "examples": ["Bitrise", "Codemagic", "Xcode Cloud"]
+        },
+        {
+          "name": "Code signing",
+          "description": "Managing certificates and profiles across a team without chaos.",
+          "examples": [
+            "fastlane match",
+            "App Store Connect API keys",
+            "Play App Signing"
+          ]
+        },
+        {
+          "name": "Release management",
+          "description": "Putting a build in front of a slice of users before all of them.",
+          "examples": ["Staged rollout", "Phased release", "Release trains"]
+        },
+        {
+          "name": "Over-the-air updates",
+          "description": "Ships JavaScript or asset changes without a new store submission.",
+          "examples": [
+            "Expo Updates",
+            "CodePush",
+            "Flutter hot update patterns"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "name": "App stores & distribution",
+      "description": "The gatekeepers between a finished build and an installed app.",
+      "subcategories": [
+        {
+          "name": "Apple App Store",
+          "description": "Submission, review, and the guidelines that decide what ships.",
+          "examples": [
+            "App Store Connect",
+            "App Review Guidelines",
+            "App Store Server Notifications"
+          ]
+        },
+        {
+          "name": "Google Play",
+          "description": "Android's main store, its console, and its policy surface.",
+          "examples": ["Play Console", "Play policy", "Play Integrity API"]
+        },
+        {
+          "name": "Alternative stores",
+          "description": "The other ways an Android or, lately, an iOS app can reach a device.",
+          "examples": [
+            "F-Droid",
+            "Amazon Appstore",
+            "EU alternative marketplaces"
+          ]
+        },
+        {
+          "name": "App store optimization",
+          "description": "The listing work that decides whether anyone finds the app.",
+          "examples": [
+            "Keyword fields",
+            "Screenshots and previews",
+            "Ratings prompts"
+          ]
+        },
+        {
+          "name": "Enterprise distribution",
+          "description": "Shipping to a company's own staff without a public listing.",
+          "examples": [
+            "Mobile device management",
+            "Apple Business Manager",
+            "Managed Google Play"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security & privacy",
+      "description": "Protecting data on a device that gets lost, and satisfying rules about collecting it.",
+      "subcategories": [
+        {
+          "name": "Permissions & consent",
+          "description": "Asking for access at the moment it makes sense, and coping with no.",
+          "examples": [
+            "Runtime permissions",
+            "App Tracking Transparency",
+            "Approximate location"
+          ]
+        },
+        {
+          "name": "Privacy disclosures",
+          "description": "Declaring publicly what the app collects and why.",
+          "examples": [
+            "App privacy labels",
+            "Play Data safety",
+            "Privacy manifests"
+          ]
+        },
+        {
+          "name": "Data protection",
+          "description": "Encrypting what is stored and what is sent.",
+          "examples": [
+            "TLS certificate pinning",
+            "File-level encryption",
+            "Hardware-backed keys"
+          ]
+        },
+        {
+          "name": "Hardening",
+          "description": "Making the shipped binary harder to inspect and tamper with.",
+          "examples": [
+            "R8 obfuscation",
+            "Root and jailbreak detection",
+            "App attestation"
+          ]
+        },
+        {
+          "name": "Compliance",
+          "description": "Regimes that govern what a mobile app may do with personal data.",
+          "examples": ["GDPR", "COPPA", "HIPAA"]
+        }
+      ]
+    },
+    {
+      "id": "perf",
+      "name": "Performance & battery",
+      "description": "Constraints a phone imposes that a desktop never does.",
+      "subcategories": [
+        {
+          "name": "Startup time",
+          "description": "How long from tap to a usable first screen.",
+          "examples": [
+            "Cold start",
+            "Baseline Profiles",
+            "Launch screen tuning"
+          ]
+        },
+        {
+          "name": "Rendering & jank",
+          "description": "Holding a steady frame rate while scrolling and animating.",
+          "examples": ["Frame pacing", "120Hz ProMotion", "Main-thread work"]
+        },
+        {
+          "name": "App size",
+          "description": "Download size decides whether people on a cellular connection install at all.",
+          "examples": [
+            "App thinning",
+            "Play Feature Delivery",
+            "Asset compression"
+          ]
+        },
+        {
+          "name": "Battery & network",
+          "description": "Background limits are strict, and radio use is what drains a phone.",
+          "examples": [
+            "Doze mode",
+            "Request batching",
+            "Background execution limits"
+          ]
+        },
+        {
+          "name": "Memory",
+          "description": "A backgrounded app that uses too much simply gets killed.",
+          "examples": [
+            "Leak detection",
+            "Bitmap caching",
+            "Low-memory callbacks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a11y",
+      "name": "Accessibility",
+      "description": "Mobile accessibility, where the assistive technology ships with the OS.",
+      "subcategories": [
+        {
+          "name": "Screen readers",
+          "description": "What the app sounds like when the screen is not being looked at.",
+          "examples": ["VoiceOver", "TalkBack", "Content descriptions"]
+        },
+        {
+          "name": "Text & display",
+          "description": "Respecting the size, weight, and contrast the user already chose.",
+          "examples": ["Dynamic Type", "Font scaling", "Increase Contrast"]
+        },
+        {
+          "name": "Motor access",
+          "description": "Targets big enough to hit, and alternatives to precise touch.",
+          "examples": [
+            "Minimum touch targets",
+            "Switch Control",
+            "Voice Access"
+          ]
+        },
+        {
+          "name": "Hearing & captions",
+          "description": "Not depending on sound to convey anything important.",
+          "examples": ["Closed captions", "Live Caption", "Visual alerts"]
+        }
+      ]
+    },
+    {
+      "id": "beyond",
+      "name": "Beyond the phone",
+      "description": "The other screens a mobile codebase is expected to reach.",
+      "subcategories": [
+        {
+          "name": "Wearables",
+          "description": "Glanceable apps on a wrist, with their own constraints and complications.",
+          "examples": ["watchOS", "Wear OS", "Watch complications"]
+        },
+        {
+          "name": "Tablets & foldables",
+          "description": "Large screens where a stretched phone layout is not good enough.",
+          "examples": [
+            "iPadOS multitasking",
+            "Split screen",
+            "Foldable postures"
+          ]
+        },
+        {
+          "name": "Television",
+          "description": "Ten-foot interfaces driven by a remote rather than a finger.",
+          "examples": ["tvOS", "Android TV", "Fire TV"]
+        },
+        {
+          "name": "Automotive",
+          "description": "Heavily restricted interfaces built for a dashboard.",
+          "examples": ["CarPlay", "Android Auto", "Android Automotive OS"]
+        },
+        {
+          "name": "Widgets & extensions",
+          "description": "Pieces of the app that live outside the app.",
+          "examples": ["Home screen widgets", "App Clips", "Share extensions"]
+        }
+      ]
+    }
+  ]
+}

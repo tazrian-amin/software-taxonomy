@@ -1,0 +1,2436 @@
+<title>The Software Tree</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" />
+<style>
+/* ==========================================================================
+   The Software Tree
+   Type:    IBM Plex Serif (branch names) / Sans (prose, UI) / Mono (data).
+   ========================================================================== */
+
+/* Palette, exactly as supplied: #ffa31a amber, #808080 grey, #292929 and
+   #1b1b1b near-blacks, #ffffff white. The greys carrying body text are mixes
+   of #808080 with the palette's own white and black — the given grey fails
+   contrast as text on either ground (4.36 dark, 3.95 light), so it holds the
+   hairlines instead. Amber reads as text on the dark ground (8.62) but not on
+   white (2.00), so in the light theme it is a fill with #1b1b1b on top. */
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --bg-sunk: #f2f2f2;
+  --surface: #ffffff;
+  --surface-2: #fafafa;
+
+  --ink: #1b1b1b;
+  --ink-2: #4d4d4d;
+  --ink-3: #6e6e6e;
+
+  --line: #e0e0e0;
+  --line-strong: #808080;
+
+  --accent: #ffa31a;
+  --accent-hover: #e68f00;
+  --accent-wash: #fff3e0;
+  --accent-line: #ffd699;
+  --accent-text: #1b1b1b;
+  --on-accent: #1b1b1b;
+
+  --mark-bg: #ffa31a;
+  --mark-ink: #1b1b1b;
+
+  --shadow-sm: 0 1px 2px rgba(27, 27, 27, 0.08);
+  --shadow-md: 0 10px 28px -18px rgba(27, 27, 27, 0.45);
+
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --serif: "IBM Plex Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  --toolbar-h: 66px;
+  --ease: cubic-bezier(0.25, 0.8, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  color-scheme: dark;
+
+    --bg: #1b1b1b;
+    --bg-sunk: #292929;
+    --surface: #292929;
+    --surface-2: #333333;
+
+    --ink: #ffffff;
+    --ink-2: #b3b3b3;
+    --ink-3: #8c8c8c;
+
+    --line: #3d3d3d;
+    --line-strong: #808080;
+
+    --accent: #ffa31a;
+    --accent-hover: #ffb84d;
+    --accent-wash: #3d2e14;
+    --accent-line: #6b4d14;
+    --accent-text: #ffa31a;
+    --on-accent: #1b1b1b;
+
+    --mark-bg: #ffa31a;
+    --mark-ink: #1b1b1b;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 12px 30px -20px rgba(0, 0, 0, 0.95);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #1b1b1b;
+  --bg-sunk: #292929;
+  --surface: #292929;
+  --surface-2: #333333;
+
+  --ink: #ffffff;
+  --ink-2: #b3b3b3;
+  --ink-3: #8c8c8c;
+
+  --line: #3d3d3d;
+  --line-strong: #808080;
+
+  --accent: #ffa31a;
+  --accent-hover: #ffb84d;
+  --accent-wash: #3d2e14;
+  --accent-line: #6b4d14;
+  --accent-text: #ffa31a;
+  --on-accent: #1b1b1b;
+
+  --mark-bg: #ffa31a;
+  --mark-ink: #1b1b1b;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 30px -20px rgba(0, 0, 0, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* beats the display values set by component classes below */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 20;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 160ms var(--ease);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 40px);
+}
+
+/* ---------------------------------------------------------------- top nav */
+
+.topnav {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.topnav__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+  padding-block: 11px;
+}
+
+.topnav__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.topnav__dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3.5px var(--accent-wash);
+}
+
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topnav__link {
+  display: block;
+  padding: 7px 12px;
+  border-radius: 7px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 140ms var(--ease), background-color 140ms var(--ease);
+}
+.topnav__link:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+/* Amber carries the current page as a wash rather than as text: it only clears
+   contrast as a colour on the dark ground. Inset shadow keeps the box steady. */
+.topnav__link[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 500;
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+
+/* --------------------------------------------------------------- masthead */
+
+.masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.masthead__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "text toggle"
+    "tally tally";
+  align-items: start;
+  gap: 28px 24px;
+  padding-block: clamp(32px, 6vw, 56px) 28px;
+}
+
+.masthead__text {
+  grid-area: text;
+  max-width: 58ch;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 14px;
+}
+
+.masthead__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5.5vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: 14px;
+  color: var(--ink-2);
+  font-size: 16px;
+  max-width: 62ch;
+}
+
+.tally {
+  grid-area: tally;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.tally__item dt {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.tally__item dd {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.theme-toggle {
+  grid-area: toggle;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 11px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 160ms var(--ease), color 160ms var(--ease);
+}
+.theme-toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+.theme-toggle__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: linear-gradient(to right, currentColor 50%, transparent 50%);
+}
+
+/* --------------------------------------------------------------- toolbar */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-block: 13px;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 300px;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms var(--ease);
+}
+.search:focus-within {
+  border-color: var(--accent);
+}
+
+.search__icon {
+  width: 17px;
+  height: 17px;
+  margin-inline: 11px 0;
+  flex: none;
+  color: var(--ink-3);
+}
+
+.search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 0;
+  background: none;
+  font-size: 14.5px;
+}
+.search__input:focus {
+  outline: none;
+}
+.search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search__key {
+  flex: none;
+  margin-right: 9px;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.search:focus-within .search__key {
+  display: none;
+}
+
+.search__clear {
+  flex: none;
+  margin-right: 7px;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--accent-wash);
+  color: var(--accent-text);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms var(--ease), color 160ms var(--ease);
+}
+.btn:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.toolbar__status {
+  min-height: 0;
+  padding-bottom: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.toolbar__status:not(:empty) {
+  padding-bottom: 12px;
+}
+
+/* ---------------------------------------------------------------- layout */
+
+.layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  padding-block: 36px 72px;
+}
+
+.rail {
+  position: sticky;
+  top: calc(var(--toolbar-h) + 20px);
+  max-height: calc(100vh - var(--toolbar-h) - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.rail__title {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+
+.rail__toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 150ms var(--ease), border-color 150ms var(--ease);
+}
+.rail__toggle:hover {
+  color: var(--ink);
+}
+
+.rail__icon {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* collapsed: the column narrows to the icon and the tree takes the space */
+.layout[data-rail="collapsed"] {
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 26px;
+}
+.layout[data-rail="collapsed"] .rail__list {
+  display: none;
+}
+.layout[data-rail="collapsed"] .rail__toggle-label {
+  display: none;
+}
+.layout[data-rail="collapsed"] .rail__title {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.layout[data-rail="collapsed"] .rail__toggle {
+  justify-content: center;
+  padding: 11px 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.layout[data-rail="collapsed"] .rail__toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.rail__list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+}
+
+.rail__link {
+  display: block;
+  padding: 5px 8px 5px 0;
+  background: none;
+  border: 0;
+  border-left: 2px solid transparent;
+  padding-left: 9px;
+  text-align: left;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 140ms var(--ease), border-color 140ms var(--ease);
+}
+.rail__link:hover {
+  color: var(--ink);
+  border-left-color: var(--line-strong);
+}
+.rail__link[aria-current="true"] {
+  color: var(--accent-text);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+.rail__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ root */
+
+.root {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 22px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.root__mark {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-wash);
+}
+
+.root__name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.root__desc {
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+/* -------------------------------------------------------------- branches */
+
+.branches {
+  display: flex;
+  flex-direction: column;
+}
+
+.branch {
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: calc(var(--toolbar-h) + 16px);
+}
+.branch.is-hidden {
+  display: none;
+}
+
+.branch__head {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 17px 4px 5px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.branch__name {
+  font-family: var(--serif);
+  font-size: 18.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: color 160ms var(--ease);
+}
+
+.branch__head:hover .branch__name {
+  color: var(--accent-text);
+}
+
+.branch__count {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.branch__desc {
+  padding: 0 4px 16px 38px;
+  color: var(--ink-2);
+  font-size: 14px;
+  max-width: 68ch;
+}
+
+/* the disclosure glyph: a hairline plus that loses its stem when open */
+.twist {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: var(--ink-2);
+  transition: border-color 160ms var(--ease), background-color 160ms var(--ease);
+}
+.twist::before,
+.twist::after {
+  content: "";
+  position: absolute;
+  inset: 50% 3px auto 3px;
+  height: 1px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.twist::after {
+  inset: 3px auto 3px 50%;
+  width: 1px;
+  height: auto;
+  transform: translateX(-50%) scaleY(1);
+  transition: transform 260ms var(--ease), opacity 200ms var(--ease);
+}
+.is-open > .branch__head .twist::after,
+.is-open > .sub__head .twist::after {
+  transform: translateX(-50%) scaleY(0);
+  opacity: 0;
+}
+.branch__head:hover .twist,
+.sub__head:hover .twist {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent-text);
+}
+.is-open > .branch__head .twist {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* collapsible panels animate on grid rows; the inner box carries no padding */
+.branch__panel,
+.sub__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--ease);
+}
+.branch.is-open > .branch__panel,
+.sub.is-open > .sub__panel {
+  grid-template-rows: 1fr;
+}
+.branch__inner,
+.sub__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------ subcategory rails */
+
+.subs {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 18px 0;
+  margin-left: 12px;
+}
+
+.sub {
+  position: relative;
+  padding-left: 26px;
+}
+.sub.is-hidden {
+  display: none;
+}
+/* vertical rail, trimmed at the last child so the branch visibly terminates */
+.sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.sub:last-child::before {
+  bottom: auto;
+  height: 22px;
+}
+/* the tick that joins rail to row */
+.sub::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 15px;
+  height: 1px;
+  background: var(--line);
+}
+
+.sub__head {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 6px;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+.sub__head:hover {
+  background: var(--surface-2);
+}
+
+.sub__name {
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.sub__head:hover .sub__name {
+  color: var(--accent-text);
+}
+
+.sub__count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.sub__desc {
+  margin: 0;
+  padding: 2px 6px 12px 28px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  max-width: 66ch;
+}
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 2px 6px 16px 28px;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 4px 9px;
+  background: var(--accent-wash);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  color: var(--ink-2);
+}
+
+mark {
+  background: var(--mark-bg);
+  color: var(--mark-ink);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.empty {
+  padding: 40px 4px;
+  color: var(--ink-2);
+  font-size: 15px;
+  max-width: 52ch;
+}
+
+/* ----------------------------------------------------------------- footer */
+
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunk);
+}
+.footer__inner {
+  padding-block: 26px 34px;
+  color: var(--ink-3);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- view switch */
+
+.viewswitch {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--bg-sunk);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.viewswitch__btn {
+  padding: 6px 14px;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  color: var(--ink-3);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: color 150ms var(--ease), background-color 150ms var(--ease);
+}
+.viewswitch__btn:hover {
+  color: var(--ink);
+}
+.viewswitch__btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-sm);
+}
+.viewswitch__btn[aria-pressed="true"]:hover {
+  color: var(--on-accent);
+}
+
+/* -------------------------------------------------------------- overview */
+
+.overview__hint {
+  padding: 18px 0 22px;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+/* multi-column so all 28 branches pack into a couple of screens */
+.overview__grid {
+  columns: 3 210px;
+  column-gap: 34px;
+}
+
+.ov-branch {
+  break-inside: avoid;
+  margin-bottom: 26px;
+  scroll-margin-top: calc(var(--toolbar-h) + 16px);
+}
+
+/* code above name on every block, so all 28 headers share one shape */
+.ov-branch__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  padding: 0 0 9px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ov-branch__code {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  transition: color 150ms var(--ease), border-color 150ms var(--ease);
+}
+
+.ov-branch__name {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: color 150ms var(--ease);
+}
+
+.ov-branch__head:hover .ov-branch__name {
+  color: var(--accent-text);
+}
+.ov-branch__head:hover .ov-branch__code {
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.ov-subs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ov-sub {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0 3px 18px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+/* the same hairline rail as the explore view, tightened up */
+.ov-sub::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.ov-sub:last-child::before {
+  bottom: auto;
+  height: 14px;
+}
+.ov-sub::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 14px;
+  width: 10px;
+  height: 1px;
+  background: var(--line);
+}
+
+.ov-sub__count {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------- chart */
+
+.chart__hint {
+  padding: 18px 0 14px;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+/* the diagram keeps its drawn width; narrow screens pan it sideways */
+.chart__canvas {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: 8px;
+}
+
+.chart__svg {
+  display: block;
+}
+
+.chart__link {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.chart__node {
+  cursor: pointer;
+}
+
+.chart__pill {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1;
+  transition: stroke 150ms var(--ease), fill 150ms var(--ease);
+}
+.chart__node:hover .chart__pill {
+  stroke: var(--accent);
+  fill: var(--accent-wash);
+}
+
+.chart__pill-label {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.chart__node:hover .chart__pill-label {
+  fill: var(--accent-text);
+}
+
+.chart__pill-count {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  fill: var(--ink-3);
+}
+
+/* the same plus-loses-its-stem glyph the other views use */
+.chart__glyph {
+  stroke: var(--ink-2);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.chart__node:hover .chart__glyph {
+  stroke: var(--accent-text);
+}
+
+.chart__root .chart__pill {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.chart__root .chart__pill-label {
+  fill: var(--on-accent);
+}
+
+.chart__leaf-dot {
+  fill: var(--ink-3);
+}
+
+.chart__leaf-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--ink-2);
+}
+
+.chart__leaf--hit .chart__leaf-label,
+.chart__node--hit .chart__pill-label {
+  fill: var(--accent-text);
+}
+.chart__leaf--hit .chart__leaf-dot {
+  fill: var(--accent);
+}
+
+.chart__node:focus-visible {
+  outline: none;
+}
+.chart__node:focus-visible .chart__pill {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+/* ------------------------------------------------------------ narrow view */
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding-block: 20px 56px;
+  }
+
+  .rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+  .rail__title {
+    border-bottom: 0;
+    padding-bottom: 6px;
+  }
+  .layout[data-rail="collapsed"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .layout[data-rail="collapsed"] .rail {
+    padding-bottom: 14px;
+  }
+  /* the narrow toggle keeps its label in both states */
+  .layout[data-rail="collapsed"] .rail__toggle-label {
+    display: inline;
+  }
+  .rail__toggle,
+  .layout[data-rail="collapsed"] .rail__toggle {
+    width: auto;
+    justify-content: flex-start;
+    padding: 7px 13px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+  /* the index turns into one swipeable strip of branch codes */
+  .rail__list {
+    flex-direction: row;
+    gap: 7px;
+    padding-top: 2px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .rail__list::-webkit-scrollbar {
+    display: none;
+  }
+  .rail__link {
+    flex: none;
+    display: block;
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-left-width: 1px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .rail__link[aria-current="true"] {
+    border-color: var(--accent);
+    background: var(--accent-wash);
+  }
+}
+
+@media (max-width: 560px) {
+  .topnav__inner {
+    gap: 6px 16px;
+    padding-block: 9px;
+  }
+  /* the three links drop to their own full-width row under the wordmark */
+  .topnav__links {
+    width: 100%;
+    gap: 2px;
+  }
+  .topnav__link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .masthead__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "toggle"
+      "text"
+      "tally";
+    gap: 20px;
+    padding-block: 22px;
+  }
+  .theme-toggle {
+    justify-self: start;
+  }
+  .tally {
+    gap: 8px 26px;
+    padding-top: 18px;
+  }
+  .tally__item dd {
+    font-size: 22px;
+  }
+
+  .controls {
+    flex: 1 1 auto;
+  }
+  .btn {
+    flex: 1 1 auto;
+  }
+  .viewswitch {
+    flex: 1 1 100%;
+    justify-content: stretch;
+  }
+  .viewswitch__btn {
+    flex: 1 1 auto;
+  }
+
+  .overview__grid {
+    columns: 1;
+  }
+  .chart__hint {
+    padding-top: 6px;
+  }
+  .overview__hint {
+    padding-top: 6px;
+  }
+
+  .branch__head {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    padding-top: 15px;
+  }
+  .branch__count {
+    grid-column: 2 / -1;
+    padding-bottom: 2px;
+  }
+  .branch__name {
+    font-size: 17px;
+  }
+  .branch__desc {
+    padding-left: 32px;
+    font-size: 13.5px;
+  }
+  .sub {
+    padding-left: 20px;
+  }
+  .sub::after {
+    width: 11px;
+  }
+  .chips {
+    padding-left: 18px;
+  }
+  .sub__desc {
+    padding-left: 18px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
+<a class="skip-link" href="#tree">Skip to the tree</a>
+
+    <nav class="topnav" aria-label="Site">
+        <div class="shell topnav__inner">
+            <a class="topnav__mark" href="software-tree.html">
+                <span class="topnav__dot" aria-hidden="true"></span>
+                <span>Software Tree</span>
+            </a>
+            <ul class="topnav__links">
+                <li><a class="topnav__link" href="software-tree.html" aria-current="page">Homepage</a></li>
+                <li><a class="topnav__link" href="web-apps.html">Web Apps</a></li>
+                <li><a class="topnav__link" href="mobile-apps.html">Mobile Apps</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="shell masthead__inner">
+            <div class="masthead__text">
+                <p class="eyebrow">A taxonomy of software</p>
+                <h1 class="masthead__title">The Software Tree</h1>
+                <p class="lede">
+                    Every branch of software, from the firmware that boots a machine to
+                    the licence that decides who may run it. Open a branch to see what
+                    grows on it.
+                </p>
+            </div>
+
+            <dl class="tally" id="tally">
+                <div class="tally__item">
+                    <dt>Branches</dt>
+                    <dd data-stat="categories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Subcategories</dt>
+                    <dd data-stat="subcategories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Examples</dt>
+                    <dd data-stat="examples">&mdash;</dd>
+                </div>
+            </dl>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+                <span class="theme-toggle__dot" aria-hidden="true"></span>
+                <span class="theme-toggle__label">Dark</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="shell toolbar__inner">
+            <div class="search">
+                <svg class="search__icon" viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <line x1="13" y1="13" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" />
+                </svg>
+                <label class="visually-hidden" for="search">Search the tree</label>
+                <input id="search" type="search" class="search__input"
+                    placeholder="Search branches, subcategories, examples&hellip;" autocomplete="off"
+                    spellcheck="false" />
+                <kbd class="search__key" aria-hidden="true">/</kbd>
+                <button class="search__clear" id="search-clear" type="button" hidden>
+                    Clear
+                </button>
+            </div>
+
+            <div class="viewswitch" role="group" aria-label="View">
+                <button class="viewswitch__btn" type="button" data-view="chart" aria-pressed="false">
+                    Chart
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="overview" aria-pressed="false">
+                    Overview
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="explore" aria-pressed="true">
+                    Explore
+                </button>
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="expand-all" type="button">Expand all</button>
+                <button class="btn" id="collapse-all" type="button">Collapse all</button>
+            </div>
+        </div>
+        <p class="toolbar__status shell" id="status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="shell layout">
+        <aside class="rail" aria-label="Jump to a branch">
+            <h2 class="rail__title">
+                <button class="rail__toggle" id="rail-toggle" type="button" aria-expanded="true" aria-controls="rail">
+                    <svg class="rail__icon" viewBox="0 0 16 16" aria-hidden="true">
+                        <line x1="1.75" y1="4" x2="14.25" y2="4" />
+                        <line x1="1.75" y1="8" x2="14.25" y2="8" />
+                        <line x1="1.75" y1="12" x2="14.25" y2="12" />
+                    </svg>
+                    <span class="rail__toggle-label">Branches</span>
+                </button>
+            </h2>
+            <nav class="rail__list" id="rail"></nav>
+        </aside>
+
+        <main class="stage" id="tree" data-scope="home" data-source="data.json">
+            <div class="root">
+                <span class="root__mark" aria-hidden="true"></span>
+                <div>
+                    <h2 class="root__name" id="root-name">Software</h2>
+                    <p class="root__desc" id="root-desc"></p>
+                </div>
+            </div>
+            <div id="branches" class="branches"></div>
+            <div id="map-view" class="overview" hidden></div>
+            <div id="chart-view" class="chart" hidden></div>
+            <p class="empty" id="empty" hidden>
+                Nothing in the tree matches that. Try a shorter word &mdash; the
+                examples are searched too.
+            </p>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="shell footer__inner">
+            <p>Created with love by Tazrian Ibne Amin</p>
+        </div>
+    </footer>
+<script>window.SOFTWARE_TREE = {"name":"Software","description":"Root of the full software taxonomy tree","categories":[{"id":"sys","name":"System software","description":"Manages the computer's hardware and provides a platform for other software.","subcategories":[{"name":"Operating systems","description":"Schedules processes, manages memory and files, and gives every other program a machine to run on.","examples":["Windows","macOS","Linux (Ubuntu, Fedora)","Android / iOS"]},{"name":"Device drivers","description":"Translates between the operating system and one specific piece of hardware.","examples":["NVIDIA GPU driver","Realtek audio driver","Printer driver"]},{"name":"Firmware","description":"Low-level code stored on the device itself, usually the first thing to run when it powers on.","examples":["BIOS / UEFI","Router firmware","Smart TV firmware"]},{"name":"Utility software","description":"Small focused tools that maintain, clean, protect, or repair a system.","examples":["Antivirus (Malwarebytes)","Disk cleanup","Backup tools (Acronis)"]},{"name":"Language processors","description":"Turns source code into something the machine can actually execute.","examples":["Compilers (GCC)","Interpreters (Python)","Assemblers (NASM)"]},{"name":"Virtualization software","description":"Runs whole guest operating systems side by side on one physical machine.","examples":["VMware","VirtualBox","Hyper-V"]},{"name":"Containerization","description":"Packages an application with its dependencies so it runs the same anywhere, sharing the host kernel.","examples":["Docker","Kubernetes","Podman"]},{"name":"System management","description":"Watches processes, services, and resources, and starts or stops them.","examples":["Windows Task Manager","Systemd","Nagios"]}]},{"id":"app","name":"Application software","description":"Helps users perform specific tasks or solve problems.","subcategories":[{"name":"Productivity","description":"Documents, spreadsheets, and presentations for everyday knowledge work.","examples":["Microsoft Office","Google Workspace","LibreOffice"]},{"name":"Creative software","description":"Tools for making and editing images, video, and audio.","examples":["Adobe Photoshop","Illustrator","Premiere Pro"]},{"name":"Communication","description":"Carries calls, meetings, and messages between people.","examples":["Zoom","Microsoft Teams","Slack"]},{"name":"Web browsers","description":"Fetches and renders web pages, and hosts most modern software.","examples":["Chrome","Firefox","Safari / Edge"]},{"name":"Business software","description":"Runs day-to-day commercial work like sales, invoicing, and accounts.","examples":["Salesforce","QuickBooks","SAP"]},{"name":"Educational","description":"Teaches, drills, and tracks learning progress.","examples":["Khan Academy","Duolingo","Moodle"]},{"name":"Entertainment","description":"Delivers films, music, and games to an audience.","examples":["Netflix","Spotify","Steam"]},{"name":"Personal finance","description":"Tracks budgets, spending, and savings for one person or household.","examples":["Mint","YNAB","Quicken"]}]},{"id":"enterprise","name":"Enterprise & business systems","description":"Runs an organization's core operations: money, people, customers, and supply.","subcategories":[{"name":"ERP","description":"One system of record for finance, inventory, and operations across a whole company.","examples":["SAP S/4HANA","Oracle NetSuite","Microsoft Dynamics 365"]},{"name":"CRM","description":"Tracks customers, deals, and every interaction a company has with them.","examples":["Salesforce","HubSpot","Zoho CRM"]},{"name":"Human resources (HCM)","description":"Manages hiring, payroll, benefits, and employee records.","examples":["Workday","BambooHR","ADP"]},{"name":"Supply chain & procurement","description":"Plans inventory, sources suppliers, and moves goods.","examples":["SAP Ariba","Blue Yonder","Coupa"]},{"name":"IT service management","description":"Routes tickets, incidents, and change requests through an IT team.","examples":["ServiceNow","Jira Service Management","Freshservice"]},{"name":"Enterprise content management","description":"Stores, versions, and governs a company's documents.","examples":["SharePoint","Documentum","Alfresco"]}]},{"id":"design","name":"Design & prototyping","description":"Plans how software looks and behaves before it gets built.","subcategories":[{"name":"Interface design","description":"Draws screens, components, and layouts before any code exists.","examples":["Figma","Sketch","Penpot"]},{"name":"Prototyping","description":"Makes a design clickable so the interaction can be tested.","examples":["Framer","ProtoPie","Axure RP"]},{"name":"Whiteboarding & diagramming","description":"Open canvases for sketching flows and thinking together.","examples":["Miro","FigJam","Excalidraw"]},{"name":"Design systems & handoff","description":"Publishes reusable components and specs for engineers to build from.","examples":["Storybook","Zeroheight","Zeplin"]},{"name":"3D & motion","description":"Models, animates, and renders moving or three-dimensional assets.","examples":["Blender","Cinema 4D","After Effects"]}]},{"id":"prog","name":"Programming software","description":"Used to create, test, and maintain other software.","subcategories":[{"name":"Integrated dev environments","description":"An editor, a debugger, and a build system in one application.","examples":["Visual Studio Code","IntelliJ IDEA","Eclipse"]},{"name":"Code editors","description":"Lighter text editors focused on fast, plain code editing.","examples":["Sublime Text","Notepad++","Atom"]},{"name":"Version control","description":"Records every change and lets people work on the same code at once.","examples":["Git (GitHub, GitLab)","Subversion","Mercurial"]},{"name":"Build & automation","description":"Compiles, bundles, and runs repeatable jobs on demand.","examples":["Jenkins","Make","Gradle"]},{"name":"Package managers","description":"Installs libraries and resolves the versions they depend on.","examples":["npm (JavaScript)","Yarn","pnpm","Bun","pip (Python)","Maven (Java)"]},{"name":"Frameworks & libraries","description":"Pre-built structure and code you build an application on top of.","examples":["React / Next.js","Express.js","Django / Spring Boot","Flutter"]},{"name":"Editor extensions","description":"Adds linting, formatting, or tooling to an editor you already use.","examples":["ESLint / Prettier","GitLens","Expo Tools"]},{"name":"Testing frameworks","description":"Structures and runs automated checks against your code.","examples":["JUnit (Java)","pytest (Python)","Selenium (Web)"]},{"name":"Debuggers","description":"Pauses a running program so you can inspect its state.","examples":["GDB","Chrome DevTools","LLDB"]},{"name":"Other dev tools","description":"Everything else on the workbench, from API clients to infrastructure tooling.","examples":["Postman (APIs)","Terraform (infra)"]}]},{"id":"qa","name":"Testing & quality assurance","description":"Verifies that software behaves correctly, performs well, and stays usable.","subcategories":[{"name":"Unit testing","description":"Checks one function or class in isolation, fast and in bulk.","examples":["JUnit","pytest","Jest"]},{"name":"End-to-end testing","description":"Drives the real interface the way a user would, top to bottom.","examples":["Playwright","Cypress","Selenium"]},{"name":"API testing","description":"Sends requests to an endpoint and asserts on what comes back.","examples":["Postman","REST Assured","Insomnia"]},{"name":"Performance & load","description":"Puts a system under simulated traffic to find where it slows or breaks.","examples":["Apache JMeter","k6","Gatling"]},{"name":"Static analysis","description":"Finds defects by reading the source, without ever running it.","examples":["SonarQube","ESLint","mypy"]},{"name":"Accessibility testing","description":"Checks that software works with screen readers, keyboards, and contrast rules.","examples":["axe DevTools","Pa11y","WAVE"]},{"name":"Test management","description":"Organizes test cases, runs, and results across a team.","examples":["TestRail","Xray","Zephyr"]}]},{"id":"mid","name":"Middleware","description":"Acts as a bridge between applications, systems, or services.","subcategories":[{"name":"Application servers","description":"Hosts server-side applications and manages their requests and lifecycles.","examples":["Apache Tomcat","JBoss","WebSphere"]},{"name":"Message brokers","description":"Passes messages between services so neither has to wait on the other.","examples":["RabbitMQ","Apache Kafka","ActiveMQ"]},{"name":"API gateways","description":"One front door that routes, authenticates, and rate-limits API traffic.","examples":["Kong","Apigee","AWS API Gateway"]},{"name":"Integration platforms","description":"Connects separate business systems and keeps their data in step.","examples":["MuleSoft","Dell Boomi"]},{"name":"Database middleware","description":"A common interface between application code and whichever database sits behind it.","examples":["ODBC","JDBC","Hibernate"]},{"name":"Auth & identity","description":"Proves who a user is and issues the tokens other services trust.","examples":["Okta","Auth0","Ping Identity"]}]},{"id":"db","name":"Database software","description":"Stores, manages, and retrieves data.","subcategories":[{"name":"Relational (SQL)","description":"Tables with fixed schemas and joins between them, queried in SQL.","examples":["MySQL","PostgreSQL","Oracle / SQL Server"]},{"name":"NoSQL","description":"Flexible document, column, or key-value stores that trade joins for scale.","examples":["MongoDB","Cassandra","DynamoDB"]},{"name":"In-memory","description":"Keeps data in RAM for microsecond reads, usually as a cache.","examples":["Redis","Memcached"]},{"name":"Time-series","description":"Optimized for measurements written in time order and queried by range.","examples":["InfluxDB","TimescaleDB"]},{"name":"Graph databases","description":"Stores relationships as first-class data and traverses them quickly.","examples":["Neo4j","ArangoDB"]},{"name":"Data warehouses","description":"Holds large historical datasets for analytics rather than transactions.","examples":["Snowflake","BigQuery","Redshift"]},{"name":"Distributed","description":"Spreads one logical database across many machines or regions.","examples":["CockroachDB","Spanner"]}]},{"id":"web","name":"Web software","description":"Runs in a web browser and is accessed over the internet (or intranet).","subcategories":[{"name":"Web applications","description":"Full software delivered through a browser, with nothing to install.","examples":["Gmail","Google Docs","Trello"]},{"name":"Progressive web apps","description":"Web apps that install, work offline, and behave like native ones.","examples":["Twitter Lite","Spotify PWA","Pinterest PWA"]},{"name":"Single page applications","description":"Loads once, then rewrites the page in place as you navigate.","examples":["React (Facebook)","Angular (Google)","Vue.js"]},{"name":"Multi-page applications","description":"Requests a fresh page from the server on every navigation.","examples":["Traditional websites","WordPress","Drupal"]},{"name":"Static site generators","description":"Builds plain HTML ahead of time, so nothing has to run at request time.","examples":["Jekyll","Hugo","Gatsby"]},{"name":"Web frameworks","description":"Provides routing, templating, and data access for server-side web code.","examples":["Django (Python)","Laravel (PHP)","Next.js (React)"]},{"name":"Web servers","description":"Accepts HTTP requests and returns files or hands them to an application.","examples":["Apache HTTP Server","Nginx","Microsoft IIS"]}]},{"id":"commerce","name":"E-commerce & payments","description":"Sells goods and services online and moves money between buyers and sellers.","subcategories":[{"name":"Commerce platforms","description":"A whole storefront: catalog, cart, checkout, and admin.","examples":["Shopify","WooCommerce","Adobe Commerce (Magento)"]},{"name":"Headless commerce","description":"Commerce as an API, leaving the storefront for you to build.","examples":["commercetools","Medusa","Saleor"]},{"name":"Payment processing","description":"Moves money from a buyer's card or account to the merchant.","examples":["Stripe","PayPal","Adyen"]},{"name":"Point of sale","description":"Takes payment and tracks stock at a physical counter.","examples":["Square","Toast","Lightspeed"]},{"name":"Billing & subscriptions","description":"Charges recurring plans and handles upgrades, proration, and failed payments.","examples":["Chargebee","Recurly","Stripe Billing"]},{"name":"Marketplaces","description":"Sells through someone else's storefront alongside other sellers.","examples":["Amazon Seller Central","Etsy","eBay"]}]},{"id":"nocode","name":"No-code / low-code platforms","description":"Lets people build apps and automate workflows with minimal hand-written code.","subcategories":[{"name":"App builders","description":"Assembles working applications from visual components instead of code.","examples":["Bubble","OutSystems","Microsoft Power Apps"]},{"name":"Website builders","description":"Designs and publishes sites by arranging blocks on a page.","examples":["Webflow","Wix","Squarespace"]},{"name":"Automation / workflow","description":"Connects apps so an event in one triggers an action in another.","examples":["Zapier","Make (Integromat)","n8n"]},{"name":"Database & backend builders","description":"Spreadsheet-like data stores that hand you an API for free.","examples":["Airtable","Supabase (no-code layer)","Xano"]}]},{"id":"cloud","name":"Cloud software","description":"Runs on remote servers and is accessed over the internet (cloud).","subcategories":[{"name":"Infrastructure as a service","description":"Rented virtual machines, disks, and networks that you configure yourself.","examples":["AWS EC2","Azure Virtual Machines","Google Compute Engine"]},{"name":"Platform as a service","description":"You deploy the code, the provider runs the servers under it.","examples":["Heroku","Google App Engine","Azure App Service"]},{"name":"Software as a service","description":"Finished software you subscribe to rather than install.","examples":["Salesforce","Microsoft 365","Adobe Creative Cloud"]},{"name":"Serverless computing","description":"Runs a function on demand and bills only while it executes.","examples":["AWS Lambda","Azure Functions","Google Cloud Functions"]},{"name":"Cloud storage","description":"Durable object storage reachable over the network.","examples":["Amazon S3","Azure Blob Storage","Google Cloud Storage"]},{"name":"CDN","description":"Caches content close to users so it arrives faster.","examples":["Cloudflare","Akamai","Fastly"]},{"name":"Cloud native tools","description":"Built for elastic, containerized systems rather than fixed servers.","examples":["Kubernetes","Docker (containers)","Istio (service mesh)"]}]},{"id":"networking","name":"Networking & communication","description":"Manages, monitors, and enables communication across networks and devices.","subcategories":[{"name":"Network operating systems","description":"The software running inside routers and switches.","examples":["Cisco IOS","JunOS","MikroTik RouterOS"]},{"name":"Network management & monitoring","description":"Watches traffic and device health, and captures packets when something is wrong.","examples":["SolarWinds","PRTG","Wireshark"]},{"name":"Software-defined networking","description":"Controls the network from software instead of device-by-device configuration.","examples":["Cisco ACI","OpenFlow","VMware NSX"]},{"name":"VoIP & messaging","description":"Carries voice, SMS, and real-time messages over IP.","examples":["Asterisk","Twilio","SIP servers"]},{"name":"Protocols & libraries","description":"The agreed formats machines talk in, and the code that speaks them.","examples":["gRPC","MQTT","WebSockets"]}]},{"id":"media","name":"Media & streaming","description":"Encodes, processes, and delivers audio and video content.","subcategories":[{"name":"Encoding & processing","description":"Converts, compresses, and transforms audio and video files.","examples":["FFmpeg","HandBrake","GStreamer"]},{"name":"Streaming servers","description":"Ingests a live feed and serves it out to viewers.","examples":["Wowza","Nginx-RTMP","Ant Media Server"]},{"name":"Streaming platforms","description":"Consumer services that host and distribute the stream.","examples":["YouTube Live","Twitch","Vimeo"]},{"name":"DRM & protection","description":"Encrypts content and controls who is allowed to play it.","examples":["Widevine","FairPlay","PlayReady"]}]},{"id":"devops","name":"DevOps & infrastructure","description":"Automates building, deploying, and operating software reliably at scale.","subcategories":[{"name":"CI/CD pipelines","description":"Builds, tests, and ships every change automatically.","examples":["GitHub Actions","GitLab CI","CircleCI"]},{"name":"Infrastructure as code","description":"Declares servers and services in files that can be reviewed and replayed.","examples":["Terraform","Pulumi","AWS CloudFormation"]},{"name":"Configuration management","description":"Brings machines to a described state and keeps them there.","examples":["Ansible","Chef","Puppet"]},{"name":"Container orchestration","description":"Schedules containers across a cluster and restarts whatever dies.","examples":["Kubernetes","Docker Swarm","OpenShift"]},{"name":"Monitoring & observability","description":"Collects metrics and traces so you can see what a system is doing.","examples":["Prometheus","Grafana","Datadog"]},{"name":"Logging","description":"Gathers, indexes, and searches log output from everywhere at once.","examples":["ELK Stack","Splunk","Fluentd"]},{"name":"Secrets management","description":"Stores credentials and keys, and hands them out under policy.","examples":["HashiCorp Vault","AWS Secrets Manager"]}]},{"id":"sec","name":"Security software","description":"Protects systems, networks, and data from threats and breaches.","subcategories":[{"name":"Endpoint security","description":"Protects individual laptops, phones, and servers from malware and intrusion.","examples":["CrowdStrike","Windows Defender","Malwarebytes"]},{"name":"Network security","description":"Filters, inspects, and encrypts traffic crossing a network boundary.","examples":["pfSense (firewall)","Snort (IDS/IPS)","OpenVPN"]},{"name":"Identity & access management","description":"Decides who may sign in and what they are allowed to reach.","examples":["Okta","Azure AD","Auth0"]},{"name":"Vulnerability scanning","description":"Probes systems for known weaknesses before an attacker finds them.","examples":["Nessus","Qualys","Burp Suite"]},{"name":"SIEM","description":"Correlates security events from across the estate into alerts worth acting on.","examples":["Splunk","IBM QRadar","Microsoft Sentinel"]},{"name":"Encryption tools","description":"Makes data unreadable to anyone without the key.","examples":["VeraCrypt","GPG","OpenSSL"]},{"name":"Penetration testing","description":"Attacks a system with permission, to prove what a real intruder could do.","examples":["Metasploit","Kali Linux","Nmap"]}]},{"id":"malware","name":"Malicious software","description":"Written to damage, disrupt, or gain unauthorized access. Listed so you can recognize it; the countermeasures sit under Security software.","subcategories":[{"name":"Viruses & worms","description":"Self-replicating code that spreads from file to file or host to host.","examples":["Mydoom","Conficker","Stuxnet"]},{"name":"Ransomware","description":"Encrypts a victim's files and demands payment for the key.","examples":["WannaCry","LockBit","Ryuk"]},{"name":"Spyware & keyloggers","description":"Watches activity and sends it to someone else without consent.","examples":["Pegasus","Stalkerware","Keyloggers"]},{"name":"Trojans & backdoors","description":"Poses as something useful while opening access for an attacker.","examples":["Emotet","Zeus","Remote access trojans"]},{"name":"Adware & unwanted programs","description":"Injects advertising or rides along with other installers.","examples":["Browser hijackers","Bundled toolbars"]},{"name":"Botnets","description":"Networks of compromised machines driven by a remote operator.","examples":["Mirai","Necurs","Emotet botnet"]}]},{"id":"ai","name":"Data & AI software","description":"Processes data and builds, trains, or serves machine learning and AI models.","subcategories":[{"name":"Machine learning frameworks","description":"Defines, trains, and runs models.","examples":["TensorFlow","PyTorch","scikit-learn"]},{"name":"LLM & GenAI tooling","description":"Builds on large language models and the services around them.","examples":["Hugging Face","LangChain","OpenAI / Anthropic APIs"]},{"name":"Data engineering / ETL","description":"Moves and reshapes data between systems on a schedule.","examples":["Apache Airflow","dbt","Talend"]},{"name":"Big data processing","description":"Computes over datasets far too large for one machine.","examples":["Apache Spark","Hadoop","Apache Flink"]},{"name":"Data visualization","description":"Turns query results into charts and dashboards people can read.","examples":["Tableau","Power BI","Looker"]},{"name":"MLOps","description":"Versions, deploys, and monitors models once they are in production.","examples":["MLflow","Kubeflow","Weights & Biases"]},{"name":"Notebooks & experimentation","description":"Interactive code and results side by side, for exploring data.","examples":["Jupyter","Google Colab","Databricks"]}]},{"id":"quantum","name":"Quantum computing","description":"Programs and simulates quantum hardware for problems classical machines handle badly.","subcategories":[{"name":"Quantum SDKs","description":"Builds and runs quantum circuits from a familiar classical language.","examples":["Qiskit","Cirq","PennyLane"]},{"name":"Quantum languages","description":"Languages written specifically to express quantum programs.","examples":["Q#","OpenQASM","Silq"]},{"name":"Simulators","description":"Runs quantum circuits on classical hardware, so you can test without a real machine.","examples":["QuTiP","Qulacs","Braket simulators"]},{"name":"Cloud quantum access","description":"Queues jobs onto real quantum processors over the network.","examples":["IBM Quantum","Amazon Braket","Azure Quantum"]}]},{"id":"desktop","name":"Desktop software","description":"Installed and runs natively on a desktop OS (Windows, macOS, Linux).","subcategories":[{"name":"Cross-platform desktop","description":"One codebase that ships to Windows, macOS, and Linux.","examples":["Electron","Tauri","Qt"]},{"name":"Native Windows","description":"Built directly on Windows' own UI frameworks.","examples":["WinForms","WPF"]},{"name":"Native macOS","description":"Built directly on Apple's own UI frameworks.","examples":["SwiftUI","AppKit"]},{"name":"Native Linux","description":"Built on the desktop toolkits Linux environments are made of.","examples":["GTK","Qt (Linux)"]},{"name":"Examples in the wild","description":"Familiar desktop apps, and the frameworks they were built with.","examples":["VS Code / Slack / Discord (Electron)","Figma desktop"]}]},{"id":"mobile","name":"Mobile software","description":"Built for phones, tablets, and wearables, where touch and battery life set the rules.","subcategories":[{"name":"Native Android","description":"Built with Android's own language and toolchain.","examples":["Kotlin","Jetpack Compose","Android Studio"]},{"name":"Native iOS","description":"Built with Apple's own language and toolchain.","examples":["Swift","SwiftUI","Xcode"]},{"name":"Cross-platform","description":"One codebase that ships to both iOS and Android.","examples":["React Native","Flutter",".NET MAUI"]},{"name":"Mobile backends","description":"Hosted auth, data, and push, so an app needs no server of its own.","examples":["Firebase","Supabase","AWS Amplify"]},{"name":"Distribution & release","description":"Submits builds to the app stores and gets them to testers.","examples":["App Store Connect","Google Play Console","TestFlight"]},{"name":"Mobile testing","description":"Drives a real or simulated device to check the app behaves.","examples":["Appium","Espresso","XCUITest"]}]},{"id":"game","name":"Game development","description":"Builds and runs interactive games across platforms.","subcategories":[{"name":"Game engines","description":"Rendering, physics, audio, and tooling in one environment.","examples":["Unreal Engine","Unity","Godot"]},{"name":"Physics engines","description":"Simulates collisions, forces, and rigid bodies.","examples":["Havok","Box2D","PhysX"]},{"name":"Graphics / rendering","description":"The APIs that put triangles on the GPU.","examples":["OpenGL","DirectX","Vulkan"]},{"name":"Game servers & multiplayer","description":"Keeps many players in sync inside one shared world.","examples":["Photon","PlayFab","Nakama"]},{"name":"Distribution","description":"The stores that sell and deliver the finished game.","examples":["Steam","Epic Games Store","itch.io"]}]},{"id":"xr","name":"AR, VR & spatial computing","description":"Places digital content in physical space through headsets, glasses, and phone cameras.","subcategories":[{"name":"AR frameworks","description":"Tracks the camera against the real world so content can sit in it.","examples":["ARKit","ARCore","Vuforia"]},{"name":"VR platforms","description":"The SDKs behind headsets and their controllers.","examples":["Meta Quest SDK","SteamVR","PlayStation VR2 SDK"]},{"name":"Spatial operating systems","description":"Operating systems written for headsets rather than screens.","examples":["visionOS","Horizon OS","Android XR"]},{"name":"Cross-platform XR","description":"One API across many headsets and browsers.","examples":["OpenXR","Unity XR","WebXR"]},{"name":"3D capture & content","description":"Scans, models, and prepares the assets an XR scene is made of.","examples":["Polycam","Reality Composer","Blender"]}]},{"id":"web3","name":"Blockchain & Web3","description":"Builds decentralized applications and smart contracts on distributed ledgers.","subcategories":[{"name":"Blockchain platforms","description":"The ledgers that smart contracts and tokens run on.","examples":["Ethereum","Solana","Polygon"]},{"name":"Smart contract tools","description":"Writes, tests, and deploys code that runs on-chain.","examples":["Solidity","Hardhat","Truffle"]},{"name":"Wallets","description":"Holds keys and signs transactions on a user's behalf.","examples":["MetaMask","Trust Wallet","Ledger Live"]},{"name":"Decentralized apps","description":"Applications whose backend logic lives on a blockchain.","examples":["Uniswap","OpenSea"]}]},{"id":"robotics","name":"Robotics & automation","description":"Programs and controls robots, automated machinery, and industrial hardware.","subcategories":[{"name":"Robotics frameworks","description":"Message passing, drivers, and motion planning for robots.","examples":["ROS / ROS2","MoveIt"]},{"name":"Simulation","description":"Tests robot behaviour in a virtual world before touching hardware.","examples":["Gazebo","Webots","NVIDIA Isaac Sim"]},{"name":"Industrial automation","description":"Programs the controllers that run factory machinery.","examples":["Ladder Logic (PLC)","Rockwell Studio 5000","Siemens TIA Portal"]},{"name":"Robotic process automation","description":"Software robots that click through business applications the way a person would.","examples":["UiPath","Automation Anywhere","Blue Prism"]}]},{"id":"emb","name":"Embedded & specialized","description":"Built for specific devices, systems, or industries.","subcategories":[{"name":"Embedded systems","description":"Software fixed inside a device and built for its exact hardware.","examples":["Automotive (ECU)","IoT devices (ESP32)","Home appliances"]},{"name":"Real-time software","description":"Guarantees a response within a deadline, every time.","examples":["RTOS (FreeRTOS)","VxWorks","QNX"]},{"name":"Industrial control","description":"Supervises and operates plant machinery and processes.","examples":["SCADA","PLC software","HMI"]},{"name":"Mobile apps","description":"Applications installed onto phones, tablets, and wearables.","examples":["Android apps","iOS apps","Wear OS apps"]},{"name":"Scientific & engineering","description":"Modelling, simulation, and design for technical work.","examples":["MATLAB","AutoCAD","ANSYS"]},{"name":"Healthcare software","description":"Clinical records, imaging, and the systems hospitals run on.","examples":["Epic (EHR)","Cerner","DICOM viewers"]}]},{"id":"a11y","name":"Accessibility & assistive tech","description":"Makes software usable for people with disabilities.","subcategories":[{"name":"Screen readers","description":"Speaks the interface aloud for blind and low-vision users.","examples":["NVDA","JAWS","VoiceOver"]},{"name":"Magnification & display","description":"Enlarges or re-colours the screen for low vision.","examples":["ZoomText","Windows Magnifier","High-contrast themes"]},{"name":"Speech & alternative input","description":"Drives a computer by voice or switch instead of keyboard and mouse.","examples":["Dragon NaturallySpeaking","Voice Control","Switch Access"]},{"name":"Captioning & transcription","description":"Turns speech into text, live or after the fact.","examples":["Otter.ai","Live Caption","Rev"]},{"name":"Standards & guidelines","description":"The rules that define what accessible software actually has to do.","examples":["WCAG","ARIA","Section 508"]}]},{"id":"license","name":"Licensing & distribution models","description":"How software is licensed, priced, and delivered. This branch cuts across every other one above.","subcategories":[{"name":"Open source","description":"Source is public, and the licence sets out what you may do with it.","examples":["MIT","Apache 2.0","GPL"]},{"name":"Proprietary","description":"Source stays closed and use is governed by a purchased licence.","examples":["Windows","Adobe Photoshop","Oracle Database"]},{"name":"Freemium & shareware","description":"Free to start, paid to unlock the rest.","examples":["Spotify Free","WinRAR","Evernote"]},{"name":"Subscription & usage-based","description":"Billed per period or per unit consumed, rather than bought outright.","examples":["Microsoft 365","Figma","AWS pay-as-you-go"]},{"name":"Public domain & permissive","description":"Few or no conditions on reuse, including inside closed products.","examples":["SQLite","GNU coreutils","Unlicense projects"]}]}]};</script>
+<script>
+/* The Software Tree — renders one taxonomy JSON file as an expandable tree.
+   Which file, and which page it belongs to, come from #tree's data attributes,
+   so index.html, web-apps.html, and mobile-apps.html all share this script. */
+(() => {
+  "use strict";
+
+  const stage = document.getElementById("tree");
+  const SCOPE = stage.dataset.scope || "home";
+  const SOURCE = stage.dataset.source || "data.json";
+
+  // Theme and rail follow the reader across the site; which branches are open,
+  // and which view they left behind, belong to one page each.
+  const STORE_OPEN = `software-tree:${SCOPE}:open`;
+  const STORE_THEME = "software-tree:theme";
+  const STORE_VIEW = `software-tree:${SCOPE}:view`;
+  const STORE_RAIL = "software-tree:rail";
+
+  const els = {
+    branches: document.getElementById("branches"),
+    rail: document.getElementById("rail"),
+    railPanel: document.querySelector(".rail"),
+    rootName: document.getElementById("root-name"),
+    rootDesc: document.getElementById("root-desc"),
+    search: document.getElementById("search"),
+    clear: document.getElementById("search-clear"),
+    expandAll: document.getElementById("expand-all"),
+    collapseAll: document.getElementById("collapse-all"),
+    status: document.getElementById("status"),
+    empty: document.getElementById("empty"),
+    tally: document.getElementById("tally"),
+    themeToggle: document.getElementById("theme-toggle"),
+    toolbar: document.querySelector(".toolbar"),
+    overview: document.getElementById("map-view"),
+    chart: document.getElementById("chart-view"),
+    controls: document.querySelector(".controls"),
+    viewButtons: Array.from(document.querySelectorAll("[data-view]")),
+    layout: document.querySelector(".layout"),
+    railToggle: document.getElementById("rail-toggle"),
+  };
+
+  /** Branch records, in document order: DOM handles plus searchable text. */
+  const branches = [];
+  let treeData = null;
+  let query = "";
+  let view = "explore";
+  let savedOpen = null; // open-state snapshot taken when a search begins
+
+  /* ------------------------------------------------------------ storage */
+
+  const store = {
+    get(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw === null ? fallback : JSON.parse(raw);
+      } catch {
+        return fallback;
+      }
+    },
+    set(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        /* private mode or blocked storage — the tree still works */
+      }
+    },
+  };
+
+  /* -------------------------------------------------------------- theme */
+
+  function systemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const next = theme === "dark" ? "Light" : "Dark";
+    els.themeToggle.querySelector(".theme-toggle__label").textContent = next;
+    els.themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+    els.themeToggle.setAttribute(
+      "aria-label",
+      `Switch to ${next.toLowerCase()} theme`,
+    );
+  }
+
+  function initTheme() {
+    applyTheme(store.get(STORE_THEME, null) || systemTheme());
+    els.themeToggle.addEventListener("click", () => {
+      const next =
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+      applyTheme(next);
+      store.set(STORE_THEME, next);
+    });
+  }
+
+  /* --------------------------------------------------------------- rail */
+
+  const wideScreen = window.matchMedia("(min-width: 861px)");
+
+  function setRail(collapsed) {
+    els.layout.dataset.rail = collapsed ? "collapsed" : "expanded";
+    els.railToggle.setAttribute("aria-expanded", String(!collapsed));
+    els.railToggle.setAttribute(
+      "aria-label",
+      collapsed ? "Show the branch list" : "Hide the branch list",
+    );
+  }
+
+  function initRail() {
+    const saved = store.get(STORE_RAIL, null);
+    // Wide screens open the list; phones and tablets start it out of the way.
+    setRail(saved === null ? !wideScreen.matches : saved === "collapsed");
+
+    els.railToggle.addEventListener("click", () => {
+      const collapsed = els.layout.dataset.rail !== "collapsed";
+      setRail(collapsed);
+      store.set(STORE_RAIL, collapsed ? "collapsed" : "expanded");
+    });
+
+    // Until the reader picks a side, follow the screen across the breakpoint.
+    wideScreen.addEventListener("change", (event) => {
+      if (store.get(STORE_RAIL, null) === null) setRail(!event.matches);
+    });
+  }
+
+  /* ------------------------------------------------------------ helpers */
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  /** Writes text into an element, wrapping every hit on `q` in <mark>. */
+  function paint(node, text, q) {
+    node.textContent = "";
+    if (!q) {
+      node.textContent = text;
+      return;
+    }
+    const haystack = text.toLowerCase();
+    let from = 0;
+    let at;
+    while ((at = haystack.indexOf(q, from)) !== -1) {
+      if (at > from) node.append(text.slice(from, at));
+      const hit = el("mark", null, text.slice(at, at + q.length));
+      node.append(hit);
+      from = at + q.length;
+    }
+    node.append(text.slice(from));
+  }
+
+  const PLURALS = {
+    branch: "branches",
+    subcategory: "subcategories",
+    example: "examples",
+  };
+  const plural = (n, word) =>
+    `${n} ${n === 1 ? word : PLURALS[word] || `${word}s`}`;
+
+  /* ---------------------------------------------------------- open state */
+
+  function setOpen(record, open) {
+    record.el.classList.toggle("is-open", open);
+    record.head.setAttribute("aria-expanded", String(open));
+    record.open = open;
+  }
+
+  function currentOpenKeys() {
+    const keys = [];
+    branches.forEach((branch) => {
+      if (branch.open) keys.push(branch.key);
+      branch.subs.forEach((sub) => {
+        if (sub.open) keys.push(sub.key);
+      });
+    });
+    return keys;
+  }
+
+  function persistOpen() {
+    if (query) return; // a search forces nodes open; don't save that
+    store.set(STORE_OPEN, currentOpenKeys());
+  }
+
+  function restoreOpen(keys) {
+    const set = new Set(keys);
+    branches.forEach((branch) => {
+      setOpen(branch, set.has(branch.key));
+      branch.subs.forEach((sub) => setOpen(sub, set.has(sub.key)));
+    });
+  }
+
+  function setAll(open) {
+    branches.forEach((branch) => {
+      if (branch.el.classList.contains("is-hidden")) return;
+      setOpen(branch, open);
+      branch.subs.forEach((sub) => setOpen(sub, open));
+    });
+    persistOpen();
+    if (view === "chart") renderChart(query);
+  }
+
+  /* --------------------------------------------------------------- build */
+
+  function buildSub(sub, branchId, index) {
+    const item = el("li", "sub");
+    const panelId = `${branchId}-${index}-panel`;
+
+    const head = el("button", "sub__head");
+    head.type = "button";
+    head.setAttribute("aria-expanded", "false");
+    head.setAttribute("aria-controls", panelId);
+    head.append(el("span", "twist"));
+    const name = el("span", "sub__name");
+    head.append(name);
+    head.append(
+      el("span", "sub__count", plural(sub.examples.length, "example")),
+    );
+
+    const panel = el("div", "sub__panel");
+    panel.id = panelId;
+    const inner = el("div", "sub__inner");
+    const desc = el("p", "sub__desc");
+    if (!sub.description) desc.hidden = true;
+    inner.append(desc);
+    const chips = el("ul", "chips");
+    const chipEls = sub.examples.map((example) => {
+      const chip = el("li", "chip");
+      chips.append(chip);
+      return chip;
+    });
+    inner.append(chips);
+    panel.append(inner);
+    item.append(head, panel);
+
+    const record = {
+      key: `${branchId}/${index}`,
+      data: sub,
+      el: item,
+      head,
+      name,
+      desc,
+      chipEls,
+      open: false,
+      text: `${sub.name} ${sub.description || ""} ${sub.examples.join(" ")}`
+        .toLowerCase(),
+    };
+
+    head.addEventListener("click", () => {
+      setOpen(record, !record.open);
+      persistOpen();
+      markActive(branchId);
+    });
+
+    return record;
+  }
+
+  function buildBranch(category) {
+    const section = el("section", "branch");
+    section.id = category.id;
+    section.dataset.branch = category.id;
+    const panelId = `${category.id}-panel`;
+
+    const head = el("button", "branch__head");
+    head.type = "button";
+    head.setAttribute("aria-expanded", "false");
+    head.setAttribute("aria-controls", panelId);
+    head.append(el("span", "twist"));
+    const name = el("span", "branch__name");
+    head.append(name);
+    head.append(
+      el(
+        "span",
+        "branch__count",
+        plural(category.subcategories.length, "subcategory"),
+      ),
+    );
+
+    const desc = el("p", "branch__desc");
+
+    const panel = el("div", "branch__panel");
+    panel.id = panelId;
+    const inner = el("div", "branch__inner");
+    const list = el("ul", "subs");
+    inner.append(list);
+    panel.append(inner);
+    section.append(head, desc, panel);
+
+    const subs = category.subcategories.map((sub, i) => {
+      const record = buildSub(sub, category.id, i);
+      list.append(record.el);
+      return record;
+    });
+
+    const record = {
+      key: category.id,
+      data: category,
+      el: section,
+      head,
+      name,
+      desc,
+      subs,
+      open: false,
+      text: `${category.name} ${category.description}`.toLowerCase(),
+    };
+
+    head.addEventListener("click", () => {
+      setOpen(record, !record.open);
+      persistOpen();
+      markActive(category.id);
+      if (record.open) history.replaceState(null, "", `#${category.id}`);
+    });
+
+    return record;
+  }
+
+  function buildRail() {
+    branches.forEach((branch) => {
+      const link = el("button", "rail__link");
+      link.type = "button";
+      link.dataset.target = branch.key;
+      link.append(el("span", "rail__name", branch.data.name));
+      link.addEventListener("click", () => {
+        revealBranch(branch, true);
+        if (!wideScreen.matches) setRail(true);
+      });
+      els.rail.append(link);
+      branch.railLink = link;
+    });
+  }
+
+  function revealBranch(branch, focusHead) {
+    markActive(branch.data.id);
+
+    // In the chart, unfolding the branch is what "take me there" means.
+    if (view === "chart") {
+      if (!branch.open) {
+        setOpen(branch, true);
+        persistOpen();
+        renderChart(query);
+      }
+      const node = document.getElementById(`chart-${branch.data.id}`);
+      if (node) scrollToAnchor(node);
+      return;
+    }
+
+    if (view === "overview") {
+      const block = document.getElementById(`map-${branch.data.id}`);
+      if (block) scrollToAnchor(block);
+      return;
+    }
+
+    // Only Explore owns the branch hash; #chart and #overview stay put.
+    history.replaceState(null, "", `#${branch.data.id}`);
+    setOpen(branch, true);
+    persistOpen();
+    scrollToAnchor(branch.el);
+    if (focusHead) branch.head.focus({ preventScroll: true });
+  }
+
+  /* ------------------------------------------------------------ overview */
+
+  /** Redraws the whole-taxonomy map, filtered and highlighted by `q`. */
+  function renderOverview(q) {
+    if (!treeData) return;
+    els.overview.textContent = "";
+
+    const hint = el("p", "overview__hint");
+    hint.append(
+      q
+        ? "Branches matching your search. "
+        : "The whole taxonomy at a glance. ",
+    );
+    hint.append("Select any branch to open it in Explore.");
+    els.overview.append(hint);
+
+    const grid = el("div", "overview__grid");
+
+    treeData.categories.forEach((category) => {
+      const haystack = `${category.name} ${category.description}`.toLowerCase();
+      const branchHit = q ? haystack.includes(q) : false;
+      const subs = category.subcategories.filter(
+        (sub) =>
+          !q ||
+          branchHit ||
+          `${sub.name} ${sub.examples.join(" ")}`.toLowerCase().includes(q),
+      );
+      if (q && !branchHit && subs.length === 0) return;
+
+      const block = el("section", "ov-branch");
+      block.id = `map-${category.id}`;
+      block.dataset.branch = category.id;
+
+      const head = el("button", "ov-branch__head");
+      head.type = "button";
+      head.title = category.description;
+      head.append(el("span", "ov-branch__code", category.id));
+      const name = el("span", "ov-branch__name");
+      paint(name, category.name, q);
+      head.append(name);
+      head.addEventListener("click", () => {
+        const record = branches.find((b) => b.data.id === category.id);
+        if (!record) return;
+        setView("explore");
+        revealBranch(record, true);
+      });
+
+      const list = el("ul", "ov-subs");
+      subs.forEach((sub) => {
+        const item = el("li", "ov-sub");
+        item.title = sub.examples.join(", ");
+        const label = el("span", "ov-sub__name");
+        paint(label, sub.name, q);
+        item.append(label);
+        item.append(el("span", "ov-sub__count", String(sub.examples.length)));
+        list.append(item);
+      });
+
+      block.append(head, list);
+      grid.append(block);
+    });
+
+    els.overview.append(grid);
+  }
+
+  /* --------------------------------------------------------------- chart */
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const CHART = {
+    pad: 16,
+    colGap: 56,
+    subRow: 25,
+    branchRow: 36,
+    groupGap: 16,
+    pillH: 26,
+  };
+  const FONT_PILL = '600 14px "IBM Plex Serif", Georgia, serif';
+  const FONT_COUNT = '10.5px "IBM Plex Mono", monospace';
+  const FONT_LEAF = '13px "IBM Plex Sans", system-ui, sans-serif';
+
+  let measurer = null;
+
+  /** Real text widths, so columns never overlap the labels beside them. */
+  function textWidth(text, font) {
+    if (!measurer) measurer = document.createElement("canvas").getContext("2d");
+    measurer.font = font;
+    return measurer.measureText(text).width;
+  }
+
+  function svgEl(tag, attrs, text) {
+    const node = document.createElementNS(SVG_NS, tag);
+    Object.entries(attrs || {}).forEach(([key, value]) =>
+      node.setAttribute(key, value),
+    );
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  /** A cubic curve between two points in neighbouring columns. */
+  function chartLink(x1, y1, x2, y2) {
+    const dx = (x2 - x1) * 0.5;
+    return svgEl("path", {
+      class: "chart__link",
+      d: `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`,
+    });
+  }
+
+  function renderChart(q) {
+    if (!treeData) return;
+    els.chart.textContent = "";
+
+    const hint = el(
+      "p",
+      "chart__hint",
+      q
+        ? "Branches matching your search."
+        : "Categories and subcategories only. Select a branch to fold or unfold it.",
+    );
+    els.chart.append(hint);
+
+    // Which branches and subcategories belong on the diagram.
+    const model = [];
+    treeData.categories.forEach((category) => {
+      const record = branches.find((b) => b.data.id === category.id);
+      const branchHit = q
+        ? `${category.name} ${category.description}`.toLowerCase().includes(q)
+        : false;
+      const matching = category.subcategories.filter((sub) =>
+        q
+          ? `${sub.name} ${sub.examples.join(" ")}`.toLowerCase().includes(q)
+          : true,
+      );
+      if (q && !branchHit && matching.length === 0) return;
+
+      const subs = q
+        ? branchHit
+          ? category.subcategories
+          : matching
+        : record && record.open
+          ? category.subcategories
+          : [];
+
+      model.push({
+        category,
+        record,
+        subs,
+        hit: branchHit,
+        hits: new Set(matching.map((sub) => sub.name)),
+        expanded: subs.length > 0,
+      });
+    });
+
+    if (!model.length) return;
+
+    // Column geometry, measured rather than guessed.
+    const rootW = Math.ceil(textWidth(treeData.name, FONT_PILL)) + 34;
+    let pillW = 0;
+    model.forEach((item) => {
+      item.pillW =
+        26 +
+        Math.ceil(textWidth(item.category.name, FONT_PILL)) +
+        14 +
+        Math.ceil(
+          textWidth(String(item.category.subcategories.length), FONT_COUNT),
+        ) +
+        14;
+      pillW = Math.max(pillW, item.pillW);
+    });
+    let leafW = 0;
+    model.forEach((item) =>
+      item.subs.forEach((sub) => {
+        leafW = Math.max(leafW, Math.ceil(textWidth(sub.name, FONT_LEAF)));
+      }),
+    );
+
+    const rootX = CHART.pad;
+    const trunkX = rootX + 18;
+    const branchX = trunkX + 42;
+    const subX = branchX + pillW + CHART.colGap;
+    const rootY = CHART.pad + 16;
+    const width = Math.max(subX + 13 + leafW, rootX + rootW) + CHART.pad;
+
+    // Leaves stack; each branch sits level with the middle of its own leaves.
+    let y = rootY + 42;
+    model.forEach((item) => {
+      if (item.subs.length) {
+        const top = y;
+        item.subYs = item.subs.map(
+          (_, i) => top + i * CHART.subRow + CHART.subRow / 2,
+        );
+        item.y = (item.subYs[0] + item.subYs[item.subYs.length - 1]) / 2;
+        y = top + item.subs.length * CHART.subRow;
+      } else {
+        item.subYs = [];
+        item.y = y + CHART.branchRow / 2;
+        y += CHART.branchRow;
+      }
+      y += CHART.groupGap;
+    });
+    const height = y - CHART.groupGap + CHART.pad + 10;
+
+    const svg = svgEl("svg", {
+      class: "chart__svg",
+      width,
+      height,
+      viewBox: `0 0 ${width} ${height}`,
+      role: "group",
+      "aria-label": "Tree diagram of the software taxonomy",
+    });
+    const links = svgEl("g", {});
+    const nodes = svgEl("g", {});
+
+    // one trunk down from the root, with a rounded elbow out to each branch
+    const lastY = model[model.length - 1].y;
+    links.append(
+      svgEl("path", {
+        class: "chart__link",
+        d: `M${trunkX},${rootY + 16} L${trunkX},${lastY}`,
+      }),
+    );
+    model.forEach((item) => {
+      links.append(
+        svgEl("path", {
+          class: "chart__link",
+          d: `M${trunkX},${item.y - 14} Q${trunkX},${item.y} ${trunkX + 14},${
+            item.y
+          } L${branchX},${item.y}`,
+        }),
+      );
+      item.subYs.forEach((subY) =>
+        links.append(chartLink(branchX + item.pillW, item.y, subX - 4, subY)),
+      );
+    });
+
+    const root = svgEl("g", { class: "chart__root" });
+    root.append(
+      svgEl("rect", {
+        class: "chart__pill",
+        x: rootX,
+        y: rootY - 15,
+        width: rootW,
+        height: 30,
+        rx: 15,
+      }),
+    );
+    root.append(
+      svgEl(
+        "text",
+        { class: "chart__pill-label", x: rootX + 17, y: rootY + 5 },
+        treeData.name,
+      ),
+    );
+    nodes.append(root);
+
+    model.forEach((item) => {
+      const group = svgEl("g", {
+        class: `chart__node${item.hit ? " chart__node--hit" : ""}`,
+        id: `chart-${item.category.id}`,
+        role: "button",
+        tabindex: "0",
+        "aria-expanded": String(item.expanded),
+        "aria-label": `${item.category.name}, ${plural(
+          item.category.subcategories.length,
+          "subcategory",
+        )}`,
+      });
+      group.dataset.branch = item.category.id;
+      group.append(svgEl("title", {}, item.category.description));
+      group.append(
+        svgEl("rect", {
+          class: "chart__pill",
+          x: branchX,
+          y: item.y - CHART.pillH / 2,
+          width: item.pillW,
+          height: CHART.pillH,
+          rx: 6,
+        }),
+      );
+
+      // the plus that loses its stem when the branch is unfolded
+      const gx = branchX + 13;
+      group.append(
+        svgEl("line", {
+          class: "chart__glyph",
+          x1: gx - 4,
+          y1: item.y,
+          x2: gx + 4,
+          y2: item.y,
+        }),
+      );
+      if (!item.expanded) {
+        group.append(
+          svgEl("line", {
+            class: "chart__glyph",
+            x1: gx,
+            y1: item.y - 4,
+            x2: gx,
+            y2: item.y + 4,
+          }),
+        );
+      }
+
+      group.append(
+        svgEl(
+          "text",
+          { class: "chart__pill-label", x: branchX + 26, y: item.y + 5 },
+          item.category.name,
+        ),
+      );
+      group.append(
+        svgEl(
+          "text",
+          {
+            class: "chart__pill-count",
+            x: branchX + item.pillW - 12,
+            y: item.y + 4,
+            "text-anchor": "end",
+          },
+          String(item.category.subcategories.length),
+        ),
+      );
+
+      const toggle = () => {
+        if (!item.record) return;
+        setOpen(item.record, !item.record.open);
+        persistOpen();
+        markActive(item.category.id);
+        renderChart(query);
+      };
+      group.addEventListener("click", toggle);
+      group.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggle();
+        }
+      });
+      nodes.append(group);
+
+      item.subs.forEach((sub, i) => {
+        const isHit = q ? item.hits.has(sub.name) : false;
+        const leaf = svgEl("g", {
+          class: `chart__leaf${isHit ? " chart__leaf--hit" : ""}`,
+        });
+        leaf.append(
+          svgEl("circle", {
+            class: "chart__leaf-dot",
+            cx: subX,
+            cy: item.subYs[i],
+            r: 2.5,
+          }),
+        );
+        leaf.append(
+          svgEl(
+            "text",
+            { class: "chart__leaf-label", x: subX + 12, y: item.subYs[i] + 4 },
+            sub.name,
+          ),
+        );
+        nodes.append(leaf);
+      });
+    });
+
+    svg.append(links, nodes);
+    const canvas = el("div", "chart__canvas");
+    canvas.append(svg);
+    els.chart.append(canvas);
+  }
+
+  function setView(next) {
+    view = next;
+    const isOverview = next === "overview";
+    const isChart = next === "chart";
+
+    els.branches.hidden = isOverview || isChart;
+    els.overview.hidden = !isOverview;
+    els.chart.hidden = !isChart;
+    els.controls.hidden = isOverview; // nothing to expand on the map
+    els.viewButtons.forEach((btn) =>
+      btn.setAttribute("aria-pressed", String(btn.dataset.view === next)),
+    );
+    store.set(STORE_VIEW, next);
+
+    if (isOverview || isChart) {
+      history.replaceState(null, "", isChart ? "#chart" : "#overview");
+      if (isChart) renderChart(query);
+      else renderOverview(query);
+    } else {
+      if (location.hash === "#overview" || location.hash === "#chart") {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+      }
+  }
+
+  /* -------------------------------------------------------------- search */
+
+  function runSearch(raw) {
+    const q = raw.trim().toLowerCase();
+    const starting = !query && q;
+    const ending = query && !q;
+
+    if (starting) savedOpen = currentOpenKeys();
+    query = q;
+    els.clear.hidden = !q;
+
+    let hitBranches = 0;
+    let hitSubs = 0;
+    let hitExamples = 0;
+
+    branches.forEach((branch) => {
+      const branchHit = q ? branch.text.includes(q) : false;
+      let subHits = 0;
+
+      branch.subs.forEach((sub) => {
+        const subHit = q ? sub.text.includes(q) : false;
+        const show = !q || branchHit || subHit;
+        sub.el.classList.toggle("is-hidden", !show);
+
+        paint(sub.name, sub.data.name, q);
+        paint(sub.desc, sub.data.description || "", q);
+        sub.chipEls.forEach((chip, i) => paint(chip, sub.data.examples[i], q));
+
+        if (subHit) {
+          subHits += 1;
+          hitSubs += 1;
+          hitExamples += sub.data.examples.filter((e) =>
+            e.toLowerCase().includes(q),
+          ).length;
+          setOpen(sub, true);
+        } else if (q) {
+          setOpen(sub, false);
+        }
+      });
+
+      const show = !q || branchHit || subHits > 0;
+      branch.el.classList.toggle("is-hidden", !show);
+      paint(branch.name, branch.data.name, q);
+      paint(branch.desc, branch.data.description, q);
+      if (branch.railLink) branch.railLink.hidden = !show;
+
+      if (q && show) {
+        hitBranches += 1;
+        setOpen(branch, true);
+      }
+    });
+
+    if (ending) {
+      restoreOpen(savedOpen || []);
+      savedOpen = null;
+    }
+
+    els.empty.hidden = !(q && hitBranches === 0);
+    if (view === "overview") renderOverview(q);
+    else if (view === "chart") renderChart(q);
+
+    if (!q) {
+      els.status.textContent = "";
+    } else if (hitBranches === 0) {
+      els.status.textContent = `No matches for "${raw.trim()}"`;
+    } else {
+      const parts = [plural(hitBranches, "branch")];
+      if (hitSubs) parts.push(plural(hitSubs, "subcategory"));
+      if (hitExamples) parts.push(plural(hitExamples, "example"));
+      els.status.textContent = `${parts.join(" · ")} matching "${raw.trim()}"`;
+    }
+    measureToolbar();
+  }
+
+  /* --------------------------------------------------------- active item */
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /** Where a selected branch is parked: just below the sticky toolbar. */
+  function scrollLine() {
+    return (els.toolbar ? els.toolbar.getBoundingClientRect().height : 0) + 28;
+  }
+
+  /** Scrolls the rail's own box, never the page, to keep a link visible. */
+  function keepRailLinkInView(link) {
+    const box = link.getBoundingClientRect();
+    const column = els.railPanel;
+    const strip = els.rail;
+
+    if (column && column.scrollHeight > column.clientHeight + 1) {
+      const frame = column.getBoundingClientRect();
+      if (box.top < frame.top) column.scrollTop -= frame.top - box.top + 8;
+      else if (box.bottom > frame.bottom) {
+        column.scrollTop += box.bottom - frame.bottom + 8;
+      }
+    }
+    if (strip && strip.scrollWidth > strip.clientWidth + 1) {
+      const frame = strip.getBoundingClientRect();
+      if (box.left < frame.left) strip.scrollLeft -= frame.left - box.left + 8;
+      else if (box.right > frame.right) {
+        strip.scrollLeft += box.right - frame.right + 8;
+      }
+    }
+  }
+
+  let activeBranchId;
+
+  function markActive(id) {
+    if (id === activeBranchId) return;
+    activeBranchId = id;
+
+    let active = null;
+    branches.forEach((branch) => {
+      if (!branch.railLink) return;
+      if (branch.data.id === id) {
+        branch.railLink.setAttribute("aria-current", "true");
+        active = branch.railLink;
+      } else {
+        branch.railLink.removeAttribute("aria-current");
+      }
+    });
+    if (active) keepRailLinkInView(active);
+  }
+
+  /** Parks any element — section or SVG node — just under the toolbar. */
+  function scrollToAnchor(node) {
+    const top = window.scrollY + node.getBoundingClientRect().top - scrollLine();
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: reduceMotion.matches ? "auto" : "smooth",
+    });
+  }
+
+  function measureToolbar() {
+    if (!els.toolbar) return;
+    const h = Math.round(els.toolbar.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--toolbar-h", `${h}px`);
+  }
+
+  /* ------------------------------------------------------------- wire up */
+
+  function initShortcuts() {
+    document.addEventListener("keydown", (event) => {
+      const typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName);
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        els.search.focus();
+        els.search.select();
+      } else if (event.key === "Escape" && typing) {
+        els.search.value = "";
+        runSearch("");
+        els.search.blur();
+      }
+    });
+  }
+
+  function render(tree) {
+    treeData = tree;
+    els.rootName.textContent = tree.name;
+    els.rootDesc.textContent = tree.description;
+
+    tree.categories.forEach((category) => {
+      const record = buildBranch(category);
+      branches.push(record);
+      els.branches.append(record.el);
+    });
+
+    buildRail();
+    runSearch(""); // paints every label and chip in its unhighlighted state
+
+    const subCount = branches.reduce((n, b) => n + b.subs.length, 0);
+    const exampleCount = branches.reduce(
+      (n, b) => n + b.subs.reduce((m, s) => m + s.data.examples.length, 0),
+      0,
+    );
+    els.tally.querySelector('[data-stat="categories"]').textContent =
+      branches.length;
+    els.tally.querySelector('[data-stat="subcategories"]').textContent =
+      subCount;
+    els.tally.querySelector('[data-stat="examples"]').textContent =
+      exampleCount;
+
+    // Open the first branch so the page shows what a branch looks like.
+    const stored = store.get(STORE_OPEN, null);
+    if (stored && stored.length) {
+      restoreOpen(stored);
+    } else if (branches.length) {
+      setOpen(branches[0], true);
+      if (branches[0].subs.length) setOpen(branches[0].subs[0], true);
+    }
+
+    const hash = decodeURIComponent(location.hash.slice(1));
+    const target = branches.find((b) => b.data.id === hash);
+    if (target) {
+      setOpen(target, true);
+      markActive(target.data.id);
+      requestAnimationFrame(() => target.el.scrollIntoView({ block: "start" }));
+    }
+
+    els.search.addEventListener("input", (event) =>
+      runSearch(event.target.value),
+    );
+    els.clear.addEventListener("click", () => {
+      els.search.value = "";
+      runSearch("");
+      els.search.focus();
+    });
+    els.expandAll.addEventListener("click", () => setAll(true));
+    els.collapseAll.addEventListener("click", () => setAll(false));
+
+    els.viewButtons.forEach((btn) =>
+      btn.addEventListener("click", () => setView(btn.dataset.view)),
+    );
+
+    // A branch deep link always lands in Explore; #overview opens the map.
+    const saved = store.get(STORE_VIEW, "explore");
+    const storedView =
+      saved === "overview" || saved === "chart" ? saved : "explore";
+    const fromHash = hash === "overview" || hash === "chart" ? hash : null;
+    setView(target ? "explore" : fromHash || storedView);
+
+    // Web fonts change text metrics, so redraw the measured diagram once.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        if (view === "chart") renderChart(query);
+      });
+    }
+    measureToolbar();
+    window.addEventListener("resize", measureToolbar);
+  }
+
+  function fail(message) {
+    els.branches.innerHTML = "";
+    const box = el("p", "empty");
+    box.append(message);
+    els.branches.append(box);
+  }
+
+  function start() {
+    initTheme();
+    initRail();
+    initShortcuts();
+
+    if (window.SOFTWARE_TREE) {
+      render(window.SOFTWARE_TREE);
+      return;
+    }
+
+    fetch(SOURCE)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(`${SOURCE} returned ${response.status}`);
+        return response.json();
+      })
+      .then(render)
+      .catch(() => {
+        fail(
+          location.protocol === "file:"
+            ? `Browsers block reading ${SOURCE} straight from disk. Serve the folder instead — run \`python3 -m http.server\` here, then open http://localhost:8000.`
+            : `${SOURCE} could not be loaded. Check that it sits beside the page and contains valid JSON.`,
+        );
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+
+</script>

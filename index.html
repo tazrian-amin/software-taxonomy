@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Software Tree</title>
+    <meta name="description"
+        content="An interactive taxonomy of software, from system software down to the tools you use every day." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- APP:START -->
+    <a class="skip-link" href="#tree">Skip to the tree</a>
+
+    <nav class="topnav" aria-label="Site">
+        <div class="shell topnav__inner">
+            <a class="topnav__mark" href="index.html">
+                <span class="topnav__dot" aria-hidden="true"></span>
+                <span>Software Tree</span>
+            </a>
+            <ul class="topnav__links">
+                <li><a class="topnav__link" href="index.html" aria-current="page">Homepage</a></li>
+                <li><a class="topnav__link" href="web-apps.html">Web Apps</a></li>
+                <li><a class="topnav__link" href="mobile-apps.html">Mobile Apps</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="shell masthead__inner">
+            <div class="masthead__text">
+                <p class="eyebrow">A taxonomy of software</p>
+                <h1 class="masthead__title">The Software Tree</h1>
+                <p class="lede">
+                    Every branch of software, from the firmware that boots a machine to
+                    the licence that decides who may run it. Open a branch to see what
+                    grows on it.
+                </p>
+            </div>
+
+            <dl class="tally" id="tally">
+                <div class="tally__item">
+                    <dt>Branches</dt>
+                    <dd data-stat="categories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Subcategories</dt>
+                    <dd data-stat="subcategories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Examples</dt>
+                    <dd data-stat="examples">&mdash;</dd>
+                </div>
+            </dl>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+                <span class="theme-toggle__dot" aria-hidden="true"></span>
+                <span class="theme-toggle__label">Dark</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="shell toolbar__inner">
+            <div class="search">
+                <svg class="search__icon" viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <line x1="13" y1="13" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" />
+                </svg>
+                <label class="visually-hidden" for="search">Search the tree</label>
+                <input id="search" type="search" class="search__input"
+                    placeholder="Search branches, subcategories, examples&hellip;" autocomplete="off"
+                    spellcheck="false" />
+                <kbd class="search__key" aria-hidden="true">/</kbd>
+                <button class="search__clear" id="search-clear" type="button" hidden>
+                    Clear
+                </button>
+            </div>
+
+            <div class="viewswitch" role="group" aria-label="View">
+                <button class="viewswitch__btn" type="button" data-view="chart" aria-pressed="false">
+                    Chart
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="overview" aria-pressed="false">
+                    Overview
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="explore" aria-pressed="true">
+                    Explore
+                </button>
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="expand-all" type="button">Expand all</button>
+                <button class="btn" id="collapse-all" type="button">Collapse all</button>
+            </div>
+        </div>
+        <p class="toolbar__status shell" id="status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="shell layout">
+        <aside class="rail" aria-label="Jump to a branch">
+            <h2 class="rail__title">
+                <button class="rail__toggle" id="rail-toggle" type="button" aria-expanded="true" aria-controls="rail">
+                    <svg class="rail__icon" viewBox="0 0 16 16" aria-hidden="true">
+                        <line x1="1.75" y1="4" x2="14.25" y2="4" />
+                        <line x1="1.75" y1="8" x2="14.25" y2="8" />
+                        <line x1="1.75" y1="12" x2="14.25" y2="12" />
+                    </svg>
+                    <span class="rail__toggle-label">Branches</span>
+                </button>
+            </h2>
+            <nav class="rail__list" id="rail"></nav>
+        </aside>
+
+        <main class="stage" id="tree" data-scope="home" data-source="data.json">
+            <div class="root">
+                <span class="root__mark" aria-hidden="true"></span>
+                <div>
+                    <h2 class="root__name" id="root-name">Software</h2>
+                    <p class="root__desc" id="root-desc"></p>
+                </div>
+            </div>
+            <div id="branches" class="branches"></div>
+            <div id="map-view" class="overview" hidden></div>
+            <div id="chart-view" class="chart" hidden></div>
+            <p class="empty" id="empty" hidden>
+                Nothing in the tree matches that. Try a shorter word &mdash; the
+                examples are searched too.
+            </p>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="shell footer__inner">
+            <p>Created with love by Tazrian Ibne Amin</p>
+        </div>
+    </footer>
+    <!-- APP:END -->
+    <script src="index.js"></script>
+</body>
+
+</html>

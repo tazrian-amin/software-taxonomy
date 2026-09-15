@@ -1,0 +1,1093 @@
+{
+  "name": "Software",
+  "description": "Root of the full software taxonomy tree",
+  "categories": [
+    {
+      "id": "sys",
+      "name": "System software",
+      "description": "Manages the computer's hardware and provides a platform for other software.",
+      "subcategories": [
+        {
+          "name": "Operating systems",
+          "description": "Schedules processes, manages memory and files, and gives every other program a machine to run on.",
+          "examples": [
+            "Windows",
+            "macOS",
+            "Linux (Ubuntu, Fedora)",
+            "Android / iOS"
+          ]
+        },
+        {
+          "name": "Device drivers",
+          "description": "Translates between the operating system and one specific piece of hardware.",
+          "examples": [
+            "NVIDIA GPU driver",
+            "Realtek audio driver",
+            "Printer driver"
+          ]
+        },
+        {
+          "name": "Firmware",
+          "description": "Low-level code stored on the device itself, usually the first thing to run when it powers on.",
+          "examples": ["BIOS / UEFI", "Router firmware", "Smart TV firmware"]
+        },
+        {
+          "name": "Utility software",
+          "description": "Small focused tools that maintain, clean, protect, or repair a system.",
+          "examples": [
+            "Antivirus (Malwarebytes)",
+            "Disk cleanup",
+            "Backup tools (Acronis)"
+          ]
+        },
+        {
+          "name": "Language processors",
+          "description": "Turns source code into something the machine can actually execute.",
+          "examples": [
+            "Compilers (GCC)",
+            "Interpreters (Python)",
+            "Assemblers (NASM)"
+          ]
+        },
+        {
+          "name": "Virtualization software",
+          "description": "Runs whole guest operating systems side by side on one physical machine.",
+          "examples": ["VMware", "VirtualBox", "Hyper-V"]
+        },
+        {
+          "name": "Containerization",
+          "description": "Packages an application with its dependencies so it runs the same anywhere, sharing the host kernel.",
+          "examples": ["Docker", "Kubernetes", "Podman"]
+        },
+        {
+          "name": "System management",
+          "description": "Watches processes, services, and resources, and starts or stops them.",
+          "examples": ["Windows Task Manager", "Systemd", "Nagios"]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "name": "Application software",
+      "description": "Helps users perform specific tasks or solve problems.",
+      "subcategories": [
+        {
+          "name": "Productivity",
+          "description": "Documents, spreadsheets, and presentations for everyday knowledge work.",
+          "examples": ["Microsoft Office", "Google Workspace", "LibreOffice"]
+        },
+        {
+          "name": "Creative software",
+          "description": "Tools for making and editing images, video, and audio.",
+          "examples": ["Adobe Photoshop", "Illustrator", "Premiere Pro"]
+        },
+        {
+          "name": "Communication",
+          "description": "Carries calls, meetings, and messages between people.",
+          "examples": ["Zoom", "Microsoft Teams", "Slack"]
+        },
+        {
+          "name": "Web browsers",
+          "description": "Fetches and renders web pages, and hosts most modern software.",
+          "examples": ["Chrome", "Firefox", "Safari / Edge"]
+        },
+        {
+          "name": "Business software",
+          "description": "Runs day-to-day commercial work like sales, invoicing, and accounts.",
+          "examples": ["Salesforce", "QuickBooks", "SAP"]
+        },
+        {
+          "name": "Educational",
+          "description": "Teaches, drills, and tracks learning progress.",
+          "examples": ["Khan Academy", "Duolingo", "Moodle"]
+        },
+        {
+          "name": "Entertainment",
+          "description": "Delivers films, music, and games to an audience.",
+          "examples": ["Netflix", "Spotify", "Steam"]
+        },
+        {
+          "name": "Personal finance",
+          "description": "Tracks budgets, spending, and savings for one person or household.",
+          "examples": ["Mint", "YNAB", "Quicken"]
+        }
+      ]
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise & business systems",
+      "description": "Runs an organization's core operations: money, people, customers, and supply.",
+      "subcategories": [
+        {
+          "name": "ERP",
+          "description": "One system of record for finance, inventory, and operations across a whole company.",
+          "examples": [
+            "SAP S/4HANA",
+            "Oracle NetSuite",
+            "Microsoft Dynamics 365"
+          ]
+        },
+        {
+          "name": "CRM",
+          "description": "Tracks customers, deals, and every interaction a company has with them.",
+          "examples": ["Salesforce", "HubSpot", "Zoho CRM"]
+        },
+        {
+          "name": "Human resources (HCM)",
+          "description": "Manages hiring, payroll, benefits, and employee records.",
+          "examples": ["Workday", "BambooHR", "ADP"]
+        },
+        {
+          "name": "Supply chain & procurement",
+          "description": "Plans inventory, sources suppliers, and moves goods.",
+          "examples": ["SAP Ariba", "Blue Yonder", "Coupa"]
+        },
+        {
+          "name": "IT service management",
+          "description": "Routes tickets, incidents, and change requests through an IT team.",
+          "examples": ["ServiceNow", "Jira Service Management", "Freshservice"]
+        },
+        {
+          "name": "Enterprise content management",
+          "description": "Stores, versions, and governs a company's documents.",
+          "examples": ["SharePoint", "Documentum", "Alfresco"]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Design & prototyping",
+      "description": "Plans how software looks and behaves before it gets built.",
+      "subcategories": [
+        {
+          "name": "Interface design",
+          "description": "Draws screens, components, and layouts before any code exists.",
+          "examples": ["Figma", "Sketch", "Penpot"]
+        },
+        {
+          "name": "Prototyping",
+          "description": "Makes a design clickable so the interaction can be tested.",
+          "examples": ["Framer", "ProtoPie", "Axure RP"]
+        },
+        {
+          "name": "Whiteboarding & diagramming",
+          "description": "Open canvases for sketching flows and thinking together.",
+          "examples": ["Miro", "FigJam", "Excalidraw"]
+        },
+        {
+          "name": "Design systems & handoff",
+          "description": "Publishes reusable components and specs for engineers to build from.",
+          "examples": ["Storybook", "Zeroheight", "Zeplin"]
+        },
+        {
+          "name": "3D & motion",
+          "description": "Models, animates, and renders moving or three-dimensional assets.",
+          "examples": ["Blender", "Cinema 4D", "After Effects"]
+        }
+      ]
+    },
+    {
+      "id": "prog",
+      "name": "Programming software",
+      "description": "Used to create, test, and maintain other software.",
+      "subcategories": [
+        {
+          "name": "Integrated dev environments",
+          "description": "An editor, a debugger, and a build system in one application.",
+          "examples": ["Visual Studio Code", "IntelliJ IDEA", "Eclipse"]
+        },
+        {
+          "name": "Code editors",
+          "description": "Lighter text editors focused on fast, plain code editing.",
+          "examples": ["Sublime Text", "Notepad++", "Atom"]
+        },
+        {
+          "name": "Version control",
+          "description": "Records every change and lets people work on the same code at once.",
+          "examples": ["Git (GitHub, GitLab)", "Subversion", "Mercurial"]
+        },
+        {
+          "name": "Build & automation",
+          "description": "Compiles, bundles, and runs repeatable jobs on demand.",
+          "examples": ["Jenkins", "Make", "Gradle"]
+        },
+        {
+          "name": "Package managers",
+          "description": "Installs libraries and resolves the versions they depend on.",
+          "examples": [
+            "npm (JavaScript)",
+            "Yarn",
+            "pnpm",
+            "Bun",
+            "pip (Python)",
+            "Maven (Java)"
+          ]
+        },
+        {
+          "name": "Frameworks & libraries",
+          "description": "Pre-built structure and code you build an application on top of.",
+          "examples": [
+            "React / Next.js",
+            "Express.js",
+            "Django / Spring Boot",
+            "Flutter"
+          ]
+        },
+        {
+          "name": "Editor extensions",
+          "description": "Adds linting, formatting, or tooling to an editor you already use.",
+          "examples": ["ESLint / Prettier", "GitLens", "Expo Tools"]
+        },
+        {
+          "name": "Testing frameworks",
+          "description": "Structures and runs automated checks against your code.",
+          "examples": ["JUnit (Java)", "pytest (Python)", "Selenium (Web)"]
+        },
+        {
+          "name": "Debuggers",
+          "description": "Pauses a running program so you can inspect its state.",
+          "examples": ["GDB", "Chrome DevTools", "LLDB"]
+        },
+        {
+          "name": "Other dev tools",
+          "description": "Everything else on the workbench, from API clients to infrastructure tooling.",
+          "examples": ["Postman (APIs)", "Terraform (infra)"]
+        }
+      ]
+    },
+    {
+      "id": "qa",
+      "name": "Testing & quality assurance",
+      "description": "Verifies that software behaves correctly, performs well, and stays usable.",
+      "subcategories": [
+        {
+          "name": "Unit testing",
+          "description": "Checks one function or class in isolation, fast and in bulk.",
+          "examples": ["JUnit", "pytest", "Jest"]
+        },
+        {
+          "name": "End-to-end testing",
+          "description": "Drives the real interface the way a user would, top to bottom.",
+          "examples": ["Playwright", "Cypress", "Selenium"]
+        },
+        {
+          "name": "API testing",
+          "description": "Sends requests to an endpoint and asserts on what comes back.",
+          "examples": ["Postman", "REST Assured", "Insomnia"]
+        },
+        {
+          "name": "Performance & load",
+          "description": "Puts a system under simulated traffic to find where it slows or breaks.",
+          "examples": ["Apache JMeter", "k6", "Gatling"]
+        },
+        {
+          "name": "Static analysis",
+          "description": "Finds defects by reading the source, without ever running it.",
+          "examples": ["SonarQube", "ESLint", "mypy"]
+        },
+        {
+          "name": "Accessibility testing",
+          "description": "Checks that software works with screen readers, keyboards, and contrast rules.",
+          "examples": ["axe DevTools", "Pa11y", "WAVE"]
+        },
+        {
+          "name": "Test management",
+          "description": "Organizes test cases, runs, and results across a team.",
+          "examples": ["TestRail", "Xray", "Zephyr"]
+        }
+      ]
+    },
+    {
+      "id": "mid",
+      "name": "Middleware",
+      "description": "Acts as a bridge between applications, systems, or services.",
+      "subcategories": [
+        {
+          "name": "Application servers",
+          "description": "Hosts server-side applications and manages their requests and lifecycles.",
+          "examples": ["Apache Tomcat", "JBoss", "WebSphere"]
+        },
+        {
+          "name": "Message brokers",
+          "description": "Passes messages between services so neither has to wait on the other.",
+          "examples": ["RabbitMQ", "Apache Kafka", "ActiveMQ"]
+        },
+        {
+          "name": "API gateways",
+          "description": "One front door that routes, authenticates, and rate-limits API traffic.",
+          "examples": ["Kong", "Apigee", "AWS API Gateway"]
+        },
+        {
+          "name": "Integration platforms",
+          "description": "Connects separate business systems and keeps their data in step.",
+          "examples": ["MuleSoft", "Dell Boomi"]
+        },
+        {
+          "name": "Database middleware",
+          "description": "A common interface between application code and whichever database sits behind it.",
+          "examples": ["ODBC", "JDBC", "Hibernate"]
+        },
+        {
+          "name": "Auth & identity",
+          "description": "Proves who a user is and issues the tokens other services trust.",
+          "examples": ["Okta", "Auth0", "Ping Identity"]
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "name": "Database software",
+      "description": "Stores, manages, and retrieves data.",
+      "subcategories": [
+        {
+          "name": "Relational (SQL)",
+          "description": "Tables with fixed schemas and joins between them, queried in SQL.",
+          "examples": ["MySQL", "PostgreSQL", "Oracle / SQL Server"]
+        },
+        {
+          "name": "NoSQL",
+          "description": "Flexible document, column, or key-value stores that trade joins for scale.",
+          "examples": ["MongoDB", "Cassandra", "DynamoDB"]
+        },
+        {
+          "name": "In-memory",
+          "description": "Keeps data in RAM for microsecond reads, usually as a cache.",
+          "examples": ["Redis", "Memcached"]
+        },
+        {
+          "name": "Time-series",
+          "description": "Optimized for measurements written in time order and queried by range.",
+          "examples": ["InfluxDB", "TimescaleDB"]
+        },
+        {
+          "name": "Graph databases",
+          "description": "Stores relationships as first-class data and traverses them quickly.",
+          "examples": ["Neo4j", "ArangoDB"]
+        },
+        {
+          "name": "Data warehouses",
+          "description": "Holds large historical datasets for analytics rather than transactions.",
+          "examples": ["Snowflake", "BigQuery", "Redshift"]
+        },
+        {
+          "name": "Distributed",
+          "description": "Spreads one logical database across many machines or regions.",
+          "examples": ["CockroachDB", "Spanner"]
+        }
+      ]
+    },
+    {
+      "id": "web",
+      "name": "Web software",
+      "description": "Runs in a web browser and is accessed over the internet (or intranet).",
+      "subcategories": [
+        {
+          "name": "Web applications",
+          "description": "Full software delivered through a browser, with nothing to install.",
+          "examples": ["Gmail", "Google Docs", "Trello"]
+        },
+        {
+          "name": "Progressive web apps",
+          "description": "Web apps that install, work offline, and behave like native ones.",
+          "examples": ["Twitter Lite", "Spotify PWA", "Pinterest PWA"]
+        },
+        {
+          "name": "Single page applications",
+          "description": "Loads once, then rewrites the page in place as you navigate.",
+          "examples": ["React (Facebook)", "Angular (Google)", "Vue.js"]
+        },
+        {
+          "name": "Multi-page applications",
+          "description": "Requests a fresh page from the server on every navigation.",
+          "examples": ["Traditional websites", "WordPress", "Drupal"]
+        },
+        {
+          "name": "Static site generators",
+          "description": "Builds plain HTML ahead of time, so nothing has to run at request time.",
+          "examples": ["Jekyll", "Hugo", "Gatsby"]
+        },
+        {
+          "name": "Web frameworks",
+          "description": "Provides routing, templating, and data access for server-side web code.",
+          "examples": ["Django (Python)", "Laravel (PHP)", "Next.js (React)"]
+        },
+        {
+          "name": "Web servers",
+          "description": "Accepts HTTP requests and returns files or hands them to an application.",
+          "examples": ["Apache HTTP Server", "Nginx", "Microsoft IIS"]
+        }
+      ]
+    },
+    {
+      "id": "commerce",
+      "name": "E-commerce & payments",
+      "description": "Sells goods and services online and moves money between buyers and sellers.",
+      "subcategories": [
+        {
+          "name": "Commerce platforms",
+          "description": "A whole storefront: catalog, cart, checkout, and admin.",
+          "examples": ["Shopify", "WooCommerce", "Adobe Commerce (Magento)"]
+        },
+        {
+          "name": "Headless commerce",
+          "description": "Commerce as an API, leaving the storefront for you to build.",
+          "examples": ["commercetools", "Medusa", "Saleor"]
+        },
+        {
+          "name": "Payment processing",
+          "description": "Moves money from a buyer's card or account to the merchant.",
+          "examples": ["Stripe", "PayPal", "Adyen"]
+        },
+        {
+          "name": "Point of sale",
+          "description": "Takes payment and tracks stock at a physical counter.",
+          "examples": ["Square", "Toast", "Lightspeed"]
+        },
+        {
+          "name": "Billing & subscriptions",
+          "description": "Charges recurring plans and handles upgrades, proration, and failed payments.",
+          "examples": ["Chargebee", "Recurly", "Stripe Billing"]
+        },
+        {
+          "name": "Marketplaces",
+          "description": "Sells through someone else's storefront alongside other sellers.",
+          "examples": ["Amazon Seller Central", "Etsy", "eBay"]
+        }
+      ]
+    },
+    {
+      "id": "nocode",
+      "name": "No-code / low-code platforms",
+      "description": "Lets people build apps and automate workflows with minimal hand-written code.",
+      "subcategories": [
+        {
+          "name": "App builders",
+          "description": "Assembles working applications from visual components instead of code.",
+          "examples": ["Bubble", "OutSystems", "Microsoft Power Apps"]
+        },
+        {
+          "name": "Website builders",
+          "description": "Designs and publishes sites by arranging blocks on a page.",
+          "examples": ["Webflow", "Wix", "Squarespace"]
+        },
+        {
+          "name": "Automation / workflow",
+          "description": "Connects apps so an event in one triggers an action in another.",
+          "examples": ["Zapier", "Make (Integromat)", "n8n"]
+        },
+        {
+          "name": "Database & backend builders",
+          "description": "Spreadsheet-like data stores that hand you an API for free.",
+          "examples": ["Airtable", "Supabase (no-code layer)", "Xano"]
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud software",
+      "description": "Runs on remote servers and is accessed over the internet (cloud).",
+      "subcategories": [
+        {
+          "name": "Infrastructure as a service",
+          "description": "Rented virtual machines, disks, and networks that you configure yourself.",
+          "examples": [
+            "AWS EC2",
+            "Azure Virtual Machines",
+            "Google Compute Engine"
+          ]
+        },
+        {
+          "name": "Platform as a service",
+          "description": "You deploy the code, the provider runs the servers under it.",
+          "examples": ["Heroku", "Google App Engine", "Azure App Service"]
+        },
+        {
+          "name": "Software as a service",
+          "description": "Finished software you subscribe to rather than install.",
+          "examples": ["Salesforce", "Microsoft 365", "Adobe Creative Cloud"]
+        },
+        {
+          "name": "Serverless computing",
+          "description": "Runs a function on demand and bills only while it executes.",
+          "examples": [
+            "AWS Lambda",
+            "Azure Functions",
+            "Google Cloud Functions"
+          ]
+        },
+        {
+          "name": "Cloud storage",
+          "description": "Durable object storage reachable over the network.",
+          "examples": [
+            "Amazon S3",
+            "Azure Blob Storage",
+            "Google Cloud Storage"
+          ]
+        },
+        {
+          "name": "CDN",
+          "description": "Caches content close to users so it arrives faster.",
+          "examples": ["Cloudflare", "Akamai", "Fastly"]
+        },
+        {
+          "name": "Cloud native tools",
+          "description": "Built for elastic, containerized systems rather than fixed servers.",
+          "examples": [
+            "Kubernetes",
+            "Docker (containers)",
+            "Istio (service mesh)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "networking",
+      "name": "Networking & communication",
+      "description": "Manages, monitors, and enables communication across networks and devices.",
+      "subcategories": [
+        {
+          "name": "Network operating systems",
+          "description": "The software running inside routers and switches.",
+          "examples": ["Cisco IOS", "JunOS", "MikroTik RouterOS"]
+        },
+        {
+          "name": "Network management & monitoring",
+          "description": "Watches traffic and device health, and captures packets when something is wrong.",
+          "examples": ["SolarWinds", "PRTG", "Wireshark"]
+        },
+        {
+          "name": "Software-defined networking",
+          "description": "Controls the network from software instead of device-by-device configuration.",
+          "examples": ["Cisco ACI", "OpenFlow", "VMware NSX"]
+        },
+        {
+          "name": "VoIP & messaging",
+          "description": "Carries voice, SMS, and real-time messages over IP.",
+          "examples": ["Asterisk", "Twilio", "SIP servers"]
+        },
+        {
+          "name": "Protocols & libraries",
+          "description": "The agreed formats machines talk in, and the code that speaks them.",
+          "examples": ["gRPC", "MQTT", "WebSockets"]
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "name": "Media & streaming",
+      "description": "Encodes, processes, and delivers audio and video content.",
+      "subcategories": [
+        {
+          "name": "Encoding & processing",
+          "description": "Converts, compresses, and transforms audio and video files.",
+          "examples": ["FFmpeg", "HandBrake", "GStreamer"]
+        },
+        {
+          "name": "Streaming servers",
+          "description": "Ingests a live feed and serves it out to viewers.",
+          "examples": ["Wowza", "Nginx-RTMP", "Ant Media Server"]
+        },
+        {
+          "name": "Streaming platforms",
+          "description": "Consumer services that host and distribute the stream.",
+          "examples": ["YouTube Live", "Twitch", "Vimeo"]
+        },
+        {
+          "name": "DRM & protection",
+          "description": "Encrypts content and controls who is allowed to play it.",
+          "examples": ["Widevine", "FairPlay", "PlayReady"]
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps & infrastructure",
+      "description": "Automates building, deploying, and operating software reliably at scale.",
+      "subcategories": [
+        {
+          "name": "CI/CD pipelines",
+          "description": "Builds, tests, and ships every change automatically.",
+          "examples": ["GitHub Actions", "GitLab CI", "CircleCI"]
+        },
+        {
+          "name": "Infrastructure as code",
+          "description": "Declares servers and services in files that can be reviewed and replayed.",
+          "examples": ["Terraform", "Pulumi", "AWS CloudFormation"]
+        },
+        {
+          "name": "Configuration management",
+          "description": "Brings machines to a described state and keeps them there.",
+          "examples": ["Ansible", "Chef", "Puppet"]
+        },
+        {
+          "name": "Container orchestration",
+          "description": "Schedules containers across a cluster and restarts whatever dies.",
+          "examples": ["Kubernetes", "Docker Swarm", "OpenShift"]
+        },
+        {
+          "name": "Monitoring & observability",
+          "description": "Collects metrics and traces so you can see what a system is doing.",
+          "examples": ["Prometheus", "Grafana", "Datadog"]
+        },
+        {
+          "name": "Logging",
+          "description": "Gathers, indexes, and searches log output from everywhere at once.",
+          "examples": ["ELK Stack", "Splunk", "Fluentd"]
+        },
+        {
+          "name": "Secrets management",
+          "description": "Stores credentials and keys, and hands them out under policy.",
+          "examples": ["HashiCorp Vault", "AWS Secrets Manager"]
+        }
+      ]
+    },
+    {
+      "id": "sec",
+      "name": "Security software",
+      "description": "Protects systems, networks, and data from threats and breaches.",
+      "subcategories": [
+        {
+          "name": "Endpoint security",
+          "description": "Protects individual laptops, phones, and servers from malware and intrusion.",
+          "examples": ["CrowdStrike", "Windows Defender", "Malwarebytes"]
+        },
+        {
+          "name": "Network security",
+          "description": "Filters, inspects, and encrypts traffic crossing a network boundary.",
+          "examples": ["pfSense (firewall)", "Snort (IDS/IPS)", "OpenVPN"]
+        },
+        {
+          "name": "Identity & access management",
+          "description": "Decides who may sign in and what they are allowed to reach.",
+          "examples": ["Okta", "Azure AD", "Auth0"]
+        },
+        {
+          "name": "Vulnerability scanning",
+          "description": "Probes systems for known weaknesses before an attacker finds them.",
+          "examples": ["Nessus", "Qualys", "Burp Suite"]
+        },
+        {
+          "name": "SIEM",
+          "description": "Correlates security events from across the estate into alerts worth acting on.",
+          "examples": ["Splunk", "IBM QRadar", "Microsoft Sentinel"]
+        },
+        {
+          "name": "Encryption tools",
+          "description": "Makes data unreadable to anyone without the key.",
+          "examples": ["VeraCrypt", "GPG", "OpenSSL"]
+        },
+        {
+          "name": "Penetration testing",
+          "description": "Attacks a system with permission, to prove what a real intruder could do.",
+          "examples": ["Metasploit", "Kali Linux", "Nmap"]
+        }
+      ]
+    },
+    {
+      "id": "malware",
+      "name": "Malicious software",
+      "description": "Written to damage, disrupt, or gain unauthorized access. Listed so you can recognize it; the countermeasures sit under Security software.",
+      "subcategories": [
+        {
+          "name": "Viruses & worms",
+          "description": "Self-replicating code that spreads from file to file or host to host.",
+          "examples": ["Mydoom", "Conficker", "Stuxnet"]
+        },
+        {
+          "name": "Ransomware",
+          "description": "Encrypts a victim's files and demands payment for the key.",
+          "examples": ["WannaCry", "LockBit", "Ryuk"]
+        },
+        {
+          "name": "Spyware & keyloggers",
+          "description": "Watches activity and sends it to someone else without consent.",
+          "examples": ["Pegasus", "Stalkerware", "Keyloggers"]
+        },
+        {
+          "name": "Trojans & backdoors",
+          "description": "Poses as something useful while opening access for an attacker.",
+          "examples": ["Emotet", "Zeus", "Remote access trojans"]
+        },
+        {
+          "name": "Adware & unwanted programs",
+          "description": "Injects advertising or rides along with other installers.",
+          "examples": ["Browser hijackers", "Bundled toolbars"]
+        },
+        {
+          "name": "Botnets",
+          "description": "Networks of compromised machines driven by a remote operator.",
+          "examples": ["Mirai", "Necurs", "Emotet botnet"]
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "Data & AI software",
+      "description": "Processes data and builds, trains, or serves machine learning and AI models.",
+      "subcategories": [
+        {
+          "name": "Machine learning frameworks",
+          "description": "Defines, trains, and runs models.",
+          "examples": ["TensorFlow", "PyTorch", "scikit-learn"]
+        },
+        {
+          "name": "LLM & GenAI tooling",
+          "description": "Builds on large language models and the services around them.",
+          "examples": ["Hugging Face", "LangChain", "OpenAI / Anthropic APIs"]
+        },
+        {
+          "name": "Data engineering / ETL",
+          "description": "Moves and reshapes data between systems on a schedule.",
+          "examples": ["Apache Airflow", "dbt", "Talend"]
+        },
+        {
+          "name": "Big data processing",
+          "description": "Computes over datasets far too large for one machine.",
+          "examples": ["Apache Spark", "Hadoop", "Apache Flink"]
+        },
+        {
+          "name": "Data visualization",
+          "description": "Turns query results into charts and dashboards people can read.",
+          "examples": ["Tableau", "Power BI", "Looker"]
+        },
+        {
+          "name": "MLOps",
+          "description": "Versions, deploys, and monitors models once they are in production.",
+          "examples": ["MLflow", "Kubeflow", "Weights & Biases"]
+        },
+        {
+          "name": "Notebooks & experimentation",
+          "description": "Interactive code and results side by side, for exploring data.",
+          "examples": ["Jupyter", "Google Colab", "Databricks"]
+        }
+      ]
+    },
+    {
+      "id": "quantum",
+      "name": "Quantum computing",
+      "description": "Programs and simulates quantum hardware for problems classical machines handle badly.",
+      "subcategories": [
+        {
+          "name": "Quantum SDKs",
+          "description": "Builds and runs quantum circuits from a familiar classical language.",
+          "examples": ["Qiskit", "Cirq", "PennyLane"]
+        },
+        {
+          "name": "Quantum languages",
+          "description": "Languages written specifically to express quantum programs.",
+          "examples": ["Q#", "OpenQASM", "Silq"]
+        },
+        {
+          "name": "Simulators",
+          "description": "Runs quantum circuits on classical hardware, so you can test without a real machine.",
+          "examples": ["QuTiP", "Qulacs", "Braket simulators"]
+        },
+        {
+          "name": "Cloud quantum access",
+          "description": "Queues jobs onto real quantum processors over the network.",
+          "examples": ["IBM Quantum", "Amazon Braket", "Azure Quantum"]
+        }
+      ]
+    },
+    {
+      "id": "desktop",
+      "name": "Desktop software",
+      "description": "Installed and runs natively on a desktop OS (Windows, macOS, Linux).",
+      "subcategories": [
+        {
+          "name": "Cross-platform desktop",
+          "description": "One codebase that ships to Windows, macOS, and Linux.",
+          "examples": ["Electron", "Tauri", "Qt"]
+        },
+        {
+          "name": "Native Windows",
+          "description": "Built directly on Windows' own UI frameworks.",
+          "examples": ["WinForms", "WPF"]
+        },
+        {
+          "name": "Native macOS",
+          "description": "Built directly on Apple's own UI frameworks.",
+          "examples": ["SwiftUI", "AppKit"]
+        },
+        {
+          "name": "Native Linux",
+          "description": "Built on the desktop toolkits Linux environments are made of.",
+          "examples": ["GTK", "Qt (Linux)"]
+        },
+        {
+          "name": "Examples in the wild",
+          "description": "Familiar desktop apps, and the frameworks they were built with.",
+          "examples": ["VS Code / Slack / Discord (Electron)", "Figma desktop"]
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile software",
+      "description": "Built for phones, tablets, and wearables, where touch and battery life set the rules.",
+      "subcategories": [
+        {
+          "name": "Native Android",
+          "description": "Built with Android's own language and toolchain.",
+          "examples": ["Kotlin", "Jetpack Compose", "Android Studio"]
+        },
+        {
+          "name": "Native iOS",
+          "description": "Built with Apple's own language and toolchain.",
+          "examples": ["Swift", "SwiftUI", "Xcode"]
+        },
+        {
+          "name": "Cross-platform",
+          "description": "One codebase that ships to both iOS and Android.",
+          "examples": ["React Native", "Flutter", ".NET MAUI"]
+        },
+        {
+          "name": "Mobile backends",
+          "description": "Hosted auth, data, and push, so an app needs no server of its own.",
+          "examples": ["Firebase", "Supabase", "AWS Amplify"]
+        },
+        {
+          "name": "Distribution & release",
+          "description": "Submits builds to the app stores and gets them to testers.",
+          "examples": ["App Store Connect", "Google Play Console", "TestFlight"]
+        },
+        {
+          "name": "Mobile testing",
+          "description": "Drives a real or simulated device to check the app behaves.",
+          "examples": ["Appium", "Espresso", "XCUITest"]
+        }
+      ]
+    },
+    {
+      "id": "game",
+      "name": "Game development",
+      "description": "Builds and runs interactive games across platforms.",
+      "subcategories": [
+        {
+          "name": "Game engines",
+          "description": "Rendering, physics, audio, and tooling in one environment.",
+          "examples": ["Unreal Engine", "Unity", "Godot"]
+        },
+        {
+          "name": "Physics engines",
+          "description": "Simulates collisions, forces, and rigid bodies.",
+          "examples": ["Havok", "Box2D", "PhysX"]
+        },
+        {
+          "name": "Graphics / rendering",
+          "description": "The APIs that put triangles on the GPU.",
+          "examples": ["OpenGL", "DirectX", "Vulkan"]
+        },
+        {
+          "name": "Game servers & multiplayer",
+          "description": "Keeps many players in sync inside one shared world.",
+          "examples": ["Photon", "PlayFab", "Nakama"]
+        },
+        {
+          "name": "Distribution",
+          "description": "The stores that sell and deliver the finished game.",
+          "examples": ["Steam", "Epic Games Store", "itch.io"]
+        }
+      ]
+    },
+    {
+      "id": "xr",
+      "name": "AR, VR & spatial computing",
+      "description": "Places digital content in physical space through headsets, glasses, and phone cameras.",
+      "subcategories": [
+        {
+          "name": "AR frameworks",
+          "description": "Tracks the camera against the real world so content can sit in it.",
+          "examples": ["ARKit", "ARCore", "Vuforia"]
+        },
+        {
+          "name": "VR platforms",
+          "description": "The SDKs behind headsets and their controllers.",
+          "examples": ["Meta Quest SDK", "SteamVR", "PlayStation VR2 SDK"]
+        },
+        {
+          "name": "Spatial operating systems",
+          "description": "Operating systems written for headsets rather than screens.",
+          "examples": ["visionOS", "Horizon OS", "Android XR"]
+        },
+        {
+          "name": "Cross-platform XR",
+          "description": "One API across many headsets and browsers.",
+          "examples": ["OpenXR", "Unity XR", "WebXR"]
+        },
+        {
+          "name": "3D capture & content",
+          "description": "Scans, models, and prepares the assets an XR scene is made of.",
+          "examples": ["Polycam", "Reality Composer", "Blender"]
+        }
+      ]
+    },
+    {
+      "id": "web3",
+      "name": "Blockchain & Web3",
+      "description": "Builds decentralized applications and smart contracts on distributed ledgers.",
+      "subcategories": [
+        {
+          "name": "Blockchain platforms",
+          "description": "The ledgers that smart contracts and tokens run on.",
+          "examples": ["Ethereum", "Solana", "Polygon"]
+        },
+        {
+          "name": "Smart contract tools",
+          "description": "Writes, tests, and deploys code that runs on-chain.",
+          "examples": ["Solidity", "Hardhat", "Truffle"]
+        },
+        {
+          "name": "Wallets",
+          "description": "Holds keys and signs transactions on a user's behalf.",
+          "examples": ["MetaMask", "Trust Wallet", "Ledger Live"]
+        },
+        {
+          "name": "Decentralized apps",
+          "description": "Applications whose backend logic lives on a blockchain.",
+          "examples": ["Uniswap", "OpenSea"]
+        }
+      ]
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics & automation",
+      "description": "Programs and controls robots, automated machinery, and industrial hardware.",
+      "subcategories": [
+        {
+          "name": "Robotics frameworks",
+          "description": "Message passing, drivers, and motion planning for robots.",
+          "examples": ["ROS / ROS2", "MoveIt"]
+        },
+        {
+          "name": "Simulation",
+          "description": "Tests robot behaviour in a virtual world before touching hardware.",
+          "examples": ["Gazebo", "Webots", "NVIDIA Isaac Sim"]
+        },
+        {
+          "name": "Industrial automation",
+          "description": "Programs the controllers that run factory machinery.",
+          "examples": [
+            "Ladder Logic (PLC)",
+            "Rockwell Studio 5000",
+            "Siemens TIA Portal"
+          ]
+        },
+        {
+          "name": "Robotic process automation",
+          "description": "Software robots that click through business applications the way a person would.",
+          "examples": ["UiPath", "Automation Anywhere", "Blue Prism"]
+        }
+      ]
+    },
+    {
+      "id": "emb",
+      "name": "Embedded & specialized",
+      "description": "Built for specific devices, systems, or industries.",
+      "subcategories": [
+        {
+          "name": "Embedded systems",
+          "description": "Software fixed inside a device and built for its exact hardware.",
+          "examples": [
+            "Automotive (ECU)",
+            "IoT devices (ESP32)",
+            "Home appliances"
+          ]
+        },
+        {
+          "name": "Real-time software",
+          "description": "Guarantees a response within a deadline, every time.",
+          "examples": ["RTOS (FreeRTOS)", "VxWorks", "QNX"]
+        },
+        {
+          "name": "Industrial control",
+          "description": "Supervises and operates plant machinery and processes.",
+          "examples": ["SCADA", "PLC software", "HMI"]
+        },
+        {
+          "name": "Mobile apps",
+          "description": "Applications installed onto phones, tablets, and wearables.",
+          "examples": ["Android apps", "iOS apps", "Wear OS apps"]
+        },
+        {
+          "name": "Scientific & engineering",
+          "description": "Modelling, simulation, and design for technical work.",
+          "examples": ["MATLAB", "AutoCAD", "ANSYS"]
+        },
+        {
+          "name": "Healthcare software",
+          "description": "Clinical records, imaging, and the systems hospitals run on.",
+          "examples": ["Epic (EHR)", "Cerner", "DICOM viewers"]
+        }
+      ]
+    },
+    {
+      "id": "a11y",
+      "name": "Accessibility & assistive tech",
+      "description": "Makes software usable for people with disabilities.",
+      "subcategories": [
+        {
+          "name": "Screen readers",
+          "description": "Speaks the interface aloud for blind and low-vision users.",
+          "examples": ["NVDA", "JAWS", "VoiceOver"]
+        },
+        {
+          "name": "Magnification & display",
+          "description": "Enlarges or re-colours the screen for low vision.",
+          "examples": ["ZoomText", "Windows Magnifier", "High-contrast themes"]
+        },
+        {
+          "name": "Speech & alternative input",
+          "description": "Drives a computer by voice or switch instead of keyboard and mouse.",
+          "examples": [
+            "Dragon NaturallySpeaking",
+            "Voice Control",
+            "Switch Access"
+          ]
+        },
+        {
+          "name": "Captioning & transcription",
+          "description": "Turns speech into text, live or after the fact.",
+          "examples": ["Otter.ai", "Live Caption", "Rev"]
+        },
+        {
+          "name": "Standards & guidelines",
+          "description": "The rules that define what accessible software actually has to do.",
+          "examples": ["WCAG", "ARIA", "Section 508"]
+        }
+      ]
+    },
+    {
+      "id": "license",
+      "name": "Licensing & distribution models",
+      "description": "How software is licensed, priced, and delivered. This branch cuts across every other one above.",
+      "subcategories": [
+        {
+          "name": "Open source",
+          "description": "Source is public, and the licence sets out what you may do with it.",
+          "examples": ["MIT", "Apache 2.0", "GPL"]
+        },
+        {
+          "name": "Proprietary",
+          "description": "Source stays closed and use is governed by a purchased licence.",
+          "examples": ["Windows", "Adobe Photoshop", "Oracle Database"]
+        },
+        {
+          "name": "Freemium & shareware",
+          "description": "Free to start, paid to unlock the rest.",
+          "examples": ["Spotify Free", "WinRAR", "Evernote"]
+        },
+        {
+          "name": "Subscription & usage-based",
+          "description": "Billed per period or per unit consumed, rather than bought outright.",
+          "examples": ["Microsoft 365", "Figma", "AWS pay-as-you-go"]
+        },
+        {
+          "name": "Public domain & permissive",
+          "description": "Few or no conditions on reuse, including inside closed products.",
+          "examples": ["SQLite", "GNU coreutils", "Unlicense projects"]
+        }
+      ]
+    }
+  ]
+}

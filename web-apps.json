@@ -1,0 +1,679 @@
+{
+  "name": "Web apps",
+  "description": "Everything that goes into software delivered through a browser",
+  "categories": [
+    {
+      "id": "rendering",
+      "name": "Rendering & architecture",
+      "description": "Where the HTML is put together, and how much of the app the browser has to run.",
+      "subcategories": [
+        {
+          "name": "Single-page apps",
+          "description": "Loads the shell once, then rewrites the page in place as the reader navigates.",
+          "examples": ["Gmail", "Figma", "Linear"]
+        },
+        {
+          "name": "Multi-page apps",
+          "description": "Asks the server for a fresh document on every navigation.",
+          "examples": [
+            "Wikipedia",
+            "Most WordPress sites",
+            "Classic Rails apps"
+          ]
+        },
+        {
+          "name": "Server-side rendering",
+          "description": "Builds the HTML per request, then hands the page to the client framework to take over.",
+          "examples": ["Next.js", "Nuxt", "Remix"]
+        },
+        {
+          "name": "Static site generation",
+          "description": "Renders every page at build time, so nothing has to run when a reader arrives.",
+          "examples": ["Astro", "Hugo", "Eleventy"]
+        },
+        {
+          "name": "Islands & partial hydration",
+          "description": "Ships static HTML and boots JavaScript only for the few parts that are interactive.",
+          "examples": ["Astro islands", "Qwik resumability", "Marko"]
+        },
+        {
+          "name": "Progressive web apps",
+          "description": "Installs to the home screen, works offline, and behaves like a native app.",
+          "examples": ["Spotify Web Player", "Starbucks PWA", "Pinterest PWA"]
+        },
+        {
+          "name": "Edge rendering",
+          "description": "Runs the render close to the reader on a CDN node instead of in one origin region.",
+          "examples": [
+            "Cloudflare Workers",
+            "Vercel Edge Functions",
+            "Deno Deploy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend frameworks",
+      "description": "The libraries that turn application state into what the reader actually sees.",
+      "subcategories": [
+        {
+          "name": "Component frameworks",
+          "description": "Describe the interface as components, and let the framework keep the DOM in step.",
+          "examples": ["React", "Vue", "Angular"]
+        },
+        {
+          "name": "Compile-time frameworks",
+          "description": "Do the reactivity work at build time so less framework code ships to the browser.",
+          "examples": ["Svelte", "Solid", "Qwik"]
+        },
+        {
+          "name": "Meta-frameworks",
+          "description": "Bundle routing, data loading, and a server into an opinionated full-stack package.",
+          "examples": ["Next.js", "SvelteKit", "Nuxt"]
+        },
+        {
+          "name": "HTML over the wire",
+          "description": "Sends rendered fragments from the server and swaps them in, skipping the client model entirely.",
+          "examples": ["htmx", "Hotwire Turbo", "Phoenix LiveView"]
+        },
+        {
+          "name": "Web components",
+          "description": "Custom elements that work in any framework, or none, because the browser owns them.",
+          "examples": ["Lit", "Stencil", "FAST"]
+        }
+      ]
+    },
+    {
+      "id": "styling",
+      "name": "Styling & UI systems",
+      "description": "How a web app gets its look, and how that look stays consistent across a team.",
+      "subcategories": [
+        {
+          "name": "Utility CSS",
+          "description": "Composes styles from small single-purpose classes written in the markup.",
+          "examples": ["Tailwind CSS", "UnoCSS", "Open Props"]
+        },
+        {
+          "name": "CSS-in-JS",
+          "description": "Declares styles in JavaScript, scoped to the component that uses them.",
+          "examples": ["Emotion", "styled-components", "vanilla-extract"]
+        },
+        {
+          "name": "Preprocessors & tooling",
+          "description": "Extends plain CSS with variables, nesting, and build-time transforms.",
+          "examples": ["Sass", "PostCSS", "Less"]
+        },
+        {
+          "name": "Component libraries",
+          "description": "Ready-made buttons, dialogs, and tables with styling already decided.",
+          "examples": ["Material UI", "shadcn/ui", "Chakra UI"]
+        },
+        {
+          "name": "Headless primitives",
+          "description": "Accessible behaviour for menus, dialogs, and comboboxes with no styling attached.",
+          "examples": ["Radix UI", "Headless UI", "Ark UI"]
+        },
+        {
+          "name": "Design tokens",
+          "description": "One source of truth for colour, spacing, and type, shared by design and code.",
+          "examples": ["Style Dictionary", "Figma variables", "Theo"]
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "name": "Client state & routing",
+      "description": "Keeping track of what the app knows and where in the app the reader is.",
+      "subcategories": [
+        {
+          "name": "State stores",
+          "description": "Holds application state outside the component tree so any screen can read it.",
+          "examples": ["Redux Toolkit", "Zustand", "Pinia"]
+        },
+        {
+          "name": "Server-state caching",
+          "description": "Fetches, caches, and revalidates server data so screens stay fresh without manual plumbing.",
+          "examples": ["TanStack Query", "SWR", "Apollo Client"]
+        },
+        {
+          "name": "Client routing",
+          "description": "Maps URLs to views and handles navigation without a full page load.",
+          "examples": ["React Router", "TanStack Router", "Vue Router"]
+        },
+        {
+          "name": "Forms & validation",
+          "description": "Tracks field state and checks input against a schema before it reaches the server.",
+          "examples": ["React Hook Form", "Zod", "Formik"]
+        },
+        {
+          "name": "Client storage",
+          "description": "Keeps data in the browser between visits, from a single flag to a whole local database.",
+          "examples": ["localStorage", "IndexedDB", "Dexie.js"]
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "name": "APIs & data transport",
+      "description": "The contract between the browser and everything behind it.",
+      "subcategories": [
+        {
+          "name": "REST",
+          "description": "Resources addressed by URL and manipulated with HTTP verbs.",
+          "examples": ["JSON over HTTP", "Stripe API", "GitHub REST API"]
+        },
+        {
+          "name": "GraphQL",
+          "description": "One endpoint where the client asks for exactly the fields it needs.",
+          "examples": ["Apollo Server", "Hasura", "Relay"]
+        },
+        {
+          "name": "RPC",
+          "description": "Calls a remote function as if it were local, with the types checked end to end.",
+          "examples": ["tRPC", "gRPC-Web", "Connect"]
+        },
+        {
+          "name": "Webhooks & events",
+          "description": "The server calls you when something happens, instead of being polled.",
+          "examples": ["Stripe webhooks", "GitHub webhooks", "Svix"]
+        },
+        {
+          "name": "API gateways",
+          "description": "One front door that routes, authenticates, and rate-limits traffic to many services.",
+          "examples": ["Kong", "AWS API Gateway", "Apigee"]
+        },
+        {
+          "name": "Schemas & documentation",
+          "description": "Describes an API formally, so clients, docs, and mocks can be generated from it.",
+          "examples": ["OpenAPI", "Swagger UI", "Stoplight"]
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Server frameworks & runtimes",
+      "description": "The code that answers the request once it leaves the browser.",
+      "subcategories": [
+        {
+          "name": "JavaScript runtimes",
+          "description": "Runs JavaScript or TypeScript on the server side of the app.",
+          "examples": ["Node.js", "Deno", "Bun"]
+        },
+        {
+          "name": "JavaScript frameworks",
+          "description": "Routing, middleware, and request handling for a JavaScript server.",
+          "examples": ["Express", "Fastify", "NestJS"]
+        },
+        {
+          "name": "Python frameworks",
+          "description": "From batteries-included stacks to thin async APIs.",
+          "examples": ["Django", "FastAPI", "Flask"]
+        },
+        {
+          "name": "Ruby & PHP frameworks",
+          "description": "The convention-over-configuration tradition that shaped modern web frameworks.",
+          "examples": ["Ruby on Rails", "Laravel", "Symfony"]
+        },
+        {
+          "name": "JVM & .NET frameworks",
+          "description": "Statically typed stacks built for long-lived enterprise services.",
+          "examples": ["Spring Boot", "ASP.NET Core", "Quarkus"]
+        },
+        {
+          "name": "Go & Rust frameworks",
+          "description": "Compiled servers chosen when throughput and memory footprint matter.",
+          "examples": ["Gin", "Axum", "Actix Web"]
+        }
+      ]
+    },
+    {
+      "id": "realtime",
+      "name": "Realtime & collaboration",
+      "description": "Apps where the screen changes because someone else did something.",
+      "subcategories": [
+        {
+          "name": "WebSockets",
+          "description": "A two-way connection held open between browser and server.",
+          "examples": ["Socket.IO", "ws", "Phoenix Channels"]
+        },
+        {
+          "name": "Server-sent events",
+          "description": "A one-way stream from server to browser over ordinary HTTP.",
+          "examples": [
+            "EventSource API",
+            "LLM token streaming",
+            "Live score feeds"
+          ]
+        },
+        {
+          "name": "WebRTC",
+          "description": "Peer-to-peer audio, video, and data straight between two browsers.",
+          "examples": ["Google Meet", "Daily", "LiveKit"]
+        },
+        {
+          "name": "Hosted pub/sub",
+          "description": "Someone else runs the socket fleet and you publish to channels.",
+          "examples": ["Pusher", "Ably", "Supabase Realtime"]
+        },
+        {
+          "name": "Collaborative editing",
+          "description": "Merges concurrent edits from many people without a central lock.",
+          "examples": ["Yjs", "Automerge", "Liveblocks"]
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "name": "Auth & identity",
+      "description": "Proving who someone is, then deciding what they may do.",
+      "subcategories": [
+        {
+          "name": "Sessions & cookies",
+          "description": "The server remembers the login and hands the browser an opaque ticket.",
+          "examples": [
+            "express-session",
+            "Django sessions",
+            "Rails cookie store"
+          ]
+        },
+        {
+          "name": "Tokens & standards",
+          "description": "Signed credentials that travel with the request instead of living on the server.",
+          "examples": ["JWT", "OAuth 2.0", "OpenID Connect"]
+        },
+        {
+          "name": "Identity providers",
+          "description": "Hosted login, signup, and account management you drop into an app.",
+          "examples": ["Auth0", "Clerk", "Firebase Auth"]
+        },
+        {
+          "name": "Enterprise SSO",
+          "description": "One corporate identity signs into every internal and vendor app.",
+          "examples": ["SAML", "Okta", "Microsoft Entra ID"]
+        },
+        {
+          "name": "Passwordless & passkeys",
+          "description": "Logs in with a device key or an emailed link, with no password to steal.",
+          "examples": ["WebAuthn", "Passkeys", "Magic links"]
+        },
+        {
+          "name": "Authorization",
+          "description": "Decides, per request, whether this identity may touch this resource.",
+          "examples": ["Role-based access control", "Open Policy Agent", "Oso"]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "name": "Databases & persistence",
+      "description": "Where the app's data actually lives once the request is over.",
+      "subcategories": [
+        {
+          "name": "Relational databases",
+          "description": "Tables, joins, and transactions, still the default for most web apps.",
+          "examples": ["PostgreSQL", "MySQL", "SQLite"]
+        },
+        {
+          "name": "Document & key-value stores",
+          "description": "Schemaless documents or plain keys, tuned for scale over joins.",
+          "examples": ["MongoDB", "Redis", "DynamoDB"]
+        },
+        {
+          "name": "ORMs & query builders",
+          "description": "Maps rows to objects, or composes SQL without string concatenation.",
+          "examples": ["Prisma", "Drizzle", "SQLAlchemy"]
+        },
+        {
+          "name": "Search engines",
+          "description": "Full-text and faceted search that a LIKE query cannot do well.",
+          "examples": ["Elasticsearch", "Meilisearch", "Algolia"]
+        },
+        {
+          "name": "Caching layers",
+          "description": "Keeps hot results close to the request so the database is asked less often.",
+          "examples": ["Redis", "Memcached", "CDN caching"]
+        },
+        {
+          "name": "Object & file storage",
+          "description": "Holds the uploads, images, and exports that do not belong in a database.",
+          "examples": ["Amazon S3", "Cloudflare R2", "Cloudinary"]
+        }
+      ]
+    },
+    {
+      "id": "tooling",
+      "name": "Build tooling",
+      "description": "Everything between the source you write and the files a browser downloads.",
+      "subcategories": [
+        {
+          "name": "Bundlers",
+          "description": "Resolves the module graph and emits the assets the page loads.",
+          "examples": ["Vite", "webpack", "Rollup"]
+        },
+        {
+          "name": "Compilers & transpilers",
+          "description": "Turns modern or typed source into JavaScript every target browser understands.",
+          "examples": ["TypeScript", "Babel", "SWC"]
+        },
+        {
+          "name": "Package managers",
+          "description": "Installs dependencies and pins them so every machine builds the same tree.",
+          "examples": ["npm", "pnpm", "Yarn"]
+        },
+        {
+          "name": "Monorepo tooling",
+          "description": "Runs and caches tasks across many packages in one repository.",
+          "examples": ["Turborepo", "Nx", "Bazel"]
+        },
+        {
+          "name": "Linting & formatting",
+          "description": "Catches mistakes and settles style arguments before review does.",
+          "examples": ["ESLint", "Prettier", "Biome"]
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "description": "Checking the app behaves, at every level from a function to a whole browser.",
+      "subcategories": [
+        {
+          "name": "Unit testing",
+          "description": "Exercises one function or module in isolation.",
+          "examples": ["Vitest", "Jest", "node:test"]
+        },
+        {
+          "name": "Component testing",
+          "description": "Renders a component and interacts with it the way a reader would.",
+          "examples": [
+            "Testing Library",
+            "Storybook",
+            "Cypress Component Testing"
+          ]
+        },
+        {
+          "name": "End-to-end testing",
+          "description": "Drives a real browser through a whole user journey.",
+          "examples": ["Playwright", "Cypress", "Selenium"]
+        },
+        {
+          "name": "Visual regression",
+          "description": "Screenshots the UI and flags pixels that changed without permission.",
+          "examples": ["Chromatic", "Percy", "Applitools"]
+        },
+        {
+          "name": "Load & stress testing",
+          "description": "Finds where the app falls over before real traffic does.",
+          "examples": ["k6", "Artillery", "Apache JMeter"]
+        },
+        {
+          "name": "Accessibility testing",
+          "description": "Automated checks for the barriers a keyboard or screen reader would hit.",
+          "examples": ["axe-core", "Lighthouse", "Pa11y"]
+        }
+      ]
+    },
+    {
+      "id": "hosting",
+      "name": "Hosting & delivery",
+      "description": "Getting the app onto machines the public can reach, repeatedly and safely.",
+      "subcategories": [
+        {
+          "name": "Application platforms",
+          "description": "Push a repository and the platform builds, deploys, and scales it.",
+          "examples": ["Vercel", "Netlify", "Fly.io"]
+        },
+        {
+          "name": "Containers & orchestration",
+          "description": "Ships the app with its environment, then schedules copies across a cluster.",
+          "examples": ["Docker", "Kubernetes", "Amazon ECS"]
+        },
+        {
+          "name": "Serverless functions",
+          "description": "Runs a handler per request with no server to keep alive.",
+          "examples": ["AWS Lambda", "Cloudflare Workers", "Google Cloud Run"]
+        },
+        {
+          "name": "CDNs & edge networks",
+          "description": "Caches and serves assets from the point of presence nearest the reader.",
+          "examples": ["Cloudflare", "Fastly", "Amazon CloudFront"]
+        },
+        {
+          "name": "CI/CD",
+          "description": "Builds, tests, and releases on every push without anyone running commands.",
+          "examples": ["GitHub Actions", "GitLab CI", "CircleCI"]
+        },
+        {
+          "name": "Infrastructure as code",
+          "description": "Declares the servers, buckets, and DNS in files that live in version control.",
+          "examples": ["Terraform", "Pulumi", "AWS CDK"]
+        }
+      ]
+    },
+    {
+      "id": "perf",
+      "name": "Performance",
+      "description": "How quickly the page becomes useful, and how it feels once it is.",
+      "subcategories": [
+        {
+          "name": "Core Web Vitals",
+          "description": "The field metrics that stand in for loading, responsiveness, and layout stability.",
+          "examples": [
+            "Largest Contentful Paint",
+            "Interaction to Next Paint",
+            "Cumulative Layout Shift"
+          ]
+        },
+        {
+          "name": "Payload optimization",
+          "description": "Ships less JavaScript, and smaller images, to begin with.",
+          "examples": ["Code splitting", "Tree shaking", "AVIF and WebP"]
+        },
+        {
+          "name": "Caching strategies",
+          "description": "Decides what may be reused, for how long, and who is allowed to serve it.",
+          "examples": [
+            "HTTP cache headers",
+            "Stale-while-revalidate",
+            "Service worker caching"
+          ]
+        },
+        {
+          "name": "Profiling tools",
+          "description": "Measures a real page instead of guessing at what is slow.",
+          "examples": ["Chrome DevTools", "Lighthouse", "WebPageTest"]
+        }
+      ]
+    },
+    {
+      "id": "observability",
+      "name": "Monitoring & analytics",
+      "description": "Knowing what the app did in production, and what people did with it.",
+      "subcategories": [
+        {
+          "name": "Error tracking",
+          "description": "Collects exceptions with the stack trace and context needed to fix them.",
+          "examples": ["Sentry", "Bugsnag", "Rollbar"]
+        },
+        {
+          "name": "Real user monitoring",
+          "description": "Measures performance on the devices and networks readers actually have.",
+          "examples": ["Datadog RUM", "New Relic Browser", "SpeedCurve"]
+        },
+        {
+          "name": "Product analytics",
+          "description": "Tracks funnels, retention, and which features get used.",
+          "examples": ["PostHog", "Amplitude", "Mixpanel"]
+        },
+        {
+          "name": "Logging & tracing",
+          "description": "Follows one request across every service it touches.",
+          "examples": ["OpenTelemetry", "Grafana Loki", "Honeycomb"]
+        },
+        {
+          "name": "Session replay",
+          "description": "Reconstructs what a reader saw and clicked when something went wrong.",
+          "examples": ["LogRocket", "FullStory", "Hotjar"]
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Web security",
+      "description": "The attacks a public web app invites, and the defences that answer them.",
+      "subcategories": [
+        {
+          "name": "Injection & XSS",
+          "description": "Stops attacker input being executed as code or SQL.",
+          "examples": [
+            "Content Security Policy",
+            "Parameterized queries",
+            "DOMPurify"
+          ]
+        },
+        {
+          "name": "CSRF & clickjacking",
+          "description": "Stops another site making requests, or drawing over yours.",
+          "examples": ["SameSite cookies", "CSRF tokens", "frame-ancestors"]
+        },
+        {
+          "name": "Transport security",
+          "description": "Encrypts traffic and makes downgrading to plaintext impossible.",
+          "examples": ["TLS", "HSTS", "Let's Encrypt"]
+        },
+        {
+          "name": "Dependencies & secrets",
+          "description": "Watches the supply chain, and keeps credentials out of the repository.",
+          "examples": ["Dependabot", "Snyk", "HashiCorp Vault"]
+        },
+        {
+          "name": "Abuse & bot defence",
+          "description": "Keeps scrapers, credential stuffing, and floods away from the origin.",
+          "examples": [
+            "Web application firewall",
+            "Cloudflare Turnstile",
+            "Rate limiting"
+          ]
+        },
+        {
+          "name": "Standards & audits",
+          "description": "Checks the app against a published list of what usually goes wrong.",
+          "examples": ["OWASP Top 10", "Penetration testing", "SOC 2"]
+        }
+      ]
+    },
+    {
+      "id": "platform",
+      "name": "Browser platform APIs",
+      "description": "Capabilities the browser itself provides, no framework required.",
+      "subcategories": [
+        {
+          "name": "Service workers & offline",
+          "description": "A proxy inside the browser that can answer requests when the network cannot.",
+          "examples": ["Cache API", "Workbox", "Background Sync"]
+        },
+        {
+          "name": "WebAssembly",
+          "description": "Runs compiled code in the page at near-native speed.",
+          "examples": [
+            "Rust and wasm-pack",
+            "Emscripten",
+            "Figma's render engine"
+          ]
+        },
+        {
+          "name": "Graphics",
+          "description": "Draws pixels, scenes, and shaders directly in the page.",
+          "examples": ["Canvas 2D", "WebGL", "WebGPU"]
+        },
+        {
+          "name": "Media & devices",
+          "description": "Reaches the camera, microphone, files, and other hardware the reader consents to.",
+          "examples": [
+            "getUserMedia",
+            "Web Audio API",
+            "File System Access API"
+          ]
+        },
+        {
+          "name": "Workers & background",
+          "description": "Moves heavy work off the main thread so the interface keeps responding.",
+          "examples": ["Web Workers", "SharedWorker", "OffscreenCanvas"]
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "name": "Content & commerce platforms",
+      "description": "Web apps you assemble rather than write from nothing.",
+      "subcategories": [
+        {
+          "name": "Traditional CMS",
+          "description": "Manages content and renders the site from the same system.",
+          "examples": ["WordPress", "Drupal", "Craft CMS"]
+        },
+        {
+          "name": "Headless CMS",
+          "description": "Stores and edits content, then serves it over an API to any frontend.",
+          "examples": ["Sanity", "Contentful", "Strapi"]
+        },
+        {
+          "name": "Site builders",
+          "description": "Builds and hosts a site visually, with no build step to run.",
+          "examples": ["Webflow", "Framer", "Squarespace"]
+        },
+        {
+          "name": "E-commerce platforms",
+          "description": "Carts, catalogues, checkout, and order management, already written.",
+          "examples": ["Shopify", "WooCommerce", "Medusa"]
+        },
+        {
+          "name": "Payments",
+          "description": "Takes money without the app ever touching a card number.",
+          "examples": ["Stripe", "Adyen", "PayPal"]
+        }
+      ]
+    },
+    {
+      "id": "a11y",
+      "name": "Accessibility & reach",
+      "description": "Making the app usable by everyone, in the language and manner that suits them.",
+      "subcategories": [
+        {
+          "name": "Semantics & ARIA",
+          "description": "Uses the right element first, and ARIA only where HTML runs out.",
+          "examples": [
+            "Landmark elements",
+            "aria-live regions",
+            "ARIA Authoring Practices"
+          ]
+        },
+        {
+          "name": "Keyboard & focus",
+          "description": "Every control reachable and visible without a pointer.",
+          "examples": [
+            "Focus trapping in dialogs",
+            "Skip links",
+            "Visible focus rings"
+          ]
+        },
+        {
+          "name": "Screen reader support",
+          "description": "What the page sounds like, tested on the readers people use.",
+          "examples": ["NVDA", "VoiceOver", "JAWS"]
+        },
+        {
+          "name": "Internationalization",
+          "description": "Formats dates, numbers, and plurals for every locale the app serves.",
+          "examples": ["Intl API", "i18next", "FormatJS"]
+        },
+        {
+          "name": "Localization workflow",
+          "description": "Gets strings to translators and translations back into the build.",
+          "examples": ["Crowdin", "Lokalise", "Phrase"]
+        }
+      ]
+    }
+  ]
+}

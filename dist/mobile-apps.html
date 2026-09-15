@@ -1,0 +1,2437 @@
+<title>Mobile Apps &mdash; The Software Tree</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" />
+<style>
+/* ==========================================================================
+   The Software Tree
+   Type:    IBM Plex Serif (branch names) / Sans (prose, UI) / Mono (data).
+   ========================================================================== */
+
+/* Palette, exactly as supplied: #ffa31a amber, #808080 grey, #292929 and
+   #1b1b1b near-blacks, #ffffff white. The greys carrying body text are mixes
+   of #808080 with the palette's own white and black — the given grey fails
+   contrast as text on either ground (4.36 dark, 3.95 light), so it holds the
+   hairlines instead. Amber reads as text on the dark ground (8.62) but not on
+   white (2.00), so in the light theme it is a fill with #1b1b1b on top. */
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --bg-sunk: #f2f2f2;
+  --surface: #ffffff;
+  --surface-2: #fafafa;
+
+  --ink: #1b1b1b;
+  --ink-2: #4d4d4d;
+  --ink-3: #6e6e6e;
+
+  --line: #e0e0e0;
+  --line-strong: #808080;
+
+  --accent: #ffa31a;
+  --accent-hover: #e68f00;
+  --accent-wash: #fff3e0;
+  --accent-line: #ffd699;
+  --accent-text: #1b1b1b;
+  --on-accent: #1b1b1b;
+
+  --mark-bg: #ffa31a;
+  --mark-ink: #1b1b1b;
+
+  --shadow-sm: 0 1px 2px rgba(27, 27, 27, 0.08);
+  --shadow-md: 0 10px 28px -18px rgba(27, 27, 27, 0.45);
+
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --serif: "IBM Plex Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  --toolbar-h: 66px;
+  --ease: cubic-bezier(0.25, 0.8, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  color-scheme: dark;
+
+    --bg: #1b1b1b;
+    --bg-sunk: #292929;
+    --surface: #292929;
+    --surface-2: #333333;
+
+    --ink: #ffffff;
+    --ink-2: #b3b3b3;
+    --ink-3: #8c8c8c;
+
+    --line: #3d3d3d;
+    --line-strong: #808080;
+
+    --accent: #ffa31a;
+    --accent-hover: #ffb84d;
+    --accent-wash: #3d2e14;
+    --accent-line: #6b4d14;
+    --accent-text: #ffa31a;
+    --on-accent: #1b1b1b;
+
+    --mark-bg: #ffa31a;
+    --mark-ink: #1b1b1b;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 12px 30px -20px rgba(0, 0, 0, 0.95);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #1b1b1b;
+  --bg-sunk: #292929;
+  --surface: #292929;
+  --surface-2: #333333;
+
+  --ink: #ffffff;
+  --ink-2: #b3b3b3;
+  --ink-3: #8c8c8c;
+
+  --line: #3d3d3d;
+  --line-strong: #808080;
+
+  --accent: #ffa31a;
+  --accent-hover: #ffb84d;
+  --accent-wash: #3d2e14;
+  --accent-line: #6b4d14;
+  --accent-text: #ffa31a;
+  --on-accent: #1b1b1b;
+
+  --mark-bg: #ffa31a;
+  --mark-ink: #1b1b1b;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 30px -20px rgba(0, 0, 0, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* beats the display values set by component classes below */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 20;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 160ms var(--ease);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+.shell {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 40px);
+}
+
+/* ---------------------------------------------------------------- top nav */
+
+.topnav {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.topnav__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+  padding-block: 11px;
+}
+
+.topnav__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.topnav__dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3.5px var(--accent-wash);
+}
+
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topnav__link {
+  display: block;
+  padding: 7px 12px;
+  border-radius: 7px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 140ms var(--ease), background-color 140ms var(--ease);
+}
+.topnav__link:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+/* Amber carries the current page as a wash rather than as text: it only clears
+   contrast as a colour on the dark ground. Inset shadow keeps the box steady. */
+.topnav__link[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 500;
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+
+/* --------------------------------------------------------------- masthead */
+
+.masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.masthead__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "text toggle"
+    "tally tally";
+  align-items: start;
+  gap: 28px 24px;
+  padding-block: clamp(32px, 6vw, 56px) 28px;
+}
+
+.masthead__text {
+  grid-area: text;
+  max-width: 58ch;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 14px;
+}
+
+.masthead__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5.5vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: 14px;
+  color: var(--ink-2);
+  font-size: 16px;
+  max-width: 62ch;
+}
+
+.tally {
+  grid-area: tally;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.tally__item dt {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.tally__item dd {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.theme-toggle {
+  grid-area: toggle;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 11px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 160ms var(--ease), color 160ms var(--ease);
+}
+.theme-toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+.theme-toggle__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: linear-gradient(to right, currentColor 50%, transparent 50%);
+}
+
+/* --------------------------------------------------------------- toolbar */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-block: 13px;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 300px;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms var(--ease);
+}
+.search:focus-within {
+  border-color: var(--accent);
+}
+
+.search__icon {
+  width: 17px;
+  height: 17px;
+  margin-inline: 11px 0;
+  flex: none;
+  color: var(--ink-3);
+}
+
+.search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 0;
+  background: none;
+  font-size: 14.5px;
+}
+.search__input:focus {
+  outline: none;
+}
+.search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search__key {
+  flex: none;
+  margin-right: 9px;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.search:focus-within .search__key {
+  display: none;
+}
+
+.search__clear {
+  flex: none;
+  margin-right: 7px;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--accent-wash);
+  color: var(--accent-text);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms var(--ease), color 160ms var(--ease);
+}
+.btn:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.toolbar__status {
+  min-height: 0;
+  padding-bottom: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.toolbar__status:not(:empty) {
+  padding-bottom: 12px;
+}
+
+/* ---------------------------------------------------------------- layout */
+
+.layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  padding-block: 36px 72px;
+}
+
+.rail {
+  position: sticky;
+  top: calc(var(--toolbar-h) + 20px);
+  max-height: calc(100vh - var(--toolbar-h) - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.rail__title {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+
+.rail__toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 150ms var(--ease), border-color 150ms var(--ease);
+}
+.rail__toggle:hover {
+  color: var(--ink);
+}
+
+.rail__icon {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* collapsed: the column narrows to the icon and the tree takes the space */
+.layout[data-rail="collapsed"] {
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 26px;
+}
+.layout[data-rail="collapsed"] .rail__list {
+  display: none;
+}
+.layout[data-rail="collapsed"] .rail__toggle-label {
+  display: none;
+}
+.layout[data-rail="collapsed"] .rail__title {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.layout[data-rail="collapsed"] .rail__toggle {
+  justify-content: center;
+  padding: 11px 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.layout[data-rail="collapsed"] .rail__toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.rail__list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+}
+
+.rail__link {
+  display: block;
+  padding: 5px 8px 5px 0;
+  background: none;
+  border: 0;
+  border-left: 2px solid transparent;
+  padding-left: 9px;
+  text-align: left;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 140ms var(--ease), border-color 140ms var(--ease);
+}
+.rail__link:hover {
+  color: var(--ink);
+  border-left-color: var(--line-strong);
+}
+.rail__link[aria-current="true"] {
+  color: var(--accent-text);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+.rail__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ root */
+
+.root {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 22px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.root__mark {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-wash);
+}
+
+.root__name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.root__desc {
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+/* -------------------------------------------------------------- branches */
+
+.branches {
+  display: flex;
+  flex-direction: column;
+}
+
+.branch {
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: calc(var(--toolbar-h) + 16px);
+}
+.branch.is-hidden {
+  display: none;
+}
+
+.branch__head {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 17px 4px 5px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.branch__name {
+  font-family: var(--serif);
+  font-size: 18.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: color 160ms var(--ease);
+}
+
+.branch__head:hover .branch__name {
+  color: var(--accent-text);
+}
+
+.branch__count {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.branch__desc {
+  padding: 0 4px 16px 38px;
+  color: var(--ink-2);
+  font-size: 14px;
+  max-width: 68ch;
+}
+
+/* the disclosure glyph: a hairline plus that loses its stem when open */
+.twist {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: var(--ink-2);
+  transition: border-color 160ms var(--ease), background-color 160ms var(--ease);
+}
+.twist::before,
+.twist::after {
+  content: "";
+  position: absolute;
+  inset: 50% 3px auto 3px;
+  height: 1px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.twist::after {
+  inset: 3px auto 3px 50%;
+  width: 1px;
+  height: auto;
+  transform: translateX(-50%) scaleY(1);
+  transition: transform 260ms var(--ease), opacity 200ms var(--ease);
+}
+.is-open > .branch__head .twist::after,
+.is-open > .sub__head .twist::after {
+  transform: translateX(-50%) scaleY(0);
+  opacity: 0;
+}
+.branch__head:hover .twist,
+.sub__head:hover .twist {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent-text);
+}
+.is-open > .branch__head .twist {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* collapsible panels animate on grid rows; the inner box carries no padding */
+.branch__panel,
+.sub__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--ease);
+}
+.branch.is-open > .branch__panel,
+.sub.is-open > .sub__panel {
+  grid-template-rows: 1fr;
+}
+.branch__inner,
+.sub__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------ subcategory rails */
+
+.subs {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 18px 0;
+  margin-left: 12px;
+}
+
+.sub {
+  position: relative;
+  padding-left: 26px;
+}
+.sub.is-hidden {
+  display: none;
+}
+/* vertical rail, trimmed at the last child so the branch visibly terminates */
+.sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.sub:last-child::before {
+  bottom: auto;
+  height: 22px;
+}
+/* the tick that joins rail to row */
+.sub::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 15px;
+  height: 1px;
+  background: var(--line);
+}
+
+.sub__head {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 6px;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+.sub__head:hover {
+  background: var(--surface-2);
+}
+
+.sub__name {
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.sub__head:hover .sub__name {
+  color: var(--accent-text);
+}
+
+.sub__count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.sub__desc {
+  margin: 0;
+  padding: 2px 6px 12px 28px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  max-width: 66ch;
+}
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 2px 6px 16px 28px;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 4px 9px;
+  background: var(--accent-wash);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  color: var(--ink-2);
+}
+
+mark {
+  background: var(--mark-bg);
+  color: var(--mark-ink);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.empty {
+  padding: 40px 4px;
+  color: var(--ink-2);
+  font-size: 15px;
+  max-width: 52ch;
+}
+
+/* ----------------------------------------------------------------- footer */
+
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunk);
+}
+.footer__inner {
+  padding-block: 26px 34px;
+  color: var(--ink-3);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- view switch */
+
+.viewswitch {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--bg-sunk);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.viewswitch__btn {
+  padding: 6px 14px;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  color: var(--ink-3);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: color 150ms var(--ease), background-color 150ms var(--ease);
+}
+.viewswitch__btn:hover {
+  color: var(--ink);
+}
+.viewswitch__btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-sm);
+}
+.viewswitch__btn[aria-pressed="true"]:hover {
+  color: var(--on-accent);
+}
+
+/* -------------------------------------------------------------- overview */
+
+.overview__hint {
+  padding: 18px 0 22px;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+/* multi-column so all 28 branches pack into a couple of screens */
+.overview__grid {
+  columns: 3 210px;
+  column-gap: 34px;
+}
+
+.ov-branch {
+  break-inside: avoid;
+  margin-bottom: 26px;
+  scroll-margin-top: calc(var(--toolbar-h) + 16px);
+}
+
+/* code above name on every block, so all 28 headers share one shape */
+.ov-branch__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  padding: 0 0 9px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ov-branch__code {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  transition: color 150ms var(--ease), border-color 150ms var(--ease);
+}
+
+.ov-branch__name {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: color 150ms var(--ease);
+}
+
+.ov-branch__head:hover .ov-branch__name {
+  color: var(--accent-text);
+}
+.ov-branch__head:hover .ov-branch__code {
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.ov-subs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ov-sub {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0 3px 18px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+/* the same hairline rail as the explore view, tightened up */
+.ov-sub::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.ov-sub:last-child::before {
+  bottom: auto;
+  height: 14px;
+}
+.ov-sub::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 14px;
+  width: 10px;
+  height: 1px;
+  background: var(--line);
+}
+
+.ov-sub__count {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------- chart */
+
+.chart__hint {
+  padding: 18px 0 14px;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+/* the diagram keeps its drawn width; narrow screens pan it sideways */
+.chart__canvas {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: 8px;
+}
+
+.chart__svg {
+  display: block;
+}
+
+.chart__link {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.chart__node {
+  cursor: pointer;
+}
+
+.chart__pill {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1;
+  transition: stroke 150ms var(--ease), fill 150ms var(--ease);
+}
+.chart__node:hover .chart__pill {
+  stroke: var(--accent);
+  fill: var(--accent-wash);
+}
+
+.chart__pill-label {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.chart__node:hover .chart__pill-label {
+  fill: var(--accent-text);
+}
+
+.chart__pill-count {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  fill: var(--ink-3);
+}
+
+/* the same plus-loses-its-stem glyph the other views use */
+.chart__glyph {
+  stroke: var(--ink-2);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.chart__node:hover .chart__glyph {
+  stroke: var(--accent-text);
+}
+
+.chart__root .chart__pill {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.chart__root .chart__pill-label {
+  fill: var(--on-accent);
+}
+
+.chart__leaf-dot {
+  fill: var(--ink-3);
+}
+
+.chart__leaf-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--ink-2);
+}
+
+.chart__leaf--hit .chart__leaf-label,
+.chart__node--hit .chart__pill-label {
+  fill: var(--accent-text);
+}
+.chart__leaf--hit .chart__leaf-dot {
+  fill: var(--accent);
+}
+
+.chart__node:focus-visible {
+  outline: none;
+}
+.chart__node:focus-visible .chart__pill {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+/* ------------------------------------------------------------ narrow view */
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding-block: 20px 56px;
+  }
+
+  .rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+  .rail__title {
+    border-bottom: 0;
+    padding-bottom: 6px;
+  }
+  .layout[data-rail="collapsed"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .layout[data-rail="collapsed"] .rail {
+    padding-bottom: 14px;
+  }
+  /* the narrow toggle keeps its label in both states */
+  .layout[data-rail="collapsed"] .rail__toggle-label {
+    display: inline;
+  }
+  .rail__toggle,
+  .layout[data-rail="collapsed"] .rail__toggle {
+    width: auto;
+    justify-content: flex-start;
+    padding: 7px 13px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+  /* the index turns into one swipeable strip of branch codes */
+  .rail__list {
+    flex-direction: row;
+    gap: 7px;
+    padding-top: 2px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .rail__list::-webkit-scrollbar {
+    display: none;
+  }
+  .rail__link {
+    flex: none;
+    display: block;
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-left-width: 1px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .rail__link[aria-current="true"] {
+    border-color: var(--accent);
+    background: var(--accent-wash);
+  }
+}
+
+@media (max-width: 560px) {
+  .topnav__inner {
+    gap: 6px 16px;
+    padding-block: 9px;
+  }
+  /* the three links drop to their own full-width row under the wordmark */
+  .topnav__links {
+    width: 100%;
+    gap: 2px;
+  }
+  .topnav__link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .masthead__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "toggle"
+      "text"
+      "tally";
+    gap: 20px;
+    padding-block: 22px;
+  }
+  .theme-toggle {
+    justify-self: start;
+  }
+  .tally {
+    gap: 8px 26px;
+    padding-top: 18px;
+  }
+  .tally__item dd {
+    font-size: 22px;
+  }
+
+  .controls {
+    flex: 1 1 auto;
+  }
+  .btn {
+    flex: 1 1 auto;
+  }
+  .viewswitch {
+    flex: 1 1 100%;
+    justify-content: stretch;
+  }
+  .viewswitch__btn {
+    flex: 1 1 auto;
+  }
+
+  .overview__grid {
+    columns: 1;
+  }
+  .chart__hint {
+    padding-top: 6px;
+  }
+  .overview__hint {
+    padding-top: 6px;
+  }
+
+  .branch__head {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    padding-top: 15px;
+  }
+  .branch__count {
+    grid-column: 2 / -1;
+    padding-bottom: 2px;
+  }
+  .branch__name {
+    font-size: 17px;
+  }
+  .branch__desc {
+    padding-left: 32px;
+    font-size: 13.5px;
+  }
+  .sub {
+    padding-left: 20px;
+  }
+  .sub::after {
+    width: 11px;
+  }
+  .chips {
+    padding-left: 18px;
+  }
+  .sub__desc {
+    padding-left: 18px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
+<a class="skip-link" href="#tree">Skip to the tree</a>
+
+    <nav class="topnav" aria-label="Site">
+        <div class="shell topnav__inner">
+            <a class="topnav__mark" href="software-tree.html">
+                <span class="topnav__dot" aria-hidden="true"></span>
+                <span>Software Tree</span>
+            </a>
+            <ul class="topnav__links">
+                <li><a class="topnav__link" href="software-tree.html">Homepage</a></li>
+                <li><a class="topnav__link" href="web-apps.html">Web Apps</a></li>
+                <li><a class="topnav__link" href="mobile-apps.html" aria-current="page">Mobile Apps</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="shell masthead__inner">
+            <div class="masthead__text">
+                <p class="eyebrow">A taxonomy of mobile apps</p>
+                <h1 class="masthead__title">Mobile Apps</h1>
+                <p class="lede">
+                    Everything that goes into software built for phones, tablets, and what
+                    they connect to &mdash; native and cross-platform toolchains, the
+                    sensors underneath, and the stores standing in the way. Open a branch
+                    to see what grows on it.
+                </p>
+            </div>
+
+            <dl class="tally" id="tally">
+                <div class="tally__item">
+                    <dt>Branches</dt>
+                    <dd data-stat="categories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Subcategories</dt>
+                    <dd data-stat="subcategories">&mdash;</dd>
+                </div>
+                <div class="tally__item">
+                    <dt>Examples</dt>
+                    <dd data-stat="examples">&mdash;</dd>
+                </div>
+            </dl>
+
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+                <span class="theme-toggle__dot" aria-hidden="true"></span>
+                <span class="theme-toggle__label">Dark</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="shell toolbar__inner">
+            <div class="search">
+                <svg class="search__icon" viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <line x1="13" y1="13" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" />
+                </svg>
+                <label class="visually-hidden" for="search">Search the tree</label>
+                <input id="search" type="search" class="search__input"
+                    placeholder="Search branches, subcategories, examples&hellip;" autocomplete="off"
+                    spellcheck="false" />
+                <kbd class="search__key" aria-hidden="true">/</kbd>
+                <button class="search__clear" id="search-clear" type="button" hidden>
+                    Clear
+                </button>
+            </div>
+
+            <div class="viewswitch" role="group" aria-label="View">
+                <button class="viewswitch__btn" type="button" data-view="chart" aria-pressed="false">
+                    Chart
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="overview" aria-pressed="false">
+                    Overview
+                </button>
+                <button class="viewswitch__btn" type="button" data-view="explore" aria-pressed="true">
+                    Explore
+                </button>
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="expand-all" type="button">Expand all</button>
+                <button class="btn" id="collapse-all" type="button">Collapse all</button>
+            </div>
+        </div>
+        <p class="toolbar__status shell" id="status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="shell layout">
+        <aside class="rail" aria-label="Jump to a branch">
+            <h2 class="rail__title">
+                <button class="rail__toggle" id="rail-toggle" type="button" aria-expanded="true" aria-controls="rail">
+                    <svg class="rail__icon" viewBox="0 0 16 16" aria-hidden="true">
+                        <line x1="1.75" y1="4" x2="14.25" y2="4" />
+                        <line x1="1.75" y1="8" x2="14.25" y2="8" />
+                        <line x1="1.75" y1="12" x2="14.25" y2="12" />
+                    </svg>
+                    <span class="rail__toggle-label">Branches</span>
+                </button>
+            </h2>
+            <nav class="rail__list" id="rail"></nav>
+        </aside>
+
+        <main class="stage" id="tree" data-scope="mobile" data-source="mobile-apps.json">
+            <div class="root">
+                <span class="root__mark" aria-hidden="true"></span>
+                <div>
+                    <h2 class="root__name" id="root-name">Mobile apps</h2>
+                    <p class="root__desc" id="root-desc"></p>
+                </div>
+            </div>
+            <div id="branches" class="branches"></div>
+            <div id="map-view" class="overview" hidden></div>
+            <div id="chart-view" class="chart" hidden></div>
+            <p class="empty" id="empty" hidden>
+                Nothing in the tree matches that. Try a shorter word &mdash; the
+                examples are searched too.
+            </p>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="shell footer__inner">
+            <p>Created with love by Tazrian Ibne Amin</p>
+        </div>
+    </footer>
+<script>window.SOFTWARE_TREE = {"name":"Mobile apps","description":"Everything that goes into software built for phones, tablets, and what they connect to","categories":[{"id":"android","name":"Native Android","description":"Built with Android's own languages and toolchain, against the platform APIs directly.","subcategories":[{"name":"Languages","description":"What Android apps are written in, and what they used to be written in.","examples":["Kotlin","Java","C++ via the NDK"]},{"name":"UI toolkits","description":"Declarative Compose, or the older view hierarchy inflated from XML.","examples":["Jetpack Compose","XML Views","Material Components"]},{"name":"Jetpack libraries","description":"Google's official building blocks for lifecycle, storage, and background work.","examples":["ViewModel","Room","WorkManager"]},{"name":"Tooling","description":"The IDE, build system, and device bridge every Android project runs on.","examples":["Android Studio","Gradle","ADB"]},{"name":"Runtime & packaging","description":"How the code is executed on device and how it is bundled to get there.","examples":["Android Runtime (ART)","Android App Bundle","APK"]}]},{"id":"ios","name":"Native iOS","description":"Built with Apple's languages and frameworks, for iPhone and iPad.","subcategories":[{"name":"Languages","description":"Swift for everything new, Objective-C for everything that came before.","examples":["Swift","Objective-C","C and C++ interop"]},{"name":"UI frameworks","description":"Declarative SwiftUI, or UIKit's imperative view controllers.","examples":["SwiftUI","UIKit","Interface Builder"]},{"name":"Apple frameworks","description":"First-party libraries for data, reactivity, and sync across a user's devices.","examples":["SwiftData","Core Data","CloudKit"]},{"name":"Tooling","description":"The IDE, dependency manager, and profiler in Apple's own stack.","examples":["Xcode","Swift Package Manager","Instruments"]},{"name":"Signing & packaging","description":"The certificates and profiles Apple requires before code runs on a device.","examples":["Provisioning profiles","Signing certificates","IPA archives"]}]},{"id":"cross","name":"Cross-platform frameworks","description":"One codebase that ships to both stores, trading some platform fidelity for reach.","subcategories":[{"name":"JavaScript-based","description":"React's model, rendering to real native views on each platform.","examples":["React Native","Expo","NativeScript"]},{"name":"Dart-based","description":"Draws every pixel itself, so the app looks identical everywhere.","examples":["Flutter","Material and Cupertino widgets","Flutter Web"]},{"name":".NET-based","description":"C# and XAML across mobile and desktop from one project.","examples":[".NET MAUI","Xamarin","Uno Platform"]},{"name":"Kotlin Multiplatform","description":"Shares business logic in Kotlin while each platform keeps its own UI, or shares that too.","examples":["Kotlin Multiplatform","Compose Multiplatform","Ktor client"]},{"name":"Game engines as app runtimes","description":"Engines used for apps that are mostly rendered scenes rather than forms.","examples":["Unity","Godot","Unreal Engine"]}]},{"id":"hybrid","name":"Hybrid & web-based","description":"Web technology inside a native shell, or on the home screen with no shell at all.","subcategories":[{"name":"WebView shells","description":"Wraps a web app in a native container and bridges it to device APIs.","examples":["Capacitor","Apache Cordova","Ionic"]},{"name":"Progressive web apps","description":"Installs from the browser, works offline, and skips the stores entirely.","examples":["Add to Home Screen","Service workers","Web app manifest"]},{"name":"Embedded web views","description":"A native app that renders part of its content as web pages.","examples":["WKWebView","Android WebView","Custom Tabs"]},{"name":"Native bridges","description":"Lets JavaScript call platform code, and platform code call back.","examples":["React Native Turbo Modules","Capacitor plugins","Flutter platform channels"]}]},{"id":"ui","name":"UI, design & interaction","description":"How a mobile app looks, moves, and answers a thumb.","subcategories":[{"name":"Design systems","description":"Each platform's rules for how a native app should behave and be laid out.","examples":["Material Design 3","Apple Human Interface Guidelines","Fluent Mobile"]},{"name":"Navigation patterns","description":"The shapes apps use to hold more screens than fit on one.","examples":["Tab bars","Navigation stacks","Bottom sheets"]},{"name":"Gestures & haptics","description":"Touch as the primary input, with feedback the user feels.","examples":["Swipe to dismiss","Pinch to zoom","Haptic feedback"]},{"name":"Animation","description":"Motion that explains what changed rather than decorating it.","examples":["Lottie","Reanimated","Core Animation"]},{"name":"Adaptive layout","description":"One interface across phone, tablet, foldable, and both orientations.","examples":["Size classes","Window size classes","Foldable hinge awareness"]},{"name":"Theming","description":"Dark mode, system colours, and text that respects the user's settings.","examples":["Dark mode","Material You dynamic colour","Dynamic Type"]}]},{"id":"state","name":"App state & local data","description":"What the app remembers on the device, and how that stays coherent.","subcategories":[{"name":"State management","description":"Patterns for holding screen and app state without a tangle.","examples":["MVVM","Riverpod","Redux Toolkit"]},{"name":"Local databases","description":"Real queryable storage on the device itself.","examples":["SQLite","Room","Realm"]},{"name":"Key-value storage","description":"Small settings and flags that do not need a schema.","examples":["SharedPreferences","UserDefaults","MMKV"]},{"name":"Offline-first & sync","description":"Works with no signal, then reconciles when the network returns.","examples":["Write queues","Conflict resolution","PowerSync"]},{"name":"Secure storage","description":"Keeps tokens and secrets in hardware-backed storage, not a plain file.","examples":["iOS Keychain","Android Keystore","EncryptedSharedPreferences"]}]},{"id":"backend","name":"Backends & cloud services","description":"The server side of an app, whether you run it or rent it.","subcategories":[{"name":"Backend as a service","description":"Hosted auth, database, storage, and functions, so the app needs no server of its own.","examples":["Firebase","Supabase","AWS Amplify"]},{"name":"API clients","description":"How the app talks to whatever is behind it.","examples":["Retrofit","URLSession","Apollo iOS and Android"]},{"name":"Authentication","description":"Signing in on a device, ideally without typing a password.","examples":["Sign in with Apple","Google Sign-In","Biometric unlock"]},{"name":"Remote config & flags","description":"Changes behaviour without shipping a new build through review.","examples":["Firebase Remote Config","LaunchDarkly","Statsig"]},{"name":"Background work","description":"Runs tasks when the app is not on screen, within the OS's strict limits.","examples":["WorkManager","BGTaskScheduler","Background fetch"]}]},{"id":"notify","name":"Notifications & messaging","description":"Reaching someone who does not currently have the app open.","subcategories":[{"name":"Push services","description":"The two pipes every push notification ultimately travels down.","examples":["Apple Push Notification service","Firebase Cloud Messaging","Web Push"]},{"name":"Push platforms","description":"Segmentation, scheduling, and campaign tooling on top of the raw pipes.","examples":["OneSignal","Braze","Airship"]},{"name":"Local notifications","description":"Reminders the device schedules itself, with no server involved.","examples":["Alarm reminders","Geofence triggers","Calendar alerts"]},{"name":"Deep links","description":"A URL that opens the right screen inside the app rather than a web page.","examples":["Universal Links","Android App Links","Branch"]},{"name":"Rich & live notifications","description":"Notifications that carry media, actions, or a state that keeps updating.","examples":["Notification actions","Live Activities","Ongoing notifications"]}]},{"id":"device","name":"Device capabilities","description":"The sensors and radios that make a phone more than a small screen.","subcategories":[{"name":"Camera & photos","description":"Capturing images and video, and reaching the library already on the device.","examples":["CameraX","AVFoundation","Photo picker"]},{"name":"Location","description":"Where the device is, and noticing when it crosses a boundary.","examples":["Core Location","Fused Location Provider","Geofencing"]},{"name":"Motion sensors","description":"Accelerometer, gyroscope, and the step counts derived from them.","examples":["Accelerometer","Gyroscope","Pedometer"]},{"name":"Biometrics","description":"Unlocking with a face or fingerprint the app never actually sees.","examples":["Face ID","Touch ID","BiometricPrompt"]},{"name":"Short-range connectivity","description":"Talking to things nearby without going through the internet.","examples":["Bluetooth LE","NFC","Ultra-wideband"]},{"name":"Health & fitness","description":"Reads and writes the body data the OS stores on the user's behalf.","examples":["HealthKit","Health Connect","Workout sessions"]}]},{"id":"media","name":"Media & graphics","description":"Apps whose main job is showing pictures, playing sound, or drawing scenes.","subcategories":[{"name":"Image loading","description":"Fetches, caches, and resizes remote images without stalling a scrolling list.","examples":["Coil","Glide","SDWebImage"]},{"name":"Audio & video playback","description":"The players apps build on instead of writing decoding themselves.","examples":["Media3 ExoPlayer","AVPlayer","video.js for web views"]},{"name":"Streaming & DRM","description":"Adaptive delivery, and the protection studios require before licensing content.","examples":["HLS","MPEG-DASH","Widevine and FairPlay"]},{"name":"Capture & editing","description":"Recording, trimming, and filtering media on the device.","examples":["AVFoundation editing","MediaCodec","GPUImage"]},{"name":"Low-level graphics","description":"Direct access to the GPU, for games and anything drawing its own frames.","examples":["Metal","Vulkan","OpenGL ES"]}]},{"id":"maps","name":"Maps & spatial","description":"Apps that answer where, or that place content in the room.","subcategories":[{"name":"Map SDKs","description":"Renders a slippy map with your own markers and layers on it.","examples":["Google Maps SDK","MapKit","Mapbox"]},{"name":"Routing & navigation","description":"Turn-by-turn directions and estimated arrival times.","examples":["Directions APIs","Turn-by-turn guidance","Offline maps"]},{"name":"Geocoding & places","description":"Turns an address into coordinates, and coordinates into a place name.","examples":["Forward geocoding","Reverse geocoding","Places autocomplete"]},{"name":"Augmented reality","description":"Anchors content to the real world through the camera.","examples":["ARKit","ARCore","RealityKit"]}]},{"id":"money","name":"Monetization","description":"How a mobile app earns, within rules the store platforms set.","subcategories":[{"name":"In-app purchases","description":"Selling digital goods through the platform's own billing, as required.","examples":["StoreKit 2","Google Play Billing","Consumables and entitlements"]},{"name":"Subscriptions","description":"Recurring billing, trials, and the receipt validation behind them.","examples":["RevenueCat","Adapty","Introductory offers"]},{"name":"Advertising","description":"Mediated ad inventory filling banners, interstitials, and rewarded slots.","examples":["Google AdMob","AppLovin MAX","Unity Ads"]},{"name":"Physical payments","description":"Taking money for real-world goods, where platform billing does not apply.","examples":["Apple Pay","Google Pay","Stripe mobile SDK"]},{"name":"Pricing models","description":"The shapes an app's business can take.","examples":["Free with ads","Freemium","Paid up front"]}]},{"id":"analytics","name":"Analytics & quality signals","description":"What the app reports back once it is on other people's phones.","subcategories":[{"name":"Product analytics","description":"Events, funnels, and retention for the screens people actually use.","examples":["Firebase Analytics","Amplitude","Mixpanel"]},{"name":"Crash reporting","description":"Symbolicated stack traces from crashes you will never reproduce yourself.","examples":["Crashlytics","Sentry","Bugsnag"]},{"name":"Performance monitoring","description":"Startup, rendering, and network timings measured in the field.","examples":["Android Vitals","Firebase Performance","MetricKit"]},{"name":"Attribution","description":"Works out which campaign an install came from, under privacy rules.","examples":["AppsFlyer","Adjust","SKAdNetwork"]},{"name":"Experiments","description":"Ships two versions and lets the numbers pick one.","examples":["Firebase A/B Testing","Optimizely","Feature flag rollouts"]}]},{"id":"testing","name":"Testing & QA","description":"Checking an app across a device landscape you do not control.","subcategories":[{"name":"Unit testing","description":"Fast checks of logic with no device or emulator involved.","examples":["JUnit","XCTest","Dart test"]},{"name":"UI testing","description":"Drives the real app through real taps.","examples":["Espresso","XCUITest","Maestro"]},{"name":"Cross-platform automation","description":"One test suite against both platforms.","examples":["Appium","Detox","Patrol"]},{"name":"Device farms","description":"Runs the suite on hundreds of real handsets you do not own.","examples":["Firebase Test Lab","BrowserStack App Automate","AWS Device Farm"]},{"name":"Beta distribution","description":"Gets builds to testers before the public sees them.","examples":["TestFlight","Play Internal Testing","Firebase App Distribution"]}]},{"id":"build","name":"Build, CI & release","description":"Turning a commit into a signed build the stores will accept.","subcategories":[{"name":"Build systems","description":"The tooling that compiles, links, and packages a mobile app.","examples":["Gradle","Xcodebuild","Fastlane"]},{"name":"Mobile CI/CD","description":"Hosted macOS and Linux runners that build for both platforms.","examples":["Bitrise","Codemagic","Xcode Cloud"]},{"name":"Code signing","description":"Managing certificates and profiles across a team without chaos.","examples":["fastlane match","App Store Connect API keys","Play App Signing"]},{"name":"Release management","description":"Putting a build in front of a slice of users before all of them.","examples":["Staged rollout","Phased release","Release trains"]},{"name":"Over-the-air updates","description":"Ships JavaScript or asset changes without a new store submission.","examples":["Expo Updates","CodePush","Flutter hot update patterns"]}]},{"id":"store","name":"App stores & distribution","description":"The gatekeepers between a finished build and an installed app.","subcategories":[{"name":"Apple App Store","description":"Submission, review, and the guidelines that decide what ships.","examples":["App Store Connect","App Review Guidelines","App Store Server Notifications"]},{"name":"Google Play","description":"Android's main store, its console, and its policy surface.","examples":["Play Console","Play policy","Play Integrity API"]},{"name":"Alternative stores","description":"The other ways an Android or, lately, an iOS app can reach a device.","examples":["F-Droid","Amazon Appstore","EU alternative marketplaces"]},{"name":"App store optimization","description":"The listing work that decides whether anyone finds the app.","examples":["Keyword fields","Screenshots and previews","Ratings prompts"]},{"name":"Enterprise distribution","description":"Shipping to a company's own staff without a public listing.","examples":["Mobile device management","Apple Business Manager","Managed Google Play"]}]},{"id":"security","name":"Security & privacy","description":"Protecting data on a device that gets lost, and satisfying rules about collecting it.","subcategories":[{"name":"Permissions & consent","description":"Asking for access at the moment it makes sense, and coping with no.","examples":["Runtime permissions","App Tracking Transparency","Approximate location"]},{"name":"Privacy disclosures","description":"Declaring publicly what the app collects and why.","examples":["App privacy labels","Play Data safety","Privacy manifests"]},{"name":"Data protection","description":"Encrypting what is stored and what is sent.","examples":["TLS certificate pinning","File-level encryption","Hardware-backed keys"]},{"name":"Hardening","description":"Making the shipped binary harder to inspect and tamper with.","examples":["R8 obfuscation","Root and jailbreak detection","App attestation"]},{"name":"Compliance","description":"Regimes that govern what a mobile app may do with personal data.","examples":["GDPR","COPPA","HIPAA"]}]},{"id":"perf","name":"Performance & battery","description":"Constraints a phone imposes that a desktop never does.","subcategories":[{"name":"Startup time","description":"How long from tap to a usable first screen.","examples":["Cold start","Baseline Profiles","Launch screen tuning"]},{"name":"Rendering & jank","description":"Holding a steady frame rate while scrolling and animating.","examples":["Frame pacing","120Hz ProMotion","Main-thread work"]},{"name":"App size","description":"Download size decides whether people on a cellular connection install at all.","examples":["App thinning","Play Feature Delivery","Asset compression"]},{"name":"Battery & network","description":"Background limits are strict, and radio use is what drains a phone.","examples":["Doze mode","Request batching","Background execution limits"]},{"name":"Memory","description":"A backgrounded app that uses too much simply gets killed.","examples":["Leak detection","Bitmap caching","Low-memory callbacks"]}]},{"id":"a11y","name":"Accessibility","description":"Mobile accessibility, where the assistive technology ships with the OS.","subcategories":[{"name":"Screen readers","description":"What the app sounds like when the screen is not being looked at.","examples":["VoiceOver","TalkBack","Content descriptions"]},{"name":"Text & display","description":"Respecting the size, weight, and contrast the user already chose.","examples":["Dynamic Type","Font scaling","Increase Contrast"]},{"name":"Motor access","description":"Targets big enough to hit, and alternatives to precise touch.","examples":["Minimum touch targets","Switch Control","Voice Access"]},{"name":"Hearing & captions","description":"Not depending on sound to convey anything important.","examples":["Closed captions","Live Caption","Visual alerts"]}]},{"id":"beyond","name":"Beyond the phone","description":"The other screens a mobile codebase is expected to reach.","subcategories":[{"name":"Wearables","description":"Glanceable apps on a wrist, with their own constraints and complications.","examples":["watchOS","Wear OS","Watch complications"]},{"name":"Tablets & foldables","description":"Large screens where a stretched phone layout is not good enough.","examples":["iPadOS multitasking","Split screen","Foldable postures"]},{"name":"Television","description":"Ten-foot interfaces driven by a remote rather than a finger.","examples":["tvOS","Android TV","Fire TV"]},{"name":"Automotive","description":"Heavily restricted interfaces built for a dashboard.","examples":["CarPlay","Android Auto","Android Automotive OS"]},{"name":"Widgets & extensions","description":"Pieces of the app that live outside the app.","examples":["Home screen widgets","App Clips","Share extensions"]}]}]};</script>
+<script>
+/* The Software Tree — renders one taxonomy JSON file as an expandable tree.
+   Which file, and which page it belongs to, come from #tree's data attributes,
+   so index.html, web-apps.html, and mobile-apps.html all share this script. */
+(() => {
+  "use strict";
+
+  const stage = document.getElementById("tree");
+  const SCOPE = stage.dataset.scope || "home";
+  const SOURCE = stage.dataset.source || "data.json";
+
+  // Theme and rail follow the reader across the site; which branches are open,
+  // and which view they left behind, belong to one page each.
+  const STORE_OPEN = `software-tree:${SCOPE}:open`;
+  const STORE_THEME = "software-tree:theme";
+  const STORE_VIEW = `software-tree:${SCOPE}:view`;
+  const STORE_RAIL = "software-tree:rail";
+
+  const els = {
+    branches: document.getElementById("branches"),
+    rail: document.getElementById("rail"),
+    railPanel: document.querySelector(".rail"),
+    rootName: document.getElementById("root-name"),
+    rootDesc: document.getElementById("root-desc"),
+    search: document.getElementById("search"),
+    clear: document.getElementById("search-clear"),
+    expandAll: document.getElementById("expand-all"),
+    collapseAll: document.getElementById("collapse-all"),
+    status: document.getElementById("status"),
+    empty: document.getElementById("empty"),
+    tally: document.getElementById("tally"),
+    themeToggle: document.getElementById("theme-toggle"),
+    toolbar: document.querySelector(".toolbar"),
+    overview: document.getElementById("map-view"),
+    chart: document.getElementById("chart-view"),
+    controls: document.querySelector(".controls"),
+    viewButtons: Array.from(document.querySelectorAll("[data-view]")),
+    layout: document.querySelector(".layout"),
+    railToggle: document.getElementById("rail-toggle"),
+  };
+
+  /** Branch records, in document order: DOM handles plus searchable text. */
+  const branches = [];
+  let treeData = null;
+  let query = "";
+  let view = "explore";
+  let savedOpen = null; // open-state snapshot taken when a search begins
+
+  /* ------------------------------------------------------------ storage */
+
+  const store = {
+    get(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw === null ? fallback : JSON.parse(raw);
+      } catch {
+        return fallback;
+      }
+    },
+    set(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        /* private mode or blocked storage — the tree still works */
+      }
+    },
+  };
+
+  /* -------------------------------------------------------------- theme */
+
+  function systemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const next = theme === "dark" ? "Light" : "Dark";
+    els.themeToggle.querySelector(".theme-toggle__label").textContent = next;
+    els.themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+    els.themeToggle.setAttribute(
+      "aria-label",
+      `Switch to ${next.toLowerCase()} theme`,
+    );
+  }
+
+  function initTheme() {
+    applyTheme(store.get(STORE_THEME, null) || systemTheme());
+    els.themeToggle.addEventListener("click", () => {
+      const next =
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+      applyTheme(next);
+      store.set(STORE_THEME, next);
+    });
+  }
+
+  /* --------------------------------------------------------------- rail */
+
+  const wideScreen = window.matchMedia("(min-width: 861px)");
+
+  function setRail(collapsed) {
+    els.layout.dataset.rail = collapsed ? "collapsed" : "expanded";
+    els.railToggle.setAttribute("aria-expanded", String(!collapsed));
+    els.railToggle.setAttribute(
+      "aria-label",
+      collapsed ? "Show the branch list" : "Hide the branch list",
+    );
+  }
+
+  function initRail() {
+    const saved = store.get(STORE_RAIL, null);
+    // Wide screens open the list; phones and tablets start it out of the way.
+    setRail(saved === null ? !wideScreen.matches : saved === "collapsed");
+
+    els.railToggle.addEventListener("click", () => {
+      const collapsed = els.layout.dataset.rail !== "collapsed";
+      setRail(collapsed);
+      store.set(STORE_RAIL, collapsed ? "collapsed" : "expanded");
+    });
+
+    // Until the reader picks a side, follow the screen across the breakpoint.
+    wideScreen.addEventListener("change", (event) => {
+      if (store.get(STORE_RAIL, null) === null) setRail(!event.matches);
+    });
+  }
+
+  /* ------------------------------------------------------------ helpers */
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  /** Writes text into an element, wrapping every hit on `q` in <mark>. */
+  function paint(node, text, q) {
+    node.textContent = "";
+    if (!q) {
+      node.textContent = text;
+      return;
+    }
+    const haystack = text.toLowerCase();
+    let from = 0;
+    let at;
+    while ((at = haystack.indexOf(q, from)) !== -1) {
+      if (at > from) node.append(text.slice(from, at));
+      const hit = el("mark", null, text.slice(at, at + q.length));
+      node.append(hit);
+      from = at + q.length;
+    }
+    node.append(text.slice(from));
+  }
+
+  const PLURALS = {
+    branch: "branches",
+    subcategory: "subcategories",
+    example: "examples",
+  };
+  const plural = (n, word) =>
+    `${n} ${n === 1 ? word : PLURALS[word] || `${word}s`}`;
+
+  /* ---------------------------------------------------------- open state */
+
+  function setOpen(record, open) {
+    record.el.classList.toggle("is-open", open);
+    record.head.setAttribute("aria-expanded", String(open));
+    record.open = open;
+  }
+
+  function currentOpenKeys() {
+    const keys = [];
+    branches.forEach((branch) => {
+      if (branch.open) keys.push(branch.key);
+      branch.subs.forEach((sub) => {
+        if (sub.open) keys.push(sub.key);
+      });
+    });
+    return keys;
+  }
+
+  function persistOpen() {
+    if (query) return; // a search forces nodes open; don't save that
+    store.set(STORE_OPEN, currentOpenKeys());
+  }
+
+  function restoreOpen(keys) {
+    const set = new Set(keys);
+    branches.forEach((branch) => {
+      setOpen(branch, set.has(branch.key));
+      branch.subs.forEach((sub) => setOpen(sub, set.has(sub.key)));
+    });
+  }
+
+  function setAll(open) {
+    branches.forEach((branch) => {
+      if (branch.el.classList.contains("is-hidden")) return;
+      setOpen(branch, open);
+      branch.subs.forEach((sub) => setOpen(sub, open));
+    });
+    persistOpen();
+    if (view === "chart") renderChart(query);
+  }
+
+  /* --------------------------------------------------------------- build */
+
+  function buildSub(sub, branchId, index) {
+    const item = el("li", "sub");
+    const panelId = `${branchId}-${index}-panel`;
+
+    const head = el("button", "sub__head");
+    head.type = "button";
+    head.setAttribute("aria-expanded", "false");
+    head.setAttribute("aria-controls", panelId);
+    head.append(el("span", "twist"));
+    const name = el("span", "sub__name");
+    head.append(name);
+    head.append(
+      el("span", "sub__count", plural(sub.examples.length, "example")),
+    );
+
+    const panel = el("div", "sub__panel");
+    panel.id = panelId;
+    const inner = el("div", "sub__inner");
+    const desc = el("p", "sub__desc");
+    if (!sub.description) desc.hidden = true;
+    inner.append(desc);
+    const chips = el("ul", "chips");
+    const chipEls = sub.examples.map((example) => {
+      const chip = el("li", "chip");
+      chips.append(chip);
+      return chip;
+    });
+    inner.append(chips);
+    panel.append(inner);
+    item.append(head, panel);
+
+    const record = {
+      key: `${branchId}/${index}`,
+      data: sub,
+      el: item,
+      head,
+      name,
+      desc,
+      chipEls,
+      open: false,
+      text: `${sub.name} ${sub.description || ""} ${sub.examples.join(" ")}`
+        .toLowerCase(),
+    };
+
+    head.addEventListener("click", () => {
+      setOpen(record, !record.open);
+      persistOpen();
+      markActive(branchId);
+    });
+
+    return record;
+  }
+
+  function buildBranch(category) {
+    const section = el("section", "branch");
+    section.id = category.id;
+    section.dataset.branch = category.id;
+    const panelId = `${category.id}-panel`;
+
+    const head = el("button", "branch__head");
+    head.type = "button";
+    head.setAttribute("aria-expanded", "false");
+    head.setAttribute("aria-controls", panelId);
+    head.append(el("span", "twist"));
+    const name = el("span", "branch__name");
+    head.append(name);
+    head.append(
+      el(
+        "span",
+        "branch__count",
+        plural(category.subcategories.length, "subcategory"),
+      ),
+    );
+
+    const desc = el("p", "branch__desc");
+
+    const panel = el("div", "branch__panel");
+    panel.id = panelId;
+    const inner = el("div", "branch__inner");
+    const list = el("ul", "subs");
+    inner.append(list);
+    panel.append(inner);
+    section.append(head, desc, panel);
+
+    const subs = category.subcategories.map((sub, i) => {
+      const record = buildSub(sub, category.id, i);
+      list.append(record.el);
+      return record;
+    });
+
+    const record = {
+      key: category.id,
+      data: category,
+      el: section,
+      head,
+      name,
+      desc,
+      subs,
+      open: false,
+      text: `${category.name} ${category.description}`.toLowerCase(),
+    };
+
+    head.addEventListener("click", () => {
+      setOpen(record, !record.open);
+      persistOpen();
+      markActive(category.id);
+      if (record.open) history.replaceState(null, "", `#${category.id}`);
+    });
+
+    return record;
+  }
+
+  function buildRail() {
+    branches.forEach((branch) => {
+      const link = el("button", "rail__link");
+      link.type = "button";
+      link.dataset.target = branch.key;
+      link.append(el("span", "rail__name", branch.data.name));
+      link.addEventListener("click", () => {
+        revealBranch(branch, true);
+        if (!wideScreen.matches) setRail(true);
+      });
+      els.rail.append(link);
+      branch.railLink = link;
+    });
+  }
+
+  function revealBranch(branch, focusHead) {
+    markActive(branch.data.id);
+
+    // In the chart, unfolding the branch is what "take me there" means.
+    if (view === "chart") {
+      if (!branch.open) {
+        setOpen(branch, true);
+        persistOpen();
+        renderChart(query);
+      }
+      const node = document.getElementById(`chart-${branch.data.id}`);
+      if (node) scrollToAnchor(node);
+      return;
+    }
+
+    if (view === "overview") {
+      const block = document.getElementById(`map-${branch.data.id}`);
+      if (block) scrollToAnchor(block);
+      return;
+    }
+
+    // Only Explore owns the branch hash; #chart and #overview stay put.
+    history.replaceState(null, "", `#${branch.data.id}`);
+    setOpen(branch, true);
+    persistOpen();
+    scrollToAnchor(branch.el);
+    if (focusHead) branch.head.focus({ preventScroll: true });
+  }
+
+  /* ------------------------------------------------------------ overview */
+
+  /** Redraws the whole-taxonomy map, filtered and highlighted by `q`. */
+  function renderOverview(q) {
+    if (!treeData) return;
+    els.overview.textContent = "";
+
+    const hint = el("p", "overview__hint");
+    hint.append(
+      q
+        ? "Branches matching your search. "
+        : "The whole taxonomy at a glance. ",
+    );
+    hint.append("Select any branch to open it in Explore.");
+    els.overview.append(hint);
+
+    const grid = el("div", "overview__grid");
+
+    treeData.categories.forEach((category) => {
+      const haystack = `${category.name} ${category.description}`.toLowerCase();
+      const branchHit = q ? haystack.includes(q) : false;
+      const subs = category.subcategories.filter(
+        (sub) =>
+          !q ||
+          branchHit ||
+          `${sub.name} ${sub.examples.join(" ")}`.toLowerCase().includes(q),
+      );
+      if (q && !branchHit && subs.length === 0) return;
+
+      const block = el("section", "ov-branch");
+      block.id = `map-${category.id}`;
+      block.dataset.branch = category.id;
+
+      const head = el("button", "ov-branch__head");
+      head.type = "button";
+      head.title = category.description;
+      head.append(el("span", "ov-branch__code", category.id));
+      const name = el("span", "ov-branch__name");
+      paint(name, category.name, q);
+      head.append(name);
+      head.addEventListener("click", () => {
+        const record = branches.find((b) => b.data.id === category.id);
+        if (!record) return;
+        setView("explore");
+        revealBranch(record, true);
+      });
+
+      const list = el("ul", "ov-subs");
+      subs.forEach((sub) => {
+        const item = el("li", "ov-sub");
+        item.title = sub.examples.join(", ");
+        const label = el("span", "ov-sub__name");
+        paint(label, sub.name, q);
+        item.append(label);
+        item.append(el("span", "ov-sub__count", String(sub.examples.length)));
+        list.append(item);
+      });
+
+      block.append(head, list);
+      grid.append(block);
+    });
+
+    els.overview.append(grid);
+  }
+
+  /* --------------------------------------------------------------- chart */
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const CHART = {
+    pad: 16,
+    colGap: 56,
+    subRow: 25,
+    branchRow: 36,
+    groupGap: 16,
+    pillH: 26,
+  };
+  const FONT_PILL = '600 14px "IBM Plex Serif", Georgia, serif';
+  const FONT_COUNT = '10.5px "IBM Plex Mono", monospace';
+  const FONT_LEAF = '13px "IBM Plex Sans", system-ui, sans-serif';
+
+  let measurer = null;
+
+  /** Real text widths, so columns never overlap the labels beside them. */
+  function textWidth(text, font) {
+    if (!measurer) measurer = document.createElement("canvas").getContext("2d");
+    measurer.font = font;
+    return measurer.measureText(text).width;
+  }
+
+  function svgEl(tag, attrs, text) {
+    const node = document.createElementNS(SVG_NS, tag);
+    Object.entries(attrs || {}).forEach(([key, value]) =>
+      node.setAttribute(key, value),
+    );
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  /** A cubic curve between two points in neighbouring columns. */
+  function chartLink(x1, y1, x2, y2) {
+    const dx = (x2 - x1) * 0.5;
+    return svgEl("path", {
+      class: "chart__link",
+      d: `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`,
+    });
+  }
+
+  function renderChart(q) {
+    if (!treeData) return;
+    els.chart.textContent = "";
+
+    const hint = el(
+      "p",
+      "chart__hint",
+      q
+        ? "Branches matching your search."
+        : "Categories and subcategories only. Select a branch to fold or unfold it.",
+    );
+    els.chart.append(hint);
+
+    // Which branches and subcategories belong on the diagram.
+    const model = [];
+    treeData.categories.forEach((category) => {
+      const record = branches.find((b) => b.data.id === category.id);
+      const branchHit = q
+        ? `${category.name} ${category.description}`.toLowerCase().includes(q)
+        : false;
+      const matching = category.subcategories.filter((sub) =>
+        q
+          ? `${sub.name} ${sub.examples.join(" ")}`.toLowerCase().includes(q)
+          : true,
+      );
+      if (q && !branchHit && matching.length === 0) return;
+
+      const subs = q
+        ? branchHit
+          ? category.subcategories
+          : matching
+        : record && record.open
+          ? category.subcategories
+          : [];
+
+      model.push({
+        category,
+        record,
+        subs,
+        hit: branchHit,
+        hits: new Set(matching.map((sub) => sub.name)),
+        expanded: subs.length > 0,
+      });
+    });
+
+    if (!model.length) return;
+
+    // Column geometry, measured rather than guessed.
+    const rootW = Math.ceil(textWidth(treeData.name, FONT_PILL)) + 34;
+    let pillW = 0;
+    model.forEach((item) => {
+      item.pillW =
+        26 +
+        Math.ceil(textWidth(item.category.name, FONT_PILL)) +
+        14 +
+        Math.ceil(
+          textWidth(String(item.category.subcategories.length), FONT_COUNT),
+        ) +
+        14;
+      pillW = Math.max(pillW, item.pillW);
+    });
+    let leafW = 0;
+    model.forEach((item) =>
+      item.subs.forEach((sub) => {
+        leafW = Math.max(leafW, Math.ceil(textWidth(sub.name, FONT_LEAF)));
+      }),
+    );
+
+    const rootX = CHART.pad;
+    const trunkX = rootX + 18;
+    const branchX = trunkX + 42;
+    const subX = branchX + pillW + CHART.colGap;
+    const rootY = CHART.pad + 16;
+    const width = Math.max(subX + 13 + leafW, rootX + rootW) + CHART.pad;
+
+    // Leaves stack; each branch sits level with the middle of its own leaves.
+    let y = rootY + 42;
+    model.forEach((item) => {
+      if (item.subs.length) {
+        const top = y;
+        item.subYs = item.subs.map(
+          (_, i) => top + i * CHART.subRow + CHART.subRow / 2,
+        );
+        item.y = (item.subYs[0] + item.subYs[item.subYs.length - 1]) / 2;
+        y = top + item.subs.length * CHART.subRow;
+      } else {
+        item.subYs = [];
+        item.y = y + CHART.branchRow / 2;
+        y += CHART.branchRow;
+      }
+      y += CHART.groupGap;
+    });
+    const height = y - CHART.groupGap + CHART.pad + 10;
+
+    const svg = svgEl("svg", {
+      class: "chart__svg",
+      width,
+      height,
+      viewBox: `0 0 ${width} ${height}`,
+      role: "group",
+      "aria-label": "Tree diagram of the software taxonomy",
+    });
+    const links = svgEl("g", {});
+    const nodes = svgEl("g", {});
+
+    // one trunk down from the root, with a rounded elbow out to each branch
+    const lastY = model[model.length - 1].y;
+    links.append(
+      svgEl("path", {
+        class: "chart__link",
+        d: `M${trunkX},${rootY + 16} L${trunkX},${lastY}`,
+      }),
+    );
+    model.forEach((item) => {
+      links.append(
+        svgEl("path", {
+          class: "chart__link",
+          d: `M${trunkX},${item.y - 14} Q${trunkX},${item.y} ${trunkX + 14},${
+            item.y
+          } L${branchX},${item.y}`,
+        }),
+      );
+      item.subYs.forEach((subY) =>
+        links.append(chartLink(branchX + item.pillW, item.y, subX - 4, subY)),
+      );
+    });
+
+    const root = svgEl("g", { class: "chart__root" });
+    root.append(
+      svgEl("rect", {
+        class: "chart__pill",
+        x: rootX,
+        y: rootY - 15,
+        width: rootW,
+        height: 30,
+        rx: 15,
+      }),
+    );
+    root.append(
+      svgEl(
+        "text",
+        { class: "chart__pill-label", x: rootX + 17, y: rootY + 5 },
+        treeData.name,
+      ),
+    );
+    nodes.append(root);
+
+    model.forEach((item) => {
+      const group = svgEl("g", {
+        class: `chart__node${item.hit ? " chart__node--hit" : ""}`,
+        id: `chart-${item.category.id}`,
+        role: "button",
+        tabindex: "0",
+        "aria-expanded": String(item.expanded),
+        "aria-label": `${item.category.name}, ${plural(
+          item.category.subcategories.length,
+          "subcategory",
+        )}`,
+      });
+      group.dataset.branch = item.category.id;
+      group.append(svgEl("title", {}, item.category.description));
+      group.append(
+        svgEl("rect", {
+          class: "chart__pill",
+          x: branchX,
+          y: item.y - CHART.pillH / 2,
+          width: item.pillW,
+          height: CHART.pillH,
+          rx: 6,
+        }),
+      );
+
+      // the plus that loses its stem when the branch is unfolded
+      const gx = branchX + 13;
+      group.append(
+        svgEl("line", {
+          class: "chart__glyph",
+          x1: gx - 4,
+          y1: item.y,
+          x2: gx + 4,
+          y2: item.y,
+        }),
+      );
+      if (!item.expanded) {
+        group.append(
+          svgEl("line", {
+            class: "chart__glyph",
+            x1: gx,
+            y1: item.y - 4,
+            x2: gx,
+            y2: item.y + 4,
+          }),
+        );
+      }
+
+      group.append(
+        svgEl(
+          "text",
+          { class: "chart__pill-label", x: branchX + 26, y: item.y + 5 },
+          item.category.name,
+        ),
+      );
+      group.append(
+        svgEl(
+          "text",
+          {
+            class: "chart__pill-count",
+            x: branchX + item.pillW - 12,
+            y: item.y + 4,
+            "text-anchor": "end",
+          },
+          String(item.category.subcategories.length),
+        ),
+      );
+
+      const toggle = () => {
+        if (!item.record) return;
+        setOpen(item.record, !item.record.open);
+        persistOpen();
+        markActive(item.category.id);
+        renderChart(query);
+      };
+      group.addEventListener("click", toggle);
+      group.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggle();
+        }
+      });
+      nodes.append(group);
+
+      item.subs.forEach((sub, i) => {
+        const isHit = q ? item.hits.has(sub.name) : false;
+        const leaf = svgEl("g", {
+          class: `chart__leaf${isHit ? " chart__leaf--hit" : ""}`,
+        });
+        leaf.append(
+          svgEl("circle", {
+            class: "chart__leaf-dot",
+            cx: subX,
+            cy: item.subYs[i],
+            r: 2.5,
+          }),
+        );
+        leaf.append(
+          svgEl(
+            "text",
+            { class: "chart__leaf-label", x: subX + 12, y: item.subYs[i] + 4 },
+            sub.name,
+          ),
+        );
+        nodes.append(leaf);
+      });
+    });
+
+    svg.append(links, nodes);
+    const canvas = el("div", "chart__canvas");
+    canvas.append(svg);
+    els.chart.append(canvas);
+  }
+
+  function setView(next) {
+    view = next;
+    const isOverview = next === "overview";
+    const isChart = next === "chart";
+
+    els.branches.hidden = isOverview || isChart;
+    els.overview.hidden = !isOverview;
+    els.chart.hidden = !isChart;
+    els.controls.hidden = isOverview; // nothing to expand on the map
+    els.viewButtons.forEach((btn) =>
+      btn.setAttribute("aria-pressed", String(btn.dataset.view === next)),
+    );
+    store.set(STORE_VIEW, next);
+
+    if (isOverview || isChart) {
+      history.replaceState(null, "", isChart ? "#chart" : "#overview");
+      if (isChart) renderChart(query);
+      else renderOverview(query);
+    } else {
+      if (location.hash === "#overview" || location.hash === "#chart") {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+      }
+  }
+
+  /* -------------------------------------------------------------- search */
+
+  function runSearch(raw) {
+    const q = raw.trim().toLowerCase();
+    const starting = !query && q;
+    const ending = query && !q;
+
+    if (starting) savedOpen = currentOpenKeys();
+    query = q;
+    els.clear.hidden = !q;
+
+    let hitBranches = 0;
+    let hitSubs = 0;
+    let hitExamples = 0;
+
+    branches.forEach((branch) => {
+      const branchHit = q ? branch.text.includes(q) : false;
+      let subHits = 0;
+
+      branch.subs.forEach((sub) => {
+        const subHit = q ? sub.text.includes(q) : false;
+        const show = !q || branchHit || subHit;
+        sub.el.classList.toggle("is-hidden", !show);
+
+        paint(sub.name, sub.data.name, q);
+        paint(sub.desc, sub.data.description || "", q);
+        sub.chipEls.forEach((chip, i) => paint(chip, sub.data.examples[i], q));
+
+        if (subHit) {
+          subHits += 1;
+          hitSubs += 1;
+          hitExamples += sub.data.examples.filter((e) =>
+            e.toLowerCase().includes(q),
+          ).length;
+          setOpen(sub, true);
+        } else if (q) {
+          setOpen(sub, false);
+        }
+      });
+
+      const show = !q || branchHit || subHits > 0;
+      branch.el.classList.toggle("is-hidden", !show);
+      paint(branch.name, branch.data.name, q);
+      paint(branch.desc, branch.data.description, q);
+      if (branch.railLink) branch.railLink.hidden = !show;
+
+      if (q && show) {
+        hitBranches += 1;
+        setOpen(branch, true);
+      }
+    });
+
+    if (ending) {
+      restoreOpen(savedOpen || []);
+      savedOpen = null;
+    }
+
+    els.empty.hidden = !(q && hitBranches === 0);
+    if (view === "overview") renderOverview(q);
+    else if (view === "chart") renderChart(q);
+
+    if (!q) {
+      els.status.textContent = "";
+    } else if (hitBranches === 0) {
+      els.status.textContent = `No matches for "${raw.trim()}"`;
+    } else {
+      const parts = [plural(hitBranches, "branch")];
+      if (hitSubs) parts.push(plural(hitSubs, "subcategory"));
+      if (hitExamples) parts.push(plural(hitExamples, "example"));
+      els.status.textContent = `${parts.join(" · ")} matching "${raw.trim()}"`;
+    }
+    measureToolbar();
+  }
+
+  /* --------------------------------------------------------- active item */
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /** Where a selected branch is parked: just below the sticky toolbar. */
+  function scrollLine() {
+    return (els.toolbar ? els.toolbar.getBoundingClientRect().height : 0) + 28;
+  }
+
+  /** Scrolls the rail's own box, never the page, to keep a link visible. */
+  function keepRailLinkInView(link) {
+    const box = link.getBoundingClientRect();
+    const column = els.railPanel;
+    const strip = els.rail;
+
+    if (column && column.scrollHeight > column.clientHeight + 1) {
+      const frame = column.getBoundingClientRect();
+      if (box.top < frame.top) column.scrollTop -= frame.top - box.top + 8;
+      else if (box.bottom > frame.bottom) {
+        column.scrollTop += box.bottom - frame.bottom + 8;
+      }
+    }
+    if (strip && strip.scrollWidth > strip.clientWidth + 1) {
+      const frame = strip.getBoundingClientRect();
+      if (box.left < frame.left) strip.scrollLeft -= frame.left - box.left + 8;
+      else if (box.right > frame.right) {
+        strip.scrollLeft += box.right - frame.right + 8;
+      }
+    }
+  }
+
+  let activeBranchId;
+
+  function markActive(id) {
+    if (id === activeBranchId) return;
+    activeBranchId = id;
+
+    let active = null;
+    branches.forEach((branch) => {
+      if (!branch.railLink) return;
+      if (branch.data.id === id) {
+        branch.railLink.setAttribute("aria-current", "true");
+        active = branch.railLink;
+      } else {
+        branch.railLink.removeAttribute("aria-current");
+      }
+    });
+    if (active) keepRailLinkInView(active);
+  }
+
+  /** Parks any element — section or SVG node — just under the toolbar. */
+  function scrollToAnchor(node) {
+    const top = window.scrollY + node.getBoundingClientRect().top - scrollLine();
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: reduceMotion.matches ? "auto" : "smooth",
+    });
+  }
+
+  function measureToolbar() {
+    if (!els.toolbar) return;
+    const h = Math.round(els.toolbar.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--toolbar-h", `${h}px`);
+  }
+
+  /* ------------------------------------------------------------- wire up */
+
+  function initShortcuts() {
+    document.addEventListener("keydown", (event) => {
+      const typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName);
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        els.search.focus();
+        els.search.select();
+      } else if (event.key === "Escape" && typing) {
+        els.search.value = "";
+        runSearch("");
+        els.search.blur();
+      }
+    });
+  }
+
+  function render(tree) {
+    treeData = tree;
+    els.rootName.textContent = tree.name;
+    els.rootDesc.textContent = tree.description;
+
+    tree.categories.forEach((category) => {
+      const record = buildBranch(category);
+      branches.push(record);
+      els.branches.append(record.el);
+    });
+
+    buildRail();
+    runSearch(""); // paints every label and chip in its unhighlighted state
+
+    const subCount = branches.reduce((n, b) => n + b.subs.length, 0);
+    const exampleCount = branches.reduce(
+      (n, b) => n + b.subs.reduce((m, s) => m + s.data.examples.length, 0),
+      0,
+    );
+    els.tally.querySelector('[data-stat="categories"]').textContent =
+      branches.length;
+    els.tally.querySelector('[data-stat="subcategories"]').textContent =
+      subCount;
+    els.tally.querySelector('[data-stat="examples"]').textContent =
+      exampleCount;
+
+    // Open the first branch so the page shows what a branch looks like.
+    const stored = store.get(STORE_OPEN, null);
+    if (stored && stored.length) {
+      restoreOpen(stored);
+    } else if (branches.length) {
+      setOpen(branches[0], true);
+      if (branches[0].subs.length) setOpen(branches[0].subs[0], true);
+    }
+
+    const hash = decodeURIComponent(location.hash.slice(1));
+    const target = branches.find((b) => b.data.id === hash);
+    if (target) {
+      setOpen(target, true);
+      markActive(target.data.id);
+      requestAnimationFrame(() => target.el.scrollIntoView({ block: "start" }));
+    }
+
+    els.search.addEventListener("input", (event) =>
+      runSearch(event.target.value),
+    );
+    els.clear.addEventListener("click", () => {
+      els.search.value = "";
+      runSearch("");
+      els.search.focus();
+    });
+    els.expandAll.addEventListener("click", () => setAll(true));
+    els.collapseAll.addEventListener("click", () => setAll(false));
+
+    els.viewButtons.forEach((btn) =>
+      btn.addEventListener("click", () => setView(btn.dataset.view)),
+    );
+
+    // A branch deep link always lands in Explore; #overview opens the map.
+    const saved = store.get(STORE_VIEW, "explore");
+    const storedView =
+      saved === "overview" || saved === "chart" ? saved : "explore";
+    const fromHash = hash === "overview" || hash === "chart" ? hash : null;
+    setView(target ? "explore" : fromHash || storedView);
+
+    // Web fonts change text metrics, so redraw the measured diagram once.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        if (view === "chart") renderChart(query);
+      });
+    }
+    measureToolbar();
+    window.addEventListener("resize", measureToolbar);
+  }
+
+  function fail(message) {
+    els.branches.innerHTML = "";
+    const box = el("p", "empty");
+    box.append(message);
+    els.branches.append(box);
+  }
+
+  function start() {
+    initTheme();
+    initRail();
+    initShortcuts();
+
+    if (window.SOFTWARE_TREE) {
+      render(window.SOFTWARE_TREE);
+      return;
+    }
+
+    fetch(SOURCE)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(`${SOURCE} returned ${response.status}`);
+        return response.json();
+      })
+      .then(render)
+      .catch(() => {
+        fail(
+          location.protocol === "file:"
+            ? `Browsers block reading ${SOURCE} straight from disk. Serve the folder instead — run \`python3 -m http.server\` here, then open http://localhost:8000.`
+            : `${SOURCE} could not be loaded. Check that it sits beside the page and contains valid JSON.`,
+        );
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+
+</script>
