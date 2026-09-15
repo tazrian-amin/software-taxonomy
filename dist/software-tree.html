@@ -1346,13 +1346,13 @@ mark {
             </div>
 
             <div class="viewswitch" role="group" aria-label="View">
-                <button class="viewswitch__btn" type="button" data-view="chart" aria-pressed="false">
+                <button class="viewswitch__btn" type="button" data-view="chart" aria-pressed="true">
                     Chart
                 </button>
                 <button class="viewswitch__btn" type="button" data-view="overview" aria-pressed="false">
                     Overview
                 </button>
-                <button class="viewswitch__btn" type="button" data-view="explore" aria-pressed="true">
+                <button class="viewswitch__btn" type="button" data-view="explore" aria-pressed="false">
                     Explore
                 </button>
             </div>
@@ -1449,7 +1449,7 @@ mark {
   const branches = [];
   let treeData = null;
   let query = "";
-  let view = "explore";
+  let view = "chart";
   let savedOpen = null; // open-state snapshot taken when a search begins
 
   /* ------------------------------------------------------------ storage */
@@ -2377,9 +2377,12 @@ mark {
     );
 
     // A branch deep link always lands in Explore; #overview opens the map.
-    const saved = store.get(STORE_VIEW, "explore");
+    // Chart is the view a first-time reader gets.
+    const saved = store.get(STORE_VIEW, "chart");
     const storedView =
-      saved === "overview" || saved === "chart" ? saved : "explore";
+      saved === "overview" || saved === "chart" || saved === "explore"
+        ? saved
+        : "chart";
     const fromHash = hash === "overview" || hash === "chart" ? hash : null;
     setView(target ? "explore" : fromHash || storedView);
 

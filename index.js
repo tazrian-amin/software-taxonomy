@@ -42,7 +42,7 @@
   const branches = [];
   let treeData = null;
   let query = "";
-  let view = "explore";
+  let view = "chart";
   let savedOpen = null; // open-state snapshot taken when a search begins
 
   /* ------------------------------------------------------------ storage */
@@ -970,9 +970,12 @@
     );
 
     // A branch deep link always lands in Explore; #overview opens the map.
-    const saved = store.get(STORE_VIEW, "explore");
+    // Chart is the view a first-time reader gets.
+    const saved = store.get(STORE_VIEW, "chart");
     const storedView =
-      saved === "overview" || saved === "chart" ? saved : "explore";
+      saved === "overview" || saved === "chart" || saved === "explore"
+        ? saved
+        : "chart";
     const fromHash = hash === "overview" || hash === "chart" ? hash : null;
     setView(target ? "explore" : fromHash || storedView);
 
